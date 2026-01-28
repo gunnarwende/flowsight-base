@@ -1,0 +1,106 @@
+﻿{
+  "meta": {
+    "schema_version": "1.0.0",
+    "customer_id": "leuthold-demo",
+    "locale": "de-CH",
+    "timezone": "Europe/Zurich"
+  },
+  "business": {
+    "name": "Walter Leuthold – Sanitär & Spenglerei",
+    "tagline": "Sanitär-Notfall & Service am linken Zürichsee",
+    "region_label": "Oberrieden · Horgen · Thalwil · Zürichsee links",
+    "brand": {
+      "logo": { "src": "https://via.placeholder.com/240x80?text=Leuthold", "alt": "Leuthold Sanitär & Spenglerei" },
+      "colors": { "accent": "#00B7FF" }
+    }
+  },
+  "routing": {
+    "ctas": {
+      "emergency": { "label": "24/7 Notfall anrufen", "type": "tel", "value": "+41440000000", "track_id": "cta_emergency_primary" },
+      "normal": { "label": "Rückruf anfordern", "type": "chat", "value": "open", "track_id": "cta_normal_primary" }
+    },
+    "rules": { "default_mode": "normal", "after_hours_mode": "emergency", "busy_mode": "chat" }
+  },
+  "hero": {
+    "headline": "Sanitär-Notfall? Wir sind 24/7 erreichbar.",
+    "subline": "Kurze Anfrage – schneller Rückruf. Für Oberrieden und die Region Zürichsee links.",
+    "trust_badges": [
+      { "label": "Regional vor Ort", "icon": "pin" },
+      { "label": "24/7 Notfallbetrieb", "icon": "bolt" },
+      { "label": "Saubere Offerten & Termine", "icon": "check" }
+    ]
+  },
+  "services": {
+    "items": [
+      { "title": "Notfall Sanitär", "description": "Leck, Verstopfung, Wasserschaden – schnelle Ersthilfe & Termin.", "icon": "droplet", "cta_mode": "emergency" },
+      { "title": "Rohrreinigung", "description": "Verstopfungen lokalisieren und beheben – planbar oder dringend.", "icon": "pipe", "cta_mode": "normal" },
+      { "title": "Sanitär-Service", "description": "Reparaturen, Armaturen, WC/Waschtisch – effizient erledigt.", "icon": "wrench", "cta_mode": "normal" },
+      { "title": "Bad & Umbau", "description": "Von Teilersatz bis Komplettumbau – klare Schritte, klare Offerte.", "icon": "bath", "cta_mode": "normal" },
+      { "title": "Spenglerei", "description": "Blech- und Abdichtungsarbeiten – langlebig und sauber ausgeführt.", "icon": "shield", "cta_mode": "normal" },
+      { "title": "Wasserleitungen", "description": "Leitungen, Ventile, Druck – Diagnose vor Ort, danach Umsetzung.", "icon": "gauge", "cta_mode": "normal" }
+    ]
+  },
+  "trust": {
+    "bullets": [
+      "Transparente Schritte statt Diagnose am Telefon.",
+      "Priorisierung bei Notfällen – kurze Wege in der Region."
+    ],
+    "reviews": {
+      "source": "google",
+      "headline": "Kundenstimmen",
+      "items": [
+        { "author": "A. Beispiel", "rating": 5, "text": "Schnell erreichbar, klare Kommunikation, saubere Arbeit." },
+        { "author": "M. Muster", "rating": 5, "text": "Notfall am Abend – Rückruf sofort, Problem gelöst." }
+      ],
+      "cta": { "label": "Auf Google bewerten", "type": "link", "value": "https://example.com/review-link", "track_id": "cta_review" }
+    }
+  },
+  "contact": {
+    "phones": {
+      "emergency": { "label": "Notfall 24/7", "e164": "+41440000000", "display": "044 000 00 00" },
+      "normal": { "label": "Service / Büro", "e164": "+41440000001", "display": "044 000 00 01" }
+    },
+    "address": { "street": "Beispielstrasse 1", "zip": "8942", "city": "Oberrieden", "country": "CH" },
+    "opening_hours": {
+      "label": "Öffnungszeiten",
+      "weekly": [
+        { "day": "Mo", "hours": "07:30–17:30" },
+        { "day": "Di", "hours": "07:30–17:30" },
+        { "day": "Mi", "hours": "07:30–17:30" },
+        { "day": "Do", "hours": "07:30–17:30" },
+        { "day": "Fr", "hours": "07:30–17:00" }
+      ],
+      "note": "Notfall: 24/7 via Notfallnummer."
+    },
+    "form": {
+      "headline": "Kontakt / Rückruf",
+      "fields": [
+        { "key": "anliegen", "label": "Worum geht’s?", "type": "select", "required": true, "options": ["Notfall", "Reparatur", "Rohrreinigung", "Bad/Umbau", "Spenglerei", "Anderes"] },
+        { "key": "plz_ort", "label": "PLZ / Ort", "type": "text", "required": true },
+        { "key": "dringlichkeit", "label": "Dringlichkeit", "type": "select", "required": true, "options": ["Sofort (Notfall)", "Heute", "Diese Woche", "Flexibel"] },
+        { "key": "name", "label": "Name", "type": "text", "required": true },
+        { "key": "telefon", "label": "Telefon", "type": "tel", "required": true },
+        { "key": "zeitfenster", "label": "Wunsch-Zeitfenster", "type": "select", "required": true, "options": ["Morgen", "Vormittag", "Nachmittag", "Abend"] }
+      ],
+      "consent_note": "Mit dem Absenden stimmen Sie zu, dass wir Sie zur Bearbeitung Ihrer Anfrage kontaktieren."
+    },
+    "map": { "embed_url": "https://www.google.com/maps/embed?pb=..." }
+  },
+  "integrations": {
+    "chat": {
+      "enabled": true,
+      "mode": "proactive",
+      "lead_endpoint": "/api/lead",
+      "slots": ["anliegen","plz_ort","dringlichkeit","name","telefon","zeitfenster"],
+      "disclaimer": "Hinweis: Keine Diagnose im Chat. Wir erfassen Ihre Angaben für Rückruf/Termin."
+    },
+    "voice": {
+      "enabled": true,
+      "demo_number": "+41440000999",
+      "lead_endpoint": "/api/lead",
+      "fallback_text": "Falls Sie uns nicht erreichen: Rückruf anfordern (Chat/Formular).",
+      "no_recording_default": true
+    },
+    "analytics": { "enabled": true, "gtm_id": "GTM-XXXXXXX" }
+  }
+}
