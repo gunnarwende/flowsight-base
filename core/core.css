@@ -97,3 +97,78 @@ a{color:inherit}
 
 [data-chat]{display:none}
 [data-chat].is-open{display:block}
+/* ---- FlowSight: Webflow class mapping (v1) ---- */
+.section-hero, .section-services, .section-trust-badges, .section-reviews, .section-contact, .section-footer{
+  padding:72px 0;
+}
+
+.container-navbar, .container-hero, .container-services, .container-trust-badges, .container-reviews, .container-contact, .container-footer{
+  width:min(var(--fs-max), calc(100% - 40px));
+  margin:0 auto;
+}
+
+.section-hero{ padding-top:54px; }
+
+.nav-links{ display:flex; gap:18px; align-items:center; }
+.nav-link{ color:rgba(0,0,0,.75); text-decoration:none; }
+.nav-link:hover{ text-decoration:underline; }
+
+.services-grid, .reviews-grid, .trust-badges{
+  display:grid;
+  gap:16px;
+  grid-template-columns:1fr;
+}
+@media (min-width: 860px){
+  .services-grid{ grid-template-columns:repeat(3,1fr); }
+  .trust-badges{ grid-template-columns:repeat(3,1fr); }
+  .reviews-grid{ grid-template-columns:repeat(2,1fr); }
+}
+
+.service-card, .review-card, .trust-badge{
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border:1px solid var(--fs-border);
+  border-radius:var(--fs-radius);
+  box-shadow:var(--fs-shadow);
+  padding:18px;
+}
+
+.service-card-title, .reviews-headline, .contact-headline{
+  margin:0 0 8px 0;
+}
+
+.service-card-description, .review-text, .hero-subline{
+  color:var(--fs-muted);
+}
+
+.hero-cta, .service-card-cta, .reviews-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 16px;
+  border-radius:var(--fs-radius-sm);
+  text-decoration:none;
+  font-weight:650;
+  border:1px solid transparent;
+}
+
+.hero-cta--emergency{ background:var(--fs-danger); color:#fff; }
+.hero-cta--normal{ background:var(--fs-accent); color:#041018; }
+.reviews-cta{ background:rgba(255,255,255,.08); border-color:var(--fs-border); color:var(--fs-text); }
+
+.contact-phone{
+  display:inline-flex;
+  gap:.5rem;
+  padding:10px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--fs-border);
+  text-decoration:none;
+  color:var(--fs-text);
+}
+
+.contact-map iframe{
+  width:100%;
+  height:320px;
+  border:0;
+  border-radius:var(--fs-radius);
+}
