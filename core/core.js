@@ -192,3 +192,88 @@
     init().catch(err => console.error("FlowSight init failed:", err));
   });
 })();
+/* ---- FlowSight: extensions (review CTA + href/map) ---- */
+(function(){
+  // Extend CTA lookup to support review CTA from JSON at trust.reviews.cta
+  function get(obj, path){
+    return path.split(".").reduce((o,k)=> (o ? o[k] : undefined), obj);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const FS = window.FS || null; // may not exist; we work DOM-only
+  });
+
+  // Patch: run after core init by listening for FlowSight init log presence
+  const timer = setInterval(() => {
+    // We detect customer JSON has been loaded by checking for any data-slot filled headline
+    const h = document.querySelector('[data-slot="hero.headline"]');
+    if (!h || !h.textContent || h.textContent.trim() === "Heading") return;
+
+    clearInterval(timer);
+
+    // Review CTA: data-cta="review" should open link from trust.reviews.cta.value
+    window.addEventListener("click", (e) => {
+      const a = e.target.closest('[data-cta="review"]');
+      if (!a) return;
+      e.preventDefault();
+      // best-effort: read from a global copy stored on window by core (not present), so fetch again
+      const url = window.FLOWSIGHT_CUSTOMER_URL;
+      if (!url) return;
+      fetch(url, { cache: "no-store" })
+        .then(r => r.json())
+        .then(data => {
+          const cta = get(data, "trust.reviews.cta");
+          if (cta?.type === "link" && cta?.value) window.open(cta.value, "_blank", "noopener");
+        })
+        .catch(()=>{});
+    }, { passive: false });
+
+    // data-slot-href + data-href-prefix handling
+    document.querySelectorAll("[data-slot-href]").forEach(el => {
+      const url = window.FLOWSIGHT_CUSTOMER_URL;
+      if (!url) return;
+      fetch(url, { cache: "no-store" })
+        .then(r => r.json())
+        .then(data => {
+          const path = el.getAttribute("data-slot-href");
+          const prefix = el.getAttribute("data-href-prefix") || "";
+          const val = get(data, path);
+          if (!val) return;
+          // If element is not a link, wrap it
+          if (el.tagName.toLowerCase() !== "a") {
+            const a = document.createElement("a");
+            a.href = prefix + String(val);
+            a.className = el.className;
+            a.innerHTML = el.innerHTML;
+            el.replaceWith(a);
+          } else {
+            el.setAttribute("href", prefix + String(val));
+          }
+        })
+        .catch(()=>{});
+    });
+
+    // Map embed: data-map-embed path -> iframe src
+    document.querySelectorAll("[data-map-embed]").forEach(host => {
+      const url = window.FLOWSIGHT_CUSTOMER_URL;
+      if (!url) return;
+      fetch(url, { cache: "no-store" })
+        .then(r => r.json())
+        .then(data => {
+          const path = host.getAttribute("data-map-embed");
+          const src = get(data, path);
+          if (!src) return;
+          // ensure iframe exists
+          let iframe = host.querySelector("iframe");
+          if (!iframe) {
+            iframe = document.createElement("iframe");
+            iframe.loading = "lazy";
+            iframe.referrerPolicy = "no-referrer-when-downgrade";
+            host.appendChild(iframe);
+          }
+          iframe.src = src;
+        })
+        .catch(()=>{});
+    });
+  }, 400);
+})();
