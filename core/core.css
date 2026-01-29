@@ -1,174 +1,361 @@
-﻿:root{
-  --fs-bg:#0b0e14;
-  --fs-surface:#0f1522;
-  --fs-card:#121a2a;
-  --fs-border:rgba(255,255,255,.08);
-  --fs-text:#e8edf6;
-  --fs-muted:#a3afc2;
-  --fs-accent:#00b7ff;
-  --fs-danger:#ff3b3b;
-  --fs-shadow: 0 14px 40px rgba(0,0,0,.45);
-  --fs-radius:16px;
-  --fs-radius-sm:10px;
-  --fs-max:1180px;
-  --fs-font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+﻿/* ==========================================================================
+   FlowSight core.css — High-End Design System (v1) — 2026-ready
+   Goal: zero Webflow styling; all visuals via classes + tokens
+   ========================================================================== */
+
+:root{
+  /* layout */
+  --fs-max: 1160px;
+  --fs-gutter: 24px;
+
+  /* color */
+  --fs-bg: #070A10;
+  --fs-surface: rgba(255,255,255,.04);
+  --fs-surface-2: rgba(255,255,255,.06);
+  --fs-border: rgba(255,255,255,.10);
+  --fs-text: rgba(255,255,255,.92);
+  --fs-muted: rgba(255,255,255,.66);
+
+  --fs-accent: #69D2FF;
+  --fs-accent-2: #8B5CFF;
+  --fs-danger: #FF3B57;
+
+  /* typography */
+  --fs-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  --fs-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* radius + shadow */
+  --fs-r: 18px;
+  --fs-r-sm: 12px;
+
+  --fs-shadow: 0 14px 40px rgba(0,0,0,.40);
+  --fs-shadow-soft: 0 10px 26px rgba(0,0,0,.28);
+
+  /* spacing */
+  --fs-s1: 8px;
+  --fs-s2: 12px;
+  --fs-s3: 16px;
+  --fs-s4: 20px;
+  --fs-s5: 28px;
+  --fs-s6: 40px;
+  --fs-s7: 56px;
+  --fs-s8: 72px;
+  --fs-s9: 96px;
+
+  /* animation */
+  --fs-ease: cubic-bezier(.2,.8,.2,1);
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
+/* base */
+html, body{ height:100%; }
 body{
   margin:0;
-  font-family:var(--fs-font);
-  background:radial-gradient(1200px 700px at 15% 0%, rgba(0,183,255,.14), transparent 60%),
-             radial-gradient(900px 600px at 85% 10%, rgba(255,59,59,.10), transparent 55%),
-             var(--fs-bg);
-  color:var(--fs-text);
-  line-height:1.45;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
+  font-family: var(--fs-font);
+  color: var(--fs-text);
+  background:
+    radial-gradient(900px 500px at 15% 10%, rgba(105,210,255,.18), transparent 60%),
+    radial-gradient(900px 520px at 85% 0%, rgba(139,92,255,.16), transparent 60%),
+    radial-gradient(900px 620px at 50% 100%, rgba(255,59,87,.10), transparent 60%),
+    var(--fs-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-a{color:inherit}
-
-.fs-container{width:min(var(--fs-max), calc(100% - 40px)); margin:0 auto}
-
-.fs-eyebrow{letter-spacing:.12em; text-transform:uppercase; font-size:.78rem; color:var(--fs-muted)}
-.fs-h1{font-size:clamp(2.4rem, 5vw, 3.6rem); line-height:1.06; letter-spacing:-.03em; margin:0}
-.fs-h2{font-size:clamp(1.8rem, 4vw, 2.5rem); line-height:1.1; letter-spacing:-.02em; margin:0}
-.fs-p{color:var(--fs-muted); margin:0}
-
-.fs-card{
-  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border:1px solid var(--fs-border);
-  border-radius:var(--fs-radius);
-  box-shadow:var(--fs-shadow);
-  backdrop-filter: blur(8px);
+a{ color: inherit; }
+p{ line-height: 1.6; margin: 0 0 var(--fs-s3); color: var(--fs-muted); }
+h1,h2,h3{ margin:0 0 var(--fs-s3); letter-spacing: -0.02em; }
+h1{
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.06;
+}
+h2{
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.15;
+}
+h3{
+  font-size: 18px;
+  line-height: 1.25;
+  color: var(--fs-text);
 }
 
-.fs-pad{padding:28px}
+::selection{ background: rgba(105,210,255,.22); }
 
-.fs-btn{
-  display:inline-flex; align-items:center; justify-content:center;
-  gap:.55rem;
-  padding:12px 16px;
-  border-radius:var(--fs-radius-sm);
-  text-decoration:none;
-  font-weight:650;
-  border:1px solid transparent;
-  transition:transform .14s ease, filter .14s ease, background .14s ease, border .14s ease;
-  user-select:none;
-}
+/* ==========================================================================
+   Webflow class mapping (your current naming)
+   ========================================================================== */
 
-.fs-btn:active{transform:translateY(1px)}
-.fs-btn-primary{background:var(--fs-accent); color:#041018}
-.fs-btn-primary:hover{filter:brightness(1.05)}
-.fs-btn-danger{background:var(--fs-danger); color:#fff}
-.fs-btn-ghost{
-  background:rgba(255,255,255,.06);
-  border-color:var(--fs-border);
-  color:var(--fs-text);
-}
-.fs-btn-ghost:hover{background:rgba(255,255,255,.09)}
-
-.fs-badge{
-  display:inline-flex; align-items:center; gap:.4rem;
-  padding:6px 10px;
-  border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--fs-border);
-  color:var(--fs-muted);
-  font-size:.9rem;
-}
-
-.fs-grid{display:grid; gap:16px}
-@media (min-width: 860px){
-  .fs-grid-3{grid-template-columns:repeat(3,1fr)}
-  .fs-grid-2{grid-template-columns:repeat(2,1fr)}
-}
-
-.fs-stickybar{
-  position:sticky; top:0; z-index:50;
-  background:rgba(11,14,20,.72);
-  border-bottom:1px solid var(--fs-border);
-  backdrop-filter: blur(10px);
-}
-
-.fs-hidden{display:none !important}
-
-[data-chat]{display:none}
-[data-chat].is-open{display:block}
-/* ---- FlowSight: Webflow class mapping (v1) ---- */
-.section-hero, .section-services, .section-trust-badges, .section-reviews, .section-contact, .section-footer{
-  padding:72px 0;
-}
-
+/* Containers: consistent max width */
 .container-navbar, .container-hero, .container-services, .container-trust-badges, .container-reviews, .container-contact, .container-footer{
-  width:min(var(--fs-max), calc(100% - 40px));
-  margin:0 auto;
+  width: min(var(--fs-max), calc(100% - (var(--fs-gutter) * 2)));
+  margin: 0 auto;
 }
 
-.section-hero{ padding-top:54px; }
-
-.nav-links{ display:flex; gap:18px; align-items:center; }
-.nav-link{ color:rgba(0,0,0,.75); text-decoration:none; }
-.nav-link:hover{ text-decoration:underline; }
-
-.services-grid, .reviews-grid, .trust-badges{
-  display:grid;
-  gap:16px;
-  grid-template-columns:1fr;
-}
-@media (min-width: 860px){
-  .services-grid{ grid-template-columns:repeat(3,1fr); }
-  .trust-badges{ grid-template-columns:repeat(3,1fr); }
-  .reviews-grid{ grid-template-columns:repeat(2,1fr); }
+/* Sections: consistent vertical rhythm */
+.section-hero, .section-services, .section-trust-badges, .section-reviews, .section-contact, .section-footer{
+  padding: var(--fs-s9) 0;
+  position: relative;
 }
 
-.service-card, .review-card, .trust-badge{
-  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border:1px solid var(--fs-border);
-  border-radius:var(--fs-radius);
-  box-shadow:var(--fs-shadow);
-  padding:18px;
+/* Section separators: subtle glow + divider */
+.section-services::before,
+.section-trust-badges::before,
+.section-reviews::before,
+.section-contact::before,
+.section-footer::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0;
+  height:1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+}
+.section-services{ background: linear-gradient(180deg, transparent, rgba(255,255,255,.02)); }
+.section-reviews{ background: linear-gradient(180deg, rgba(255,255,255,.02), transparent); }
+
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
+.navbar, .Navbar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(14px);
+  background: rgba(7,10,16,.55);
+  border-bottom: 1px solid rgba(255,255,255,.10);
 }
 
-.service-card-title, .reviews-headline, .contact-headline{
-  margin:0 0 8px 0;
+.container-navbar{
+  display:flex;
+  align-items:center;
+  justify-content: flex-end;
+  gap: var(--fs-s5);
+  min-height: 72px;
 }
 
-.service-card-description, .review-text, .hero-subline{
-  color:var(--fs-muted);
+.brand-logo{
+  margin-right: auto;
+  display:flex;
+  align-items:center;
+  gap: var(--fs-s2);
+  text-decoration:none;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
+/* If later you add an <img> inside Brand */
+.brand-logo img{
+  height: 34px;
+  width: auto;
+  display:block;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap: var(--fs-s4);
+}
+
+.nav-link{
+  text-decoration:none;
+  color: rgba(255,255,255,.80);
+  font-weight: 650;
+  font-size: 14px;
+  padding: 10px 10px;
+  border-radius: 999px;
+  transition: background .18s var(--fs-ease), color .18s var(--fs-ease);
+}
+.nav-link:hover{
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+}
+
+.nav-menu-button{ /* ignore for now; Webflow handles responsive */ }
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.section-hero{
+  padding-top: var(--fs-s8);
+  padding-bottom: var(--fs-s8);
+}
+
+.container-hero{
+  text-align: center;
+}
+
+.hero-headline{
+  margin: 0 auto var(--fs-s3);
+  max-width: 18ch;
+}
+
+.hero-subline{
+  margin: 0 auto var(--fs-s6);
+  max-width: 56ch;
+  font-size: 16px;
+  color: rgba(255,255,255,.70);
+}
+
+/* CTA buttons */
 .hero-cta, .service-card-cta, .reviews-cta{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding:12px 16px;
-  border-radius:var(--fs-radius-sm);
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
   text-decoration:none;
-  font-weight:650;
-  border:1px solid transparent;
+  font-weight: 750;
+  font-size: 14px;
+  border: 1px solid transparent;
+  transition: transform .16s var(--fs-ease), box-shadow .16s var(--fs-ease), background .16s var(--fs-ease);
+  user-select:none;
+  cursor:pointer;
 }
 
-.hero-cta--emergency{ background:var(--fs-danger); color:#fff; }
-.hero-cta--normal{ background:var(--fs-accent); color:#041018; }
-.reviews-cta{ background:rgba(255,255,255,.08); border-color:var(--fs-border); color:var(--fs-text); }
+.hero-cta:hover, .service-card-cta:hover, .reviews-cta:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--fs-shadow-soft);
+}
+
+.hero-cta--emergency{
+  background: linear-gradient(135deg, rgba(255,59,87,.95), rgba(255,59,87,.55));
+  color: #fff;
+}
+.hero-cta--normal{
+  background: linear-gradient(135deg, rgba(105,210,255,.95), rgba(139,92,255,.65));
+  color: #061018;
+}
+
+/* Keep hero buttons on one row when possible */
+.hero-cta{ margin: 6px 8px 0 8px; }
+
+/* ==========================================================================
+   Grids + Cards
+   ========================================================================== */
+.services-grid, .trust-badges, .reviews-grid{
+  display:grid;
+  gap: var(--fs-s4);
+  grid-template-columns: 1fr;
+}
+
+/* breakpoints */
+@media (min-width: 860px){
+  .services-grid{ grid-template-columns: repeat(3, 1fr); }
+  .trust-badges{ grid-template-columns: repeat(3, 1fr); }
+  .reviews-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+.service-card, .review-card, .trust-badge{
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--fs-r);
+  padding: var(--fs-s5);
+  box-shadow: var(--fs-shadow);
+}
+
+.service-card-title{
+  color: rgba(255,255,255,.94);
+  margin: 0 0 var(--fs-s2);
+}
+.service-card-description{
+  margin: 0 0 var(--fs-s4);
+  color: rgba(255,255,255,.68);
+}
+.service-card-cta{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.12);
+  color: rgba(255,255,255,.90);
+}
+
+.trust-badge-label{
+  margin:0;
+  font-weight: 700;
+  color: rgba(255,255,255,.86);
+}
+
+/* Reviews */
+.reviews-headline{
+  text-align:center;
+  margin: 0 auto var(--fs-s6);
+  max-width: 30ch;
+}
+.review-author{
+  font-weight: 800;
+  color: rgba(255,255,255,.90);
+  margin:0 0 var(--fs-s2);
+}
+.review-text{
+  margin:0;
+  color: rgba(255,255,255,.70);
+}
+
+.reviews-cta{
+  margin: var(--fs-s6) auto 0;
+  display:flex;
+  width: fit-content;
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.12);
+  color: rgba(255,255,255,.92);
+}
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+.contact-headline{
+  text-align:center;
+  margin: 0 auto var(--fs-s6);
+  max-width: 30ch;
+}
 
 .contact-phone{
   display:inline-flex;
-  gap:.5rem;
-  padding:10px 12px;
-  border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--fs-border);
+  align-items:center;
+  justify-content:center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
   text-decoration:none;
-  color:var(--fs-text);
+  color: rgba(255,255,255,.90);
+  font-weight: 750;
+  margin: 0 8px var(--fs-s3) 0;
 }
 
-.contact-map iframe{
-  width:100%;
-  height:320px;
-  border:0;
-  border-radius:var(--fs-radius);
+.contact-address{
+  margin: 0 auto var(--fs-s5);
+  max-width: 60ch;
+  text-align:center;
+  color: rgba(255,255,255,.70);
 }
+
+/* Map host: if it wraps iframe later */
+.contact-map iframe{
+  width: 100%;
+  height: 340px;
+  border: 0;
+  border-radius: var(--fs-r);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.section-footer{
+  padding-top: var(--fs-s7);
+  padding-bottom: var(--fs-s7);
+}
+
+.container-footer{
+  display:grid;
+  gap: var(--fs-s3);
+  text-align:center;
+}
+
+.footer-legal a{
+  color: rgba(255,255,255,.72);
+  text-decoration:none;
+}
+.footer-legal a:hover{ text-decoration: underline; }
+
+/* ==========================================================================
+   Utility: optional hidden helper if you want
+   ========================================================================== */
+.fs-hidden{ display:none !important; }
