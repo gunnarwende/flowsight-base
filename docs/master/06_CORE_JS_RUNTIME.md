@@ -1,4 +1,10 @@
-﻿/* FlowSight core.js
+# 06_CORE_JS_RUNTIME.md
+Version: 1.0 (2026-01-30)
+
+Diese Datei enthält den vollständigen `core/core.js` Stand auf FlowSight-Niveau.
+
+```js
+/* FlowSight core.js
    Version: 1.0 (2026-01-30)
    Responsibilities:
      - load customer.json
@@ -280,3 +286,4 @@
     boot();
   }
 })();
+```

@@ -1,4 +1,10 @@
-﻿{
+# 07_CUSTOMER_JSON_TEMPLATE.md
+Version: 1.0 (2026-01-30)
+
+Diese Datei ist die **Copy/Paste-Vorlage** für `customers/<customer>/customer.json`.
+
+```json
+{
   "business": {
     "name": "Walter Leuthold – Sanitär & Spenglerei",
     "region_label": "Oberrieden • linker Zürichsee",
@@ -102,3 +108,4 @@
     }
   }
 }
+```

@@ -1,4 +1,11 @@
-﻿/* FlowSight core.css
+# 05_CORE_CSS_HIGHEND.md
+Version: 1.0 (2026-01-30)
+
+Diese Datei enthält den vollständigen `core/core.css` Stand auf FlowSight-Niveau.
+Policy: Webflow = Struktur, `core.css` = 100% Optik.
+
+```css
+/* FlowSight core.css
    Version: 1.0 (2026-01-30)
    Policy: Webflow does structure only. All visuals live here.
 */
@@ -339,3 +346,4 @@ button, input, textarea, select{ font: inherit; color: inherit; }
 .section-services, .section-trust-badges, .section-reviews, .section-contact, .section-footer{
   padding: var(--sp-11) var(--sp-4);
 }
+```
