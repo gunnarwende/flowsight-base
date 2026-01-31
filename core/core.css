@@ -847,3 +847,121 @@ body > [id]:not(#hero):not(#top)::before{
 
 /* FS_THEME_V2_END */
 
+/* FS HIGHEND OVERRIDES v1
+   Goal: Smooth "fade-to-light" page background + remove hard section cuts
+*/
+
+/* 1) Design tokens (keep minimal & stable) */
+:root{
+  --fs-ink: #0f172a;
+  --fs-muted: #475569;
+  --fs-bg0: #f6f8fb;
+  --fs-bg1: #eef3f8;
+
+  /* accent hint (petrol + blue) */
+  --fs-petrol: #0ea5a5;
+  --fs-blue: #2563eb;
+
+  --fs-nav-dark: #0b1220;
+  --fs-radius-xl: 22px;
+}
+
+/* 2) One global page background (this is the "fade-to-light") */
+html, body{
+  height: 100%;
+}
+
+body{
+  color: var(--fs-ink) !important;
+
+  /* Dark top under nav -> smooth fade to light, plus very subtle color glow */
+  background:
+    radial-gradient(1200px 700px at 70% 6%, rgba(37,99,235,0.12), transparent 60%),
+    radial-gradient(900px 600px at 18% 20%, rgba(14,165,165,0.10), transparent 65%),
+    linear-gradient(180deg,
+      var(--fs-nav-dark) 0px,
+      var(--fs-nav-dark) 84px,
+      var(--fs-bg0) 280px,
+      var(--fs-bg1) 100%
+    ) !important;
+
+  background-attachment: scroll !important;
+}
+
+/* 3) Make the Webflow nav feel premium and blend into hero */
+.w-nav{
+  background: rgba(11,18,32,0.70) !important;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* 4) Remove hard section backgrounds: let body background do the work */
+#hero,
+#services,
+#process,
+#areas,
+#trust-badges,
+#reviews,
+#cases,
+#certs,
+#faq,
+#contact,
+#footer{
+  background: transparent !important;
+}
+
+/* 5) Hero controlled overlay so top doesn’t “cut” */
+#hero{
+  position: relative;
+  isolation: isolate;
+}
+#hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+
+  /* dark -> transparent */
+  background: linear-gradient(
+    180deg,
+    rgba(11,18,32,0.78) 0%,
+    rgba(11,18,32,0.25) 18%,
+    rgba(11,18,32,0.00) 48%
+  );
+}
+#hero > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* 6) Reduce “too much empty hero” on desktop (keeps mobile intact) */
+@media (min-width: 992px){
+  #hero{
+    min-height: 80vh !important;
+    padding-top: clamp(120px, 16vh, 210px) !important;
+    padding-bottom: clamp(70px, 10vh, 140px) !important;
+  }
+}
+
+/* 7) Global section rhythm: consistent padding (safe selector) */
+section{
+  padding-top: clamp(72px, 7vw, 120px);
+  padding-bottom: clamp(72px, 7vw, 120px);
+}
+
+/* 8) Card polish (generic safe improvements) */
+.w-container .w-row,
+.w-container{
+  /* no hard change, just guardrails */
+}
+
+.w-input,
+.w-select,
+.w-button{
+  border-radius: 14px;
+}
+
+/* /FS HIGHEND OVERRIDES v1 */
+
