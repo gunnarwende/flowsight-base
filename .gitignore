@@ -1,0 +1,5 @@
+﻿# ---- FlowSight local artifacts (do not commit) ----
+docs/import/**
+!.gitkeep
+!docs/import/.gitkeep
+# -----------------------------------------------
