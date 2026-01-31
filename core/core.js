@@ -260,6 +260,38 @@
     if (name && region) document.title = `${name} – ${region}`;
     else if (name) document.title = String(name);
   }
+  function applyTheme(data){
+    const c = (data && data.theme && data.theme.colors) ? data.theme.colors : null;
+    if (!c) return;
+
+    const root = document.documentElement;
+    const map = {
+      "--c-primary": c.primary,
+      "--c-primary-600": c.primary_600,
+      "--c-primary-200": c.primary_200,
+      "--c-on-primary": c.on_primary,
+      "--c-accent": c.accent,
+      "--c-on-accent": c.on_accent,
+      "--c-bg": c.bg,
+      "--c-surface": c.surface,
+      "--c-surface-2": c.surface_2,
+      "--c-text": c.text,
+      "--c-muted": c.muted,
+      "--c-border": c.border,
+      "--c-success": c.success,
+      "--c-danger": c.danger,
+      "--radius": c.radius,
+      "--shadow-1": c.shadow_1
+    };
+
+    Object.entries(map).forEach(([k,v]) => {
+      if (v !== undefined && v !== null && String(v).trim() !== ""){
+        root.style.setProperty(k, String(v));
+      }
+    });
+  }
+
+
 
   function initHooks(data){
     // Placeholder extension points (do nothing unless provided)
@@ -279,7 +311,9 @@
       log('customer loaded');
 
       setDocumentTitle(data);
-      // Order matters: first render repeaters (creates nodes), then bind slots, then CTAs & map.
+      
+        applyTheme(data);
+// Order matters: first render repeaters (creates nodes), then bind slots, then CTAs & map.
       applyConditionals(document, data);
       renderRepeaters(document, data);
       bindSlots(document, data);

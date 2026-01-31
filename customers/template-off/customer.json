@@ -224,4 +224,25 @@
                               }
                           ]
             }
+
+  ,"theme": {
+    "colors": {
+      "primary": "#0E7490",
+      "primary_600": "#155E75",
+      "primary_200": "#A5F3FC",
+      "on_primary": "#FFFFFF",
+      "accent": "#F59E0B",
+      "on_accent": "#111827",
+      "bg": "#FFFFFF",
+      "surface": "#F8FAFC",
+      "surface_2": "#F1F5F9",
+      "text": "#0F172A",
+      "muted": "#475569",
+      "border": "#E2E8F0",
+      "success": "#16A34A",
+      "danger": "#DC2626",
+      "radius": "14px",
+      "shadow_1": "0 10px 30px rgba(2, 6, 23, .08)"
+    }
+  }
 }
