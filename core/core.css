@@ -768,5 +768,82 @@ a.w-button, .btn{
 
 /* === FLOWSIGHT: SMOOTH SECTION TRANSITIONS (END) === */
 
+/* FS_THEME_V2_START */
+/* Premium: global background + smooth section transitions + glass nav (2026-01-31) */
 
+:root{
+  --fs-ink:#0e1628;
+  --fs-navy:#0b1220;
+  --fs-bg:#f7f9fc;
+
+  --fs-fade1: rgba(11,18,32,.55);
+  --fs-fade2: rgba(11,18,32,.18);
+  --fs-fade3: rgba(11,18,32,0);
+
+  --fs-divider: rgba(14,22,40,.06);
+
+  --fs-section-pad: 84px;
+  --fs-fade-h: 170px;
+}
+
+/* Global background (stays consistent across the whole page) */
+html, body{
+  background:
+    radial-gradient(1100px 680px at 70% 12%, rgba(0,132,153,.10), transparent 55%),
+    radial-gradient(900px 560px at 22% 38%, rgba(45,95,210,.10), transparent 60%),
+    linear-gradient(180deg, var(--fs-navy) 0%, #101a2e 12%, var(--fs-bg) 46%, var(--fs-bg) 100%);
+  background-attachment: fixed;
+}
+
+body{ color: var(--fs-ink); }
+
+/* Header / Nav: "glass" instead of a hard dark bar */
+.site-header.w-nav,
+.w-nav{
+  background: linear-gradient(180deg, rgba(11,18,32,.92) 0%, rgba(11,18,32,.55) 100%) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Generic fallback if sections are direct children of body */
+body > [id]:not(#hero):not(#top){
+  position: relative;
+  background: transparent !important;
+  padding-top: var(--fs-section-pad);
+  padding-bottom: var(--fs-section-pad);
+}
+
+/* Explicit IDs (safe if they exist) */
+#services, #process, #areas, #trust-badges, #reviews, #cases, #certs, #faq, #contact, #footer{
+  position: relative;
+  background: transparent !important;
+  padding-top: var(--fs-section-pad);
+  padding-bottom: var(--fs-section-pad);
+}
+
+/* Smooth transition from dark hero into light page */
+#services::before,
+body > #services::before{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  top: calc(-1 * var(--fs-fade-h));
+  height: var(--fs-fade-h);
+  background: linear-gradient(180deg, var(--fs-fade1) 0%, var(--fs-fade2) 45%, var(--fs-fade3) 100%);
+  pointer-events:none;
+}
+
+/* Subtle separators for the rest (light-to-light) */
+#process::before, #areas::before, #trust-badges::before, #reviews::before, #cases::before, #certs::before, #faq::before, #contact::before, #footer::before,
+body > [id]:not(#hero):not(#top)::before{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--fs-divider), transparent);
+  pointer-events:none;
+}
+
+/* FS_THEME_V2_END */
 
