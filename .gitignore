@@ -3,3 +3,16 @@ docs/import/**
 !.gitkeep
 !docs/import/.gitkeep
 # -----------------------------------------------
+
+# FS_LOCAL_IGNORE_START
+# Local artifacts / exports / backups
+.local_artifacts/
+*.bak
+*.bak_*
+*.bak.*
+*.zip
+
+# If Webflow exports create temp dirs in-repo:
+customers/template/
+# FS_LOCAL_IGNORE_END
+

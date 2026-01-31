@@ -1,0 +1,11 @@
+﻿# FS_GITATTRIBUTES_START
+# line ending policy
+*.css  text eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.md   text eol=lf
+
+*.ps1  text eol=crlf
+# FS_GITATTRIBUTES_END
+
