@@ -965,3 +965,85 @@ section{
 
 /* /FS HIGHEND OVERRIDES v1 */
 
+
+
+/* FS-HIGHEND-SECTION-FADE v2 */
+/* Goal:
+   - remove dark top vignette (was causing the 'black bar' feel)
+   - premium light navbar (glass)
+   - smooth section transitions WITHOUT adding extra padding
+*/
+
+/* 1) Kill the old dark top film */
+body::before{
+  display: none !important;
+}
+
+/* 2) Premium navbar: light glass + readable links */
+.w-nav{
+  background: rgba(255,255,255,.72) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(15,23,42,.08);
+}
+.w-nav-brand,
+.w-nav-link{
+  color: rgba(15,23,42,.88) !important;
+}
+.w-nav-link:hover{
+  color: var(--fs-primary) !important;
+}
+.w-nav-menu{
+  background: transparent !important;
+}
+
+/* 3) Remove the old heavy dark hero top overlay */
+#hero::before{
+  display:none !important;
+}
+
+/* Add a gentle bottom fade so hero blends into page bg */
+#hero::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-1px;
+  height: clamp(90px, 10vw, 170px);
+  pointer-events:none;
+  background: linear-gradient(
+    180deg,
+    rgba(246,247,251,0) 0%,
+    var(--fs-bg0) 90%
+  ) !important;
+}
+
+/* 4) Section fades: keep them smooth, but DO NOT force extra padding */
+section[id]{
+  padding-block: unset !important; /* IMPORTANT: prevents huge whitespace */
+  background-color: transparent !important;
+  background-image: linear-gradient(
+    180deg,
+    rgba(246,247,251,0) 0%,
+    var(--fs-bg1) 22%,
+    var(--fs-bg1) 78%,
+    rgba(246,247,251,0) 100%
+  ) !important;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  position: relative; /* ensures fades layer correctly */
+}
+
+/* Optional: make sure section content stays above background layers */
+section[id] > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* 5) Footer: ensure it doesn't look like a hard 'end cap' */
+footer{
+  background: linear-gradient(
+    180deg,
+    rgba(246,247,251,0) 0%,
+    var(--fs-bg0) 40%,
+    var(--fs-bg0) 100%
+  ) !important;
+}
