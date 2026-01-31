@@ -1,26 +1,37 @@
 ﻿Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$repo = (Get-Location).Path
-
 Write-Host "== FlowSight Phase 2 Runner =="
-Write-Host "Repo: $repo"
 
-# 1) Extract latest ZIP -> latest
-& (Join-Path $here "00_extract_latest_zip.ps1")
+# resolve repo root from this script location (tools/handoff)
+$repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
+Set-Location $repoRoot
+Write-Host ("Repo: " + (Get-Location).Path)
 
-# 2) Bindings
-& (Join-Path $here "10_handoff_bindings.ps1")
+function Invoke-Step($relPath) {
+  $p = Join-Path $PSScriptRoot $relPath
+  if (-not (Test-Path -LiteralPath $p)) { throw "Missing script: $p" }
+  & $p
+}
 
-# 3) Verify links/anchors (tel-wired + legal exceptions handled)
-& (Join-Path $here "20_verify_links.ps1")
+# 0) Extract latest ZIP + set latest junction
+Invoke-Step "00_extract_latest_zip.ps1"
 
-# 4) Verify contact form mapping
-& (Join-Path $here "30_verify_contact_form.ps1")
+# 1) Bindings
+Invoke-Step "10_handoff_bindings.ps1"
 
-# 5) CSS audit
-& (Join-Path $here "40_css_audit.ps1")
+# 1.5) Data-Attrs inventory (NEW)
+Invoke-Step "15_handoff_data_attrs.ps1"
 
+# 2) Links verify
+Invoke-Step "20_verify_links.ps1"
+
+# 3) Contact form verify
+Invoke-Step "30_verify_contact_form.ps1"
+
+# 4) CSS audit
+Invoke-Step "40_css_audit.ps1"
+
+Write-Host ""
 Write-Host "== DONE =="
 Write-Host "Check reports in: docs\import\webflow-export\latest"
