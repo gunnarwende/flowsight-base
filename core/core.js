@@ -1,4 +1,4 @@
-﻿/* FlowSight core.js
+/* FlowSight core.js
    Version: 1.0 (2026-01-30)
    Responsibilities:
      - load customer.json
@@ -29,6 +29,24 @@
     }
     return cur;
   }
+  function applyConditionals(root, data){
+    // STRICT: show only if value === true; otherwise hide.
+    root.querySelectorAll('[data-if]').forEach(el => {
+      const path = el.getAttribute('data-if');
+      const val  = getByPath(data, path);
+      const show = (val === true);
+
+      if (!show){
+        el.style.display = 'none';
+        el.setAttribute('data-if-hidden','1');
+      } else {
+        el.style.removeProperty('display');
+        el.removeAttribute('data-if-hidden');
+      }
+    });
+  }
+
+
 
   function setText(el, value){
     if (value == null) return;
@@ -262,6 +280,7 @@
 
       setDocumentTitle(data);
       // Order matters: first render repeaters (creates nodes), then bind slots, then CTAs & map.
+      applyConditionals(document, data);
       renderRepeaters(document, data);
       bindSlots(document, data);
       routeCTAs(document, data);
