@@ -1050,36 +1050,33 @@ footer{
 
 /* FS_ACTIVE_THEME_START */
 /* Swiss High-End System (Phase A) — Single Source of Truth (EOF)
-   - tokens (colors/typography/spacing/radii/shadows)
-   - background canvas (calm)
-   - section fades (no visible bands)
-   - navbar glass integration
-   - container + gutter system
+   Goal: "one continuous page" — band-free fades, integrated navbar glass, consistent tokens.
 */
 
 :root{
-  /* --- Color System (neutral Swiss) --- */
+  /* --- Canvas --- */
   --fs-bg0: #F6F8FB;
   --fs-bg1: #FFFFFF;
 
+  /* --- Ink --- */
   --fs-ink: #0B1220;
   --fs-muted: rgba(11,18,32,.70);
   --fs-line: rgba(11,18,32,.10);
 
-  /* Surfaces (subtle) */
-  --fs-surface: rgba(255,255,255,.72);
-  --fs-surface-strong: rgba(255,255,255,.88);
+  /* --- Surfaces (subtle, avoid layer feel) --- */
+  --fs-surface: rgba(255,255,255,.64);
+  --fs-surface-strong: rgba(255,255,255,.82);
 
-  /* Brand accent (calm technical blue) */
+  /* --- Brand --- */
   --fs-brand: #0E6BFF;
   --fs-brand-2: #19C2FF;
 
-  /* --- Layout System --- */
+  /* --- Layout --- */
   --fs-container: 1160px;
   --fs-gutter: clamp(16px, 2.4vw, 26px);
   --fs-section-py: clamp(56px, 7vw, 96px);
 
-  /* --- Type System --- */
+  /* --- Type --- */
   --fs-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
   --fs-h1: clamp(2.25rem, 1.8vw + 1.6rem, 3.15rem);
   --fs-h2: clamp(1.75rem, 1.1vw + 1.3rem, 2.25rem);
@@ -1087,23 +1084,22 @@ footer{
   --fs-lh: 1.52;
   --fs-lh-tight: 1.10;
 
-  /* --- Radius/Shadow Physik --- */
+  /* --- Radius / Shadow physics --- */
   --fs-r1: 14px;
   --fs-r2: 18px;
   --fs-r3: 24px;
 
   --fs-sh1: 0 10px 24px rgba(12,18,32,.06);
   --fs-sh2: 0 18px 44px rgba(12,18,32,.08);
-  --fs-hair: 0 0 0 1px rgba(11,18,32,.08);
 
-  /* --- Fade System --- */
-  --fs-fade-h: 160px;
+  /* --- Section fade (internal mask; prevents overlap bands) --- */
+  --fs-fade: clamp(64px, 8vw, 150px);
 
-  /* --- Navbar Glass (light, integrated) --- */
-  --fs-nav-top: rgba(246,248,251,.80);
-  --fs-nav-bot: rgba(246,248,251,.62);
-  --fs-nav-border: rgba(11,18,32,.10);
-  --fs-nav-shadow: 0 14px 40px rgba(12,18,32,.10);
+  /* --- Navbar glass (light, integrated) --- */
+  --fs-nav-top: rgba(246,248,251,.86);
+  --fs-nav-bot: rgba(246,248,251,.68);
+  --fs-nav-border: rgba(11,18,32,.08);
+  --fs-nav-shadow: 0 10px 28px rgba(12,18,32,.10);
 }
 
 html, body{ height: 100%; }
@@ -1123,101 +1119,97 @@ body{
   overflow-x: hidden;
 }
 
-/* Containers (systemize Webflow default container) */
+/* Containers (systemize Webflow default) */
 .w-container{
   max-width: var(--fs-container);
   padding-left: var(--fs-gutter);
   padding-right: var(--fs-gutter);
 }
 
-/* Navbar: integrated glass (no hard edge) */
+/* Navbar: force light glass (kills dark top band) */
 .w-nav{
   position: sticky;
   top: 0;
   z-index: 50;
   background: linear-gradient(180deg, var(--fs-nav-top), var(--fs-nav-bot)) !important;
   border-bottom: 1px solid var(--fs-nav-border) !important;
-  box-shadow: var(--fs-nav-shadow);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--fs-nav-shadow) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
-/* Section rhythm + continuity */
+/* Section rhythm */
 section[id]{
   position: relative;
   isolation: isolate;
   padding-top: var(--fs-section-py);
   padding-bottom: var(--fs-section-py);
-
-  /* per-section surface (default transparent) */
-  background: var(--fs-section-bg, transparent);
+  background: transparent; /* important: no stacking bands */
 }
 
-/* Apply subtle surface to core sections */
+/* Per-section surface intent (safe selectors via IDs) */
 #services, #process, #areas, #trust-badges, #reviews, #cases, #certs, #faq, #contact, #footer{
   --fs-section-bg: var(--fs-surface);
 }
 
-/* Fades: blend in/out to the section surface (prevents "band" layers) */
-section[id]::before,
-section[id]::after{
+/* Band-free surface layer INSIDE the section bounds */
+section[id]::before{
   content:"";
   position:absolute;
-  left:0; right:0;
-  height: var(--fs-fade-h);
-  pointer-events:none;
+  inset: 0;
   z-index: 0;
+  pointer-events: none;
+
+  background: var(--fs-section-bg, transparent);
+  opacity: 1;
+  transform: translateZ(0);
 }
 
-/* top fade: transparent -> section bg */
-section[id]::before{
-  top: calc(-1 * var(--fs-fade-h));
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,0) 0%,
-    color-mix(in srgb, var(--fs-section-bg, transparent) 70%, transparent) 55%,
-    var(--fs-section-bg, transparent) 100%
-  );
+/* Preferred: mask-fade (no overlap, no bands) */
+@supports ((-webkit-mask-image: linear-gradient(#000,#000)) or (mask-image: linear-gradient(#000,#000))){
+  section[id]::before{
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      #000 var(--fs-fade),
+      #000 calc(100% - var(--fs-fade)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      #000 var(--fs-fade),
+      #000 calc(100% - var(--fs-fade)),
+      transparent 100%
+    );
+  }
 }
 
-/* bottom fade: section bg -> transparent */
-section[id]::after{
-  bottom: calc(-1 * var(--fs-fade-h));
-  background: linear-gradient(
-    180deg,
-    var(--fs-section-bg, transparent) 0%,
-    color-mix(in srgb, var(--fs-section-bg, transparent) 70%, transparent) 45%,
-    rgba(255,255,255,0) 100%
-  );
+/* Fallback: internal gradient (still inside bounds, avoids overlap outside section) */
+@supports not ((-webkit-mask-image: linear-gradient(#000,#000)) or (mask-image: linear-gradient(#000,#000))){
+  section[id]::before{
+    background: linear-gradient(
+      180deg,
+      rgba(255,255,255,0) 0%,
+      var(--fs-section-bg, transparent) 18%,
+      var(--fs-section-bg, transparent) 82%,
+      rgba(255,255,255,0) 100%
+    );
+  }
 }
 
-/* content above fades */
+/* Content above surface layer */
 section[id] > *{
   position: relative;
   z-index: 1;
 }
 
-/* Hero -> Services: fade specifically into next surface */
+/* Ensure hero is clean (no extra bands) */
 #hero{
-  --fs-hero-next-bg: var(--fs-surface);
-}
-#hero::after{
-  content:"";
-  position:absolute;
-  left:0; right:0;
-  bottom:-1px;
-  height: var(--fs-fade-h);
-  pointer-events:none;
-  z-index: 2;
-  background: linear-gradient(
-    180deg,
-    rgba(246,248,251,0) 0%,
-    color-mix(in srgb, var(--fs-hero-next-bg) 72%, transparent) 55%,
-    var(--fs-hero-next-bg) 100%
-  );
+  background: transparent !important;
 }
 
-/* baseline: inputs readable on light surfaces */
+/* baseline: inputs readable + aligned to radius system */
 .w-input, .w-select, .w-textarea{
   background: rgba(255,255,255,.92);
   border: 1px solid rgba(11,18,32,.12);
