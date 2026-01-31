@@ -1,4 +1,103 @@
-﻿/* FS-HIGHEND-SECTION-FADE v1 */
+﻿/* FS-HIGHEND-BUTTONS v1 */
+
+:root{
+  --fs-radius-lg: 18px;
+  --fs-radius-md: 14px;
+
+  /* Shadows (premium soft) */
+  --fs-shadow-sm: 0 8px 24px rgba(11,18,32,.10);
+  --fs-shadow-md: 0 14px 42px rgba(11,18,32,.14);
+  --fs-shadow-btn: 0 10px 28px rgba(11,18,32,.14);
+
+  /* Button palette */
+  --fs-primary-1: #0ea5e9; /* sky */
+  --fs-primary-2: #22c55e; /* green (subtle mix) */
+  --fs-danger-1: #fb7185;  /* rose */
+  --fs-danger-2: #f97316;  /* orange */
+  --fs-glass: rgba(255,255,255,.62);
+  --fs-border: rgba(11,18,32,.10);
+  --fs-border-strong: rgba(11,18,32,.16);
+}
+
+/* Generic button base (covers your .btn classes from core.js) */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+
+  padding: 14px 18px;
+  min-height: 48px;
+
+  border-radius: var(--fs-radius-lg);
+  border: 1px solid var(--fs-border);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: .01em;
+
+  box-shadow: var(--fs-shadow-btn);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, filter .18s ease;
+  will-change: transform;
+}
+
+/* Hover/active: subtle lift (premium) */
+.btn:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--fs-shadow-md);
+}
+.btn:active{
+  transform: translateY(0px);
+  box-shadow: var(--fs-shadow-sm);
+}
+
+/* Focus: clean ring */
+.btn:focus,
+.btn:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(14,165,233,.22), var(--fs-shadow-btn);
+}
+
+/* Emergency / primary */
+.btn--emergency{
+  color: rgba(11,18,32,.92);
+  border-color: rgba(255,255,255,.22);
+  background: linear-gradient(135deg, rgba(251,113,133,.28), rgba(249,115,22,.22));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Primary (office/normal) */
+.btn--primary{
+  color: rgba(11,18,32,.92);
+  border-color: rgba(255,255,255,.22);
+  background: linear-gradient(135deg, rgba(14,165,233,.22), rgba(34,197,94,.16));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Ghost (review) */
+.btn--ghost{
+  color: rgba(11,18,32,.86);
+  background: var(--fs-glass);
+  border-color: var(--fs-border-strong);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.btn--ghost:hover{
+  filter: brightness(1.02);
+}
+
+/* Improve link buttons inside cards (if Webflow outputs anchors without .btn) */
+a.w-button{
+  border-radius: var(--fs-radius-lg);
+  font-weight: 600;
+  box-shadow: var(--fs-shadow-btn);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+a.w-button:hover{ transform: translateY(-1px); box-shadow: var(--fs-shadow-md); }
+
+
+/* FS-HIGHEND-SECTION-FADE v1 */
 
 :root{
   /* Canvas */
@@ -668,5 +767,6 @@ a.w-button, .btn{
 }
 
 /* === FLOWSIGHT: SMOOTH SECTION TRANSITIONS (END) === */
+
 
 
