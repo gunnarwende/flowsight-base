@@ -9,6 +9,8 @@ Kontextannahmen:
   - `core/core.js`
   - `customers/<customer>/customer.json`
 
+Arbeitsmodus/SSO/Kommunikationsregeln: siehe `docs/master/01_REPO_STRUCTURE_AND_WORKFLOW.md` → Abschnitt **8. Working Agreement (Chat-übergreifend)**.
+
 ---
 
 ## 1) Was für eine „vollumfängliche Analyse“ benötigt wird
@@ -43,12 +45,27 @@ D) Webflow Custom Code (als Text oder Screenshot)
 
 ## 2) Standard-Workflow: Export-ZIP → Import → Reports
 
-### 2.1 ZIP in Root ablegen
-1) Webflow → Export Code → ZIP herunterladen
-2) ZIP manuell nach `C:\flowsight-base` verschieben (Root)
+### 2.0 Preferred: One-Command Runner (SSO)
+Primärer, kanonischer Ablauf (reproduzierbar, ohne Copy/Paste-Snippets):
 
-### 2.2 Import/Extract (timestamped)
-PowerShell:
+```powershell
+cd C:\flowsight-base
+powershell -ExecutionPolicy Bypass -File .\tools\handoff\run_phase2.ps1
+```
+
+Ergebnis-Ordner (immer):
+- `docs\import\webflow-export\latest\`
+
+Hinweis:
+- Die folgenden Einzel-Snippets sind Referenz/Debug.
+- Der Runner ist die SSO-Quelle für Checks/Reports.
+
+### 2.1 ZIP in Root ablegen
+1) Webflow → Export Code → ZIP herunterladen  
+2) ZIP manuell nach `C:\flowsight-base` verschieben (Repo-Root)
+
+### 2.2 Import/Extract (timestamped) – Referenz/Debug
+Wenn du **nicht** den Runner nutzt, ist das hier der manuelle Referenzweg (timestamped Extract).
 
 ```powershell
 cd C:\flowsight-base
@@ -69,6 +86,26 @@ Expand-Archive -LiteralPath (Join-Path $dest $zip.Name) -DestinationPath $dest -
 
 Write-Host "OK: extracted to $dest"
 ```
+
+### 2.3 Reports/Verify (SSO)
+Die Reports/Checks werden kanonisch über den Runner erzeugt. Artefakte liegen unter:
+- `docs\import\webflow-export\latest\`
+
+Pflicht-Outputs (Phase 2 Wiring/Verification):
+- `handoff_bindings.txt`
+- `handoff_link_report.txt` (Anchor/Placeholder-Check)
+- `handoff_verify_contact_form.txt` (Form-Mapping + States)
+- `handoff_css_badprops_sample.txt`
+- `handoff_css_defined_custom_classes.txt`
+
+Optional (Debug):
+- `handoff_link_locator.txt`
+- `handoff_hash_notext_locator.txt`
+
+### 2.4 Repo Hygiene
+- `docs/import/**` ist lokal (Artefakte) und wird nicht committet.
+- SSO-Änderungen passieren nur in: `tools/`, `docs/master/`, `core/`, `customers/`, `schema/`, `scripts/`.
+
 
 ---
 
@@ -312,43 +349,68 @@ cd C:\flowsight-base
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$exportDir = (Get-ChildItem "docs\import\webflow-export" -Directory | Sort-Object Name -Descending | Select-Object -First 1).FullName
-$cssPath = Join-Path $exportDir "css\sanitar-template.webflow.css"   # ggf. Dateiname anpassen
-if (-not (Test-Path $cssPath)) { throw "CSS nicht gefunden: $cssPath" }
+function Get-FlowSightExportDir {
+  $latest = Join-Path (Get-Location) "docs\import\webflow-export\latest"
+  if (Test-Path -LiteralPath $latest) { return (Resolve-Path $latest).Path }
 
-$css = Get-Content -Raw -Encoding UTF8 $cssPath
+  $root = Join-Path (Get-Location) "docs\import\webflow-export"
+  $d = Get-ChildItem -LiteralPath $root -Directory |
+    Where-Object { $_.Name -match '^\d{8}-\d{6}$' } |
+    Sort-Object Name -Descending |
+    Select-Object -First 1
+  if (-not $d) { throw "Kein Export gefunden (kein latest, kein Timestamp)." }
+  return $d.FullName
+}
+
+$exportDir = Get-FlowSightExportDir
+
+# Projekt-CSS automatisch finden (nicht normalize/webflow.css)
+$cssCandidates = Get-ChildItem -LiteralPath (Join-Path $exportDir "css") -File -Filter "*.css" |
+  Where-Object { $_.Name -notin @("normalize.css","webflow.css") } |
+  Sort-Object LastWriteTime -Descending
+
+if (-not $cssCandidates -or $cssCandidates.Length -eq 0) {
+  throw "Keine Projekt-CSS im Export gefunden (außer normalize/webflow.css) in $exportDir"
+}
+
+$cssPath = $cssCandidates[0].FullName
+$css = Get-Content -Raw -Encoding UTF8 -LiteralPath $cssPath
 
 $outDefined = Join-Path $exportDir "handoff_css_defined_custom_classes.txt"
 $outBad     = Join-Path $exportDir "handoff_css_badprops_sample.txt"
 
 # 1) Welche Custom-Classes werden im Projekt-CSS definiert?
-$classes = Get-Content (Join-Path $exportDir "handoff_classes.txt") | Where-Object { $_ -and ($_ -notmatch '^w-') }
+$classesPath = Join-Path $exportDir "handoff_classes.txt"
+if (-not (Test-Path -LiteralPath $classesPath)) { throw "handoff_classes.txt fehlt: $classesPath" }
+
+$classes = Get-Content -Encoding UTF8 -LiteralPath $classesPath |
+  Where-Object { $_ -and ($_ -notmatch '^w-') }
+
 $defined = foreach ($c in $classes) {
   if ($css -match ("(?m)^\s*\." + [regex]::Escape($c) + "\b")) { $c }
 }
 
-if ($defined -and $defined.Count -gt 0) {
-  $defined | Sort-Object | Set-Content -Encoding UTF8 $outDefined
+$definedArr = @($defined)
+if ($definedArr.Length -gt 0) {
+  $definedArr | Sort-Object | Set-Content -Encoding UTF8 -LiteralPath $outDefined
 } else {
-  "# none" | Set-Content -Encoding UTF8 $outDefined
+  "# none" | Set-Content -Encoding UTF8 -LiteralPath $outDefined
 }
 
 # 2) Harte Overrides (Spacing/Typo/Colors etc.) als Sample
 $rxBad = '(?im)^\s*[^}]*\b(margin|padding|font|line-height|letter-spacing|text-transform|color|background|border|box-shadow)\b\s*:'
 $badHits = [regex]::Matches($css, $rxBad) | ForEach-Object { $_.Value.Trim() }
 
-if ($badHits -and $badHits.Count -gt 0) {
-  $badHits | Select-Object -First 300 | Set-Content -Encoding UTF8 $outBad
+$badArr = @($badHits)
+if ($badArr.Length -gt 0) {
+  $badArr | Select-Object -First 300 | Set-Content -Encoding UTF8 -LiteralPath $outBad
 } else {
-  "# none" | Set-Content -Encoding UTF8 $outBad
+  "# none" | Set-Content -Encoding UTF8 -LiteralPath $outBad
 }
 
-Get-Item $outDefined, $outBad | Format-Table Name, Length -AutoSize
-```
+Write-Host "OK: projectCSS = $([IO.Path]::GetFileName($cssPath))"
+Get-Item -LiteralPath $outDefined, $outBad | Format-Table Name, Length -AutoSize
 
-Soll:
-- `handoff_css_defined_custom_classes.txt` = `# none` (oder kleine Liste)
-- `handoff_css_badprops_sample.txt` = `# none` (oder Sample zur Review)
 
 ### 3.5 Backend-Settings Snapshot (nicht im ZIP enthalten)
 Hinweis: Webflow Export ZIP enthält Frontend-Dateien, aber keine zuverlässige Konfiguration für Publishing/Site password/Spam/Uploads/Integrations.
@@ -491,19 +553,35 @@ PowerShell:
 
 ```powershell
 cd C:\flowsight-base
-$exportDir = (Get-ChildItem "docs\import\webflow-export" -Directory |
-  Sort-Object Name -Descending |
-  Select-Object -First 1).FullName
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
+function Get-FlowSightExportDir {
+  $latest = Join-Path (Get-Location) "docs\import\webflow-export\latest"
+  if (Test-Path -LiteralPath $latest) { return (Resolve-Path $latest).Path }
+
+  $root = Join-Path (Get-Location) "docs\import\webflow-export"
+  $d = Get-ChildItem -LiteralPath $root -Directory |
+    Where-Object { $_.Name -match '^\d{8}-\d{6}$' } |
+    Sort-Object Name -Descending |
+    Select-Object -First 1
+  if (-not $d) { throw "Kein Export gefunden (kein latest, kein Timestamp)." }
+  return $d.FullName
+}
+
+$exportDir = Get-FlowSightExportDir
 
 $need = @(
   "data-slot","data-slot-image","data-slot-href","data-href-prefix",
   "data-repeat","data-template","data-bind","data-map-embed","data-cta"
 )
-$present = Get-Content (Join-Path $exportDir "handoff_data-attrs.txt")
+
+$present = Get-Content -Encoding UTF8 -LiteralPath (Join-Path $exportDir "handoff_data-attrs.txt")
 
 $need | ForEach-Object {
   "{0} : {1}" -f $_, ($(if ($present -contains $_) { "OK" } else { "MISSING" }))
 }
+
 ```
 
 Soll: alle 9 = OK.

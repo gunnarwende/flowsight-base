@@ -8,6 +8,8 @@ Assets (core.css/core.js/customer.json) werden über CDN eingebunden.
 ## 2. Repo-Struktur (verbindlich)
 ```
 flowsight-base/
+  .gitignore
+  README.md
   core/
     core.css
     core.js
@@ -27,9 +29,21 @@ flowsight-base/
       06_CORE_JS_RUNTIME.md
       07_CUSTOMER_JSON_TEMPLATE.md
       08_QA_DEBUG_CHECKLIST.md
+      09_ANALYSE_WEBSITE_v03.md
+    import/
+      .gitkeep
   scripts/
     push.ps1
     lint.ps1
+  tools/
+    handoff/
+      00_extract_latest_zip.ps1
+      10_handoff_bindings.ps1
+      20_verify_links.ps1
+      30_verify_contact_form.ps1
+      40_css_audit.ps1
+      run_phase2.ps1
+
 ```
 
 ## 3. Lokales Setup (PowerShell)
@@ -95,3 +109,45 @@ Für Demo reicht `@main`, für produktiv: **Versionierung**.
   - Was ändert sich?
   - Warum ist es systemisch?
   - Welche Auswirkungen auf core.css/core.js/schema?
+
+## 8. Working Agreement (Chat-übergreifend)
+Ziel: Gleicher, effizienter Arbeitsmodus über alle Chats hinweg (No-Drift / Repro).
+
+### 8.1 Arbeitsmodus (hart)
+- Kurz, präzise, reproduzierbar.
+- Keine Rediskussion bereits erledigter Punkte (SSO = Repo + docs/master).
+- Immer **vollständige** PowerShell-Blöcke (Windows PowerShell 5.1 kompatibel):
+  - `Set-StrictMode -Version Latest`
+  - `$ErrorActionPreference = "Stop"`
+- Keine Deletes/Restructures ohne klare Ansage und (wenn sinnvoll) Dry-Run.
+
+### 8.2 Single Source of Truth (SSO)
+- GitHub/Repo `main` ist SSO für:
+  - `core/` (Runtime)
+  - `customers/` (Customer JSON)
+  - `docs/master/` (Specs/Prozess/Checklisten)
+  - `tools/` (Automatisierung/Verifikation)
+- Webflow ist Editor/Publishing-Host; Verifikation erfolgt über Export + Reports.
+- `docs/import/**` ist **lokal** (Exports, ZIP-Archive, Audits) und wird nicht versioniert.
+
+### 8.3 Tooling / Standard-Loop
+- Webflow Export ZIP → Repo-Root `C:\\flowsight-base\\`
+- Ein Einstiegspunkt für Phase-Checks (Runner):
+```powershell
+cd C:\\flowsight-base
+powershell -ExecutionPolicy Bypass -File .\\tools\\handoff\\run_phase2.ps1
+```
+- Reports liegen immer unter:
+  - `docs\\import\\webflow-export\\latest\\`
+- Wenn ein Check fehlschlägt: nur Konsolenoutput + relevante `handoff_*.txt` posten.
+
+### 8.4 Kommunikation (Input/Output-Disziplin)
+- Anfragen immer als: „poste Datei X“ oder „poste Konsolenoutput von Command Y“.
+- Keine Vermutungen; nur belegbare Outputs (Export/Reports/Webflow Navigator-Pfad).
+
+### 8.5 Git Hygiene (skalierbar)
+- `docs/import/**` bleibt lokal (via `.gitignore`), nur `docs/import/.gitkeep` ist im Repo.
+- Commits sind klein und thematisch (1 Änderung = 1 Commit), z.B.:
+  - `tools/handoff/*` (Runner/Checks)
+  - `docs/master/*` (SSO-Doku)
+  - `core/*`, `customers/*`, `schema/*`, `scripts/*`

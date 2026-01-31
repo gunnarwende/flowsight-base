@@ -58,18 +58,31 @@ Die bestehende Website dient **nur zur Kenntnisnahme**, nicht als Vorlage.
 - Data-Attribute setzen
 - Keine optischen Webflow-Overrides
 
-### Phase 2 – Design-System (core.css)
-- Tokens → Layout-Primitives → Components → Module-Skins
-- Responsive ausschließlich per CSS
-- Webflow bleibt “dumm”
+### Phase 2 – Wiring & Verification (Webflow Container produktionsfähig)
+Ziel: Die Webflow-Site als FlowSight-Conversion-Container so „verkabeln“, dass sie reproduzierbar verifiziert werden kann.
 
-### Phase 3 – Module & Datenmodell-Erweiterung
-- optionale Module (Projects, Team, FAQ, Legal, …)
-- `enabled: true/false` pro Modul im JSON
-- Schema-Versionierung (v1 → v2)
+**2A – Wiring (HTML/Attribute/Forms/Anchors)**
+- Slot-/Binding-Coverage gemäß Blueprint (Data-Attributes vollständig)
+- Navigation/Anchors: echte Section-IDs + hrefs (keine Platzhalter außer Legal)
+- Form-Mapping: `name/email/phone/message` + Success/Fail States
+- Keine Inline-JSON (Customer URL via `window.FLOWSIGHT_CUSTOMER_URL`), Runtime nur über CDN
+
+**2B – Automatisierte Verifikation (No-Drift)**
+- Webflow Export ZIP nach `C:\flowsight-base\` legen
+- 1 Command als Checkpoint:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\handoff\run_phase2.ps1`
+- Reports/Artefakte liegen immer unter:
+  - `docs\import\webflow-export\latest\`
+
+### Phase 3 – Design-System & Datenmodell-Erweiterung (core.css / schema)
+- `core.css`: Tokens → Layout-Primitives → Components → Module-Skins
+- Responsive ausschließlich per CSS
+- Schema-Änderungen nur in dieser Phase (Versionierung v1 → v2)
+- Webflow bleibt “dumm”
 
 ### Phase 4 – Automation
 - Chat, Voice, Review-Flow, Lead-Routing, Tracking
+
 
 ## 7. Global Definition of Done (DoD)
 Eine Phase gilt nur als fertig, wenn:
