@@ -1,4 +1,94 @@
-﻿/* FS SECTION FADE v1 */
+﻿/* FS-HIGHEND-SECTION-FADE v1 */
+
+:root{
+  /* Canvas */
+  --fs-bg0: #f6f7fb;        /* base page background */
+  --fs-bg1: rgba(255,255,255,.55); /* section layer */
+  --fs-ink: #0b1220;
+  --fs-hero-ink: #f7f9ff;
+
+  /* Fades */
+  --fs-fade-h: 160px;
+  --fs-section-pad: clamp(56px, 7vw, 96px);
+
+  /* Premium glass/nav */
+  --fs-nav-bg: rgba(11,18,32,.72);
+  --fs-nav-border: rgba(255,255,255,.08);
+}
+
+/* Global canvas */
+html, body{
+  background: var(--fs-bg0);
+  color: var(--fs-ink);
+}
+body{ overflow-x: hidden; }
+
+/* --- NAV: soften the "cut" line --- */
+.w-nav{
+  background: var(--fs-nav-bg) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--fs-nav-border);
+}
+
+/* --- HERO: add a bottom fade into the light canvas --- */
+#hero{
+  position: relative;
+  isolation: isolate; /* ensures pseudo elements layer correctly */
+}
+
+/* Bottom fade (the key to remove the harsh hero->next cut) */
+#hero::after{
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -1px;
+  height: var(--fs-fade-h);
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    rgba(11,18,32,0) 0%,
+    var(--fs-bg0) 92%
+  );
+}
+
+/* Optional: slight top fade so hero blends into nav */
+#hero::before{
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: -1px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    rgba(11,18,32,.85) 0%,
+    rgba(11,18,32,0) 100%
+  );
+}
+
+/* --- SECTIONS: give every section a "soft layer" with transparent edges --- */
+/* This removes hard horizontal edges between blocks. */
+section[id]{
+  position: relative;
+  padding-block: var(--fs-section-pad);
+  /* layer is transparent at top/bottom -> blends into body background */
+  background: linear-gradient(
+    180deg,
+    rgba(246,247,251,0) 0%,
+    var(--fs-bg1) 18%,
+    var(--fs-bg1) 82%,
+    rgba(246,247,251,0) 100%
+  );
+}
+
+/* Avoid 1px seams on some browsers */
+section[id] + section[id]{ margin-top: -1px; }
+
+
+/* FS SECTION FADE v1 */
 /* Smooth transitions between dark/colored sections and the light page background */
 
 :root{
@@ -578,4 +668,5 @@ a.w-button, .btn{
 }
 
 /* === FLOWSIGHT: SMOOTH SECTION TRANSITIONS (END) === */
+
 
