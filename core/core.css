@@ -1,3 +1,74 @@
+﻿/* FS SECTION FADE v1 */
+/* Smooth transitions between dark/colored sections and the light page background */
+
+:root{
+  --fs-page-bg: #f6f7fb;          /* page background (light) */
+  --fs-fade-h: 160px;             /* fade height */
+  --fs-fade-strong: 1;            /* 1 = normal, increase to 1.15 if needed */
+}
+
+/* Ensure page has a consistent light base */
+html, body{
+  background: var(--fs-page-bg);
+}
+
+/* Fade helpers applied to specific sections by ID */
+#process, #contact, #footer, #hero{
+  position: relative;
+  isolation: isolate; /* keep pseudo elements contained */
+}
+
+/* Fade to light BELOW the section */
+#process::after, #contact::after, #footer::after, #hero::after{
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -1px;
+  height: var(--fs-fade-h);
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    rgba(246,247,251, 0) 0%,
+    rgba(246,247,251, calc(0.55 * var(--fs-fade-strong))) 55%,
+    rgba(246,247,251, 1) 100%
+  );
+}
+
+/* Fade to light ABOVE the section */
+#process::before, #contact::before, #footer::before, #hero::before{
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: -1px;
+  height: var(--fs-fade-h);
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(246,247,251, 0) 0%,
+    rgba(246,247,251, calc(0.55 * var(--fs-fade-strong))) 55%,
+    rgba(246,247,251, 1) 100%
+  );
+}
+
+/* Give content layers a higher stacking context than section backgrounds,
+   but below the fade overlays if needed */
+#process > *, #contact > *, #footer > *, #hero > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* Optional: reduce harsh banding if section backgrounds are gradients */
+#process, #contact, #hero{
+  background-blend-mode: normal;
+}
+
+/* If your dark sections have box-shadows that create hard edges, soften them */
+#process, #contact, #footer, #hero{
+  box-shadow: none;
+}
+
 /* ===== FlowSight Design Tokens (Phase 0) ===== */
 :root{
   /* Brand */
@@ -507,3 +578,4 @@ a.w-button, .btn{
 }
 
 /* === FLOWSIGHT: SMOOTH SECTION TRANSITIONS (END) === */
+
