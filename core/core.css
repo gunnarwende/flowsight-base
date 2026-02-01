@@ -1,4 +1,4 @@
-﻿/* FS-HIGHEND-BUTTONS v1 */
+/* FS-HIGHEND-BUTTONS v1 */
 
 :root{
   --fs-radius-lg: 18px;
@@ -1050,7 +1050,10 @@ footer{
 
 /* FS_ACTIVE_THEME_START */
 /* Swiss High-End System (Phase A) — Single Source of Truth (EOF)
-   Focus: remove dark header band + unify nav glass + calm type baseline
+   This iteration:
+   - ensure ALL sections can be seen (template-on superset is separate file)
+   - fix washed hero text/CTAs
+   - force nav to LIGHT glass (override dark band)
 */
 
 :root{
@@ -1058,11 +1061,10 @@ footer{
   --fs-bg1: #FFFFFF;
 
   --fs-ink: #0B1220;
-  --fs-muted: rgba(11,18,32,.70);
-  --fs-faint: rgba(11,18,32,.56);
+  --fs-muted: rgba(11,18,32,.78); /* slightly darker for readability */
+  --fs-faint: rgba(11,18,32,.58);
   --fs-line: rgba(11,18,32,.10);
 
-  /* Subtle surfaces to avoid "layer film" */
   --fs-surface: rgba(255,255,255,.58);
   --fs-surface-strong: rgba(255,255,255,.82);
 
@@ -1071,13 +1073,13 @@ footer{
   --fs-container: 1160px;
   --fs-gutter: clamp(16px, 2.4vw, 26px);
   --fs-section-py: clamp(56px, 7vw, 96px);
+  --fs-fade: clamp(64px, 8vw, 150px);
 
   --fs-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
   --fs-h1: clamp(2.25rem, 1.8vw + 1.6rem, 3.15rem);
   --fs-h2: clamp(1.75rem, 1.1vw + 1.3rem, 2.25rem);
   --fs-body: 1rem;
   --fs-small: .92rem;
-
   --fs-lh: 1.52;
   --fs-lh-tight: 1.10;
 
@@ -1088,21 +1090,18 @@ footer{
   --fs-sh1: 0 10px 24px rgba(12,18,32,.06);
   --fs-sh2: 0 18px 44px rgba(12,18,32,.08);
 
-  --fs-fade: clamp(64px, 8vw, 150px);
-
-  /* Light nav glass (Swiss) */
+  /* Light nav glass */
   --fs-nav-top: rgba(246,248,251,.92);
   --fs-nav-bot: rgba(246,248,251,.72);
   --fs-nav-border: rgba(11,18,32,.08);
   --fs-nav-shadow: 0 10px 26px rgba(12,18,32,.08);
 }
 
-html, body{ height: 100%; }
-
-/* Force canvas background (override legacy) */
+html, body{ height:100%; }
 html{ background: var(--fs-bg0) !important; }
+
 body{
-  margin: 0;
+  margin:0;
   font-family: var(--fs-font);
   font-size: var(--fs-body);
   line-height: var(--fs-lh);
@@ -1113,18 +1112,7 @@ body{
     linear-gradient(180deg, var(--fs-bg0), var(--fs-bg1) 68%) !important;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-}
-
-/* Paint a light veil behind the top viewport (kills dark cap from legacy wrappers) */
-body::before{
-  content:"";
-  position: fixed;
-  left: 0; right: 0; top: 0;
-  height: 260px;
-  pointer-events: none;
-  z-index: 5;
-  background: linear-gradient(180deg, var(--fs-bg0) 0%, rgba(246,248,251,0) 100%);
+  overflow-x:hidden;
 }
 
 /* Containers */
@@ -1142,18 +1130,21 @@ h1, h2{
 }
 h1{ font-size: var(--fs-h1); line-height: var(--fs-lh-tight); }
 h2{ font-size: var(--fs-h2); line-height: 1.16; }
-
-p{
-  color: var(--fs-muted);
-  margin: 0 0 1rem 0;
-}
+p{ color: var(--fs-muted); margin: 0 0 1rem 0; }
 small{ font-size: var(--fs-small); color: var(--fs-faint); }
 
-/* Navbar: force LIGHT glass + also fix menu/links so it cannot look dark */
-.w-nav{
+/* HERO readability guard (works even if Webflow uses non-p tags) */
+#hero, #hero *{ text-shadow: none; }
+#hero p, #hero .w-richtext, #hero .w-richtext p{ color: var(--fs-muted) !important; opacity: 1 !important; }
+
+/* FORCE nav to light glass (raise specificity to beat older !important rules) */
+body .w-nav,
+body nav.w-nav,
+body .navbar.w-nav{
   position: sticky;
   top: 0;
   z-index: 50;
+  background-color: var(--fs-nav-top) !important;
   background: linear-gradient(180deg, var(--fs-nav-top), var(--fs-nav-bot)) !important;
   border-bottom: 1px solid var(--fs-nav-border) !important;
   box-shadow: var(--fs-nav-shadow) !important;
@@ -1161,22 +1152,22 @@ small{ font-size: var(--fs-small); color: var(--fs-faint); }
   -webkit-backdrop-filter: blur(18px);
 }
 
-/* Kill any dark menu background (desktop & mobile overlay) */
-.w-nav-menu,
-.w-nav-overlay{
+/* Ensure menu/overlay cannot paint dark */
+body .w-nav-menu,
+body .w-nav-overlay{
   background: transparent !important;
 }
 
-/* Nav links: Swiss (dark on light) */
-.w-nav-link{
+/* Nav links Swiss */
+body .w-nav-link{
   color: rgba(11,18,32,.72) !important;
   transition: color .16s ease, opacity .16s ease;
 }
-.w-nav-link:hover{
+body .w-nav-link:hover{
   color: rgba(11,18,32,.92) !important;
 }
 
-/* Section rhythm + anchor comfort */
+/* Section rhythm */
 section[id]{
   scroll-margin-top: 96px;
   position: relative;
@@ -1195,50 +1186,30 @@ section[id]{
 section[id]::before{
   content:"";
   position:absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
   background: var(--fs-section-bg, transparent);
   transform: translateZ(0);
 }
 
 @supports ((-webkit-mask-image: linear-gradient(#000,#000)) or (mask-image: linear-gradient(#000,#000))){
   section[id]::before{
-    -webkit-mask-image: linear-gradient(
-      180deg,
-      transparent 0%,
-      #000 var(--fs-fade),
-      #000 calc(100% - var(--fs-fade)),
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      180deg,
-      transparent 0%,
-      #000 var(--fs-fade),
-      #000 calc(100% - var(--fs-fade)),
-      transparent 100%
-    );
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 var(--fs-fade), #000 calc(100% - var(--fs-fade)), transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 var(--fs-fade), #000 calc(100% - var(--fs-fade)), transparent 100%);
   }
 }
 @supports not ((-webkit-mask-image: linear-gradient(#000,#000)) or (mask-image: linear-gradient(#000,#000))){
   section[id]::before{
-    background: linear-gradient(
-      180deg,
-      rgba(255,255,255,0) 0%,
-      var(--fs-section-bg, transparent) 18%,
-      var(--fs-section-bg, transparent) 82%,
-      rgba(255,255,255,0) 100%
-    );
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--fs-section-bg, transparent) 18%, var(--fs-section-bg, transparent) 82%, rgba(255,255,255,0) 100%);
   }
 }
 
 section[id] > *{ position: relative; z-index: 1; }
 
-/* Hero clean */
-#hero{ background: transparent !important; }
-
-/* Buttons baseline */
+/* Buttons baseline (avoid faded CTAs) */
 .w-button{
+  opacity: 1 !important;
   border-radius: 999px;
   box-shadow: var(--fs-sh1);
   transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
@@ -1263,4 +1234,3 @@ section[id] > *{ position: relative; z-index: 1; }
   border-radius: 10px;
 }
 /* FS_ACTIVE_THEME_END */
-

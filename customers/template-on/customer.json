@@ -1,11 +1,23 @@
 {
+  "modules": {
+    "header": true,
+    "hero": true,
+    "services": true,
+    "process": true,
+    "areas": true,
+    "trust_badges": true,
+    "reviews": true,
+    "cases": true,
+    "certs": true,
+    "faq": true,
+    "contact": true,
+    "footer": true
+  },
   "business": {
     "name": "Beispiel Sanitär & Spenglerei AG",
     "region_label": "Kanton Zürich • Zürich & Umgebung",
     "brand": {
-      "logo": {
-        "src": "https://dummyimage.com/220x60/ffffff/0b1220.png&text=LOGO"
-      }
+      "logo": { "src": "https://dummyimage.com/220x60/ffffff/0b1220.png&text=LOGO" }
     }
   },
   "hero": {
@@ -28,9 +40,16 @@
       { "title": "Sanitär-Service", "description": "Unterhalt, kleine Umbauten, schnelle Einsätze." }
     ]
   },
+
   "process": {
     "headline": "So läuft’s ab",
     "subline": "Transparent, sauber, termintreu.",
+    "items": [
+      { "title": "Kontakt", "text": "Kurz schildern – wir klären die nächsten Schritte." },
+      { "title": "Termin / Einsatz", "text": "Wir kommen vorbereitet – Notfall oder geplant." },
+      { "title": "Ausführung", "text": "Saubere Arbeit, klare Kommunikation." },
+      { "title": "Abnahme", "text": "Funktion geprüft, alles dokumentiert." }
+    ],
     "steps": [
       { "title": "Kontakt", "text": "Kurz schildern – wir klären die nächsten Schritte." },
       { "title": "Termin / Einsatz", "text": "Wir kommen vorbereitet – Notfall oder geplant." },
@@ -38,11 +57,13 @@
       { "title": "Abnahme", "text": "Funktion geprüft, alles dokumentiert." }
     ]
   },
+
   "areas": {
     "headline": "Einsatzgebiet",
     "subline": "Zürich und Umgebung.",
     "items": [ "Zürich", "Winterthur", "Uster", "Horgen", "Wädenswil", "Küsnacht" ]
   },
+
   "trust": {
     "reviews": {
       "headline": "Bewertungen aus der Region",
@@ -52,6 +73,7 @@
       ]
     }
   },
+
   "cases": {
     "headline": "Ausgewählte Projekte",
     "subline": "Vorher / Nachher – sauber dokumentiert.",
@@ -67,6 +89,7 @@
       }
     ]
   },
+
   "certs": {
     "headline": "Zertifikate & Partner",
     "items": [
@@ -74,13 +97,19 @@
       { "title": "Zertifikat/Partner 2" }
     ]
   },
+
   "faq": {
     "headline": "Häufige Fragen",
     "items": [
       { "q": "Sind Sie 24/7 erreichbar?", "a": "Für Notfälle sind wir rund um die Uhr erreichbar." },
       { "q": "Wie schnell sind Sie vor Ort?", "a": "Je nach Lage – wir geben am Telefon eine realistische Einschätzung." }
+    ],
+    "questions": [
+      { "q": "Sind Sie 24/7 erreichbar?", "a": "Für Notfälle sind wir rund um die Uhr erreichbar." },
+      { "q": "Wie schnell sind Sie vor Ort?", "a": "Je nach Lage – wir geben am Telefon eine realistische Einschätzung." }
     ]
   },
+
   "contact": {
     "form": { "headline": "Kontakt & Soforthilfe" },
     "phones": {
@@ -91,12 +120,11 @@
     "opening_hours": { "label": "Mo–Fr 08:00–17:00 • Notfall 24/7" },
     "map": { "embed_url": "https://www.google.com/maps/embed?pb=!1m18..." }
   },
+
   "links": {
     "google_review": "https://search.google.com/local/writereview?placeid=PLACE_ID_HERE"
   },
   "cta": {
-    "labels": {
-      "review": "Google Bewertung schreiben"
-    }
+    "labels": { "review": "Google Bewertung schreiben" }
   }
 }
