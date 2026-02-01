@@ -466,3 +466,288 @@ function routeCTAs(root, data){
   }
 })();
 /* FS_TEMPLATE_ON_QA_END */
+
+/* FS_REPEAT_FALLBACK_START */
+/* Repeat Fallback Hydrator (robust, non-invasive)
+   Purpose:
+   - Fill Webflow repeat-lists even when templates are missing explicit data-bind nodes.
+   - Supports: data-bind, data-bind-image, data-bind-href.
+   - Safe: runs after DOMContentLoaded, marks repeaters as hydrated, avoids duplication.
+
+   Note: This does NOT replace your existing engine; it only helps where templates are bind-less.
+*/
+(function(){
+  'use strict';
+
+  function isTemplateOn(){
+    var u = String(window.FLOWSIGHT_CUSTOMER_URL || '');
+    return (u.indexOf('/customers/template-on/') >= 0) || (u.indexOf('customers/template-on') >= 0);
+  }
+
+  // Run always; but log only in debug/template-on
+  var DEBUG = !!window.FLOWSIGHT_DEBUG || isTemplateOn();
+
+  function log(){
+    if (!DEBUG) return;
+    try { console.log.apply(console, arguments); } catch(_){}
+  }
+
+  function getByPath(obj, path){
+    if (!obj || !path) return undefined;
+    var p = String(path).split('.');
+    var cur = obj;
+    for (var i=0;i<p.length;i++){
+      var key = p[i];
+      if (cur == null) return undefined;
+      // array index support
+      if (key.match(/^\d+$/)) key = parseInt(key,10);
+      cur = cur[key];
+    }
+    return cur;
+  }
+
+  function setText(el, val){
+    if (!el) return;
+    if (val == null) return;
+    el.textContent = String(val);
+  }
+
+  function setHref(el, val){
+    if (!el || val == null) return;
+    var a = el;
+    if (a.tagName !== 'A') a = el.closest('a') || el;
+    try { a.setAttribute('href', String(val)); } catch(_){}
+  }
+
+  function setImage(el, val){
+    if (!el || val == null) return;
+    var img = el;
+    if (img.tagName !== 'IMG') img = el.querySelector('img') || el.closest('img');
+    if (!img) return;
+    try { img.setAttribute('src', String(val)); } catch(_){}
+  }
+
+  function hasExplicitBinds(node){
+    if (!node) return false;
+    return !!(node.querySelector('[data-bind], [data-slot], [data-bind-image], [data-bind-href], [data-slot-image], [data-slot-href]'));
+  }
+
+  function smartFallbackFill(node, item, repeatPath){
+    var p = String(repeatPath || '').toLowerCase();
+
+    // primitive items -> label/text
+    var t = '';
+    var x = '';
+    if (item == null) { t=''; x=''; }
+    else if (typeof item === 'string' || typeof item === 'number'){
+      t = String(item);
+      x = '';
+    } else {
+      t = (item.title || item.label || item.name || item.q || item.question || '') + '';
+      x = (item.text || item.description || item.subline || item.a || item.answer || '') + '';
+    }
+
+    var h = node.querySelector('h1,h2,h3,h4,h5,h6');
+    var body = node.querySelector('p') || node.querySelector('[data-fs-body]') || node.querySelector('div') || node.querySelector('span');
+
+    if (p.indexOf('faq') >= 0){
+      if (h) setText(h, t);
+      if (body) setText(body, x);
+      return;
+    }
+
+    if (p.indexOf('process') >= 0 || p.indexOf('services') >= 0){
+      if (h) setText(h, t);
+      if (body) setText(body, x);
+      return;
+    }
+
+    if (p.indexOf('areas') >= 0 || p.indexOf('cert') >= 0 || p.indexOf('trust') >= 0){
+      setText(h || body || node, t || x);
+      return;
+    }
+
+    if (p.indexOf('cases') >= 0){
+      if (h) setText(h, t);
+      if (body) setText(body, x);
+      if (item && item.photos && Array.isArray(item.photos)){
+        var imgs = node.querySelectorAll('img');
+        for (var i=0; i<imgs.length && i<item.photos.length; i++){
+          var src = item.photos[i] && (item.photos[i].src || item.photos[i].url || item.photos[i].image);
+          if (src) setImage(imgs[i], src);
+        }
+      }
+      return;
+    }
+
+    setText(h || body || node, t || x);
+  }
+
+  function bindNode(node, item, rootData, repeatPath){
+    var did = false;
+
+    // relative binds
+    node.querySelectorAll('[data-bind]').forEach(function(el){
+      var rel = el.getAttribute('data-bind');
+      var v = getByPath(item, rel);
+      if (v !== undefined){ setText(el, v); did = true; }
+    });
+
+    node.querySelectorAll('[data-bind-href]').forEach(function(el){
+      var rel = el.getAttribute('data-bind-href');
+      var v = getByPath(item, rel);
+      if (v !== undefined){ setHref(el, v); did = true; }
+    });
+
+    node.querySelectorAll('[data-bind-image]').forEach(function(el){
+      var rel = el.getAttribute('data-bind-image');
+      var v = getByPath(item, rel);
+      if (v !== undefined){ setImage(el, v); did = true; }
+    });
+
+    // allow absolute slots (rootData)
+    node.querySelectorAll('[data-slot]').forEach(function(el){
+      var path = el.getAttribute('data-slot');
+      var v = getByPath(rootData, path);
+      if (v !== undefined){ setText(el, v); did = true; }
+    });
+
+    node.querySelectorAll('[data-slot-href]').forEach(function(el){
+      var path = el.getAttribute('data-slot-href');
+      var v = getByPath(rootData, path);
+      if (v !== undefined){ setHref(el, v); did = true; }
+    });
+
+    node.querySelectorAll('[data-slot-image]').forEach(function(el){
+      var path = el.getAttribute('data-slot-image');
+      var v = getByPath(rootData, path);
+      if (v !== undefined){ setImage(el, v); did = true; }
+    });
+
+    // fallback for bind-less templates
+    if (!did){
+      smartFallbackFill(node, item, repeatPath);
+    }
+  }
+
+  function normalizeItems(items){
+    if (!items) return [];
+    if (Array.isArray(items)) return items;
+    return [];
+  }
+
+  async function getCustomerData(){
+    if (window.__fsCustomerCache) return window.__fsCustomerCache;
+    var url = window.FLOWSIGHT_CUSTOMER_URL;
+    if (!url) return null;
+    try{
+      var res = await fetch(url, { cache: 'no-store' });
+      var json = await res.json();
+      window.__fsCustomerCache = json;
+      return json;
+    } catch(e){
+      log('[FlowSight][fallback] customer fetch failed', e);
+      return null;
+    }
+  }
+
+  function hydrateRepeater(rep, data){
+    if (!rep || rep.getAttribute('data-fs-hydrated') === '1') return;
+
+    var path = rep.getAttribute('data-repeat') || '';
+    if (!path) return;
+
+    var items = normalizeItems(getByPath(data, path));
+    if (!items.length) return;
+
+    // detect template
+    var tpl = rep.querySelector('[data-template]');
+    var children = Array.prototype.slice.call(rep.children || []);
+
+    // CASE A: explicit data-template exists -> clone to match items
+    if (tpl){
+      // If already has clones produced by another engine, do not duplicate. Just fill existing.
+      var nodes = Array.prototype.slice.call(rep.querySelectorAll('[data-fs-item]'));
+      if (!nodes.length){
+        // build nodes list from current children (including tpl)
+        // keep tpl as base, then clone
+        // First: ensure tpl is visible
+        tpl.removeAttribute('data-template');
+
+        // clear other children except tpl
+        children.forEach(function(ch){
+          if (ch !== tpl) ch.remove();
+        });
+
+        // create N nodes
+        var frag = document.createDocumentFragment();
+        for (var i=0; i<items.length; i++){
+          var node = (i === 0) ? tpl : tpl.cloneNode(true);
+          node.setAttribute('data-fs-item','1');
+          frag.appendChild(node);
+        }
+        rep.appendChild(frag);
+        nodes = Array.prototype.slice.call(rep.querySelectorAll('[data-fs-item]'));
+      }
+
+      for (var j=0; j<nodes.length && j<items.length; j++){
+        var n = nodes[j];
+        // if template has explicit binds, let them win; otherwise fallback
+        bindNode(n, items[j], data, path);
+      }
+
+      rep.setAttribute('data-fs-hydrated','1');
+      return;
+    }
+
+    // CASE B: no template marker. If multiple static children exist, fill them sequentially.
+    if (children.length > 1){
+      for (var k=0; k<children.length && k<items.length; k++){
+        bindNode(children[k], items[k], data, path);
+      }
+      rep.setAttribute('data-fs-hydrated','1');
+      return;
+    }
+
+    // CASE C: single child, clone it to match items
+    if (children.length === 1){
+      var base = children[0];
+      var frag2 = document.createDocumentFragment();
+      rep.innerHTML = '';
+      for (var m=0; m<items.length; m++){
+        var node2 = base.cloneNode(true);
+        node2.setAttribute('data-fs-item','1');
+        bindNode(node2, items[m], data, path);
+        frag2.appendChild(node2);
+      }
+      rep.appendChild(frag2);
+      rep.setAttribute('data-fs-hydrated','1');
+      return;
+    }
+  }
+
+  async function run(){
+    var data = await getCustomerData();
+    if (!data) return;
+
+    var reps = document.querySelectorAll('[data-repeat]');
+    reps.forEach(function(rep){
+      // only help bind-less repeaters; if there are explicit binds inside, skip to avoid conflicts
+      if (hasExplicitBinds(rep)) return;
+      hydrateRepeater(rep, data);
+    });
+
+    log('[FlowSight][fallback] hydrated repeaters (bind-less only)');
+  }
+
+  function boot(){
+    run();
+    setTimeout(run, 200);
+    setTimeout(run, 800);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+
+})();
+/* FS_REPEAT_FALLBACK_END */
