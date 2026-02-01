@@ -12,8 +12,8 @@ $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
 function Get-RepoRoot {
-  $here = Split-Path -Parent $PSScriptRoot           # ...\tools\handoff
-  $root = Resolve-Path -LiteralPath (Join-Path $here "..\..")
+  # tools\handoff -> repo root
+  $root = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..\..")
   return $root.Path
 }
 
@@ -278,3 +278,4 @@ if ($sourceLabel -eq "ZIP") {
   Set-Content -Encoding UTF8 -LiteralPath $out2 -Value ($report -join "`r`n")
   Write-Host ("OK: wrote {0}" -f $out2)
 }
+
