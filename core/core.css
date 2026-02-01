@@ -1,4 +1,4 @@
-/* FS-HIGHEND-BUTTONS v1 */
+﻿/* FS-HIGHEND-BUTTONS v1 */
 
 :root{
   --fs-radius-lg: 18px;
@@ -1050,41 +1050,43 @@ footer{
 
 /* FS_ACTIVE_THEME_START */
 /* Swiss High-End System (Phase A) — Single Source of Truth (EOF)
-   Goal: "one continuous page" — band-free fades, integrated navbar glass, consistent tokens.
+   Focus this iteration:
+   - kill dark top band (canvas veil)
+   - enforce background overrides
+   - typographic baseline
+   - navbar glass polish
+   - keep band-free internal section surfaces
 */
 
 :root{
-  /* --- Canvas --- */
   --fs-bg0: #F6F8FB;
   --fs-bg1: #FFFFFF;
 
-  /* --- Ink --- */
   --fs-ink: #0B1220;
   --fs-muted: rgba(11,18,32,.70);
+  --fs-faint: rgba(11,18,32,.56);
   --fs-line: rgba(11,18,32,.10);
 
-  /* --- Surfaces (subtle, avoid layer feel) --- */
   --fs-surface: rgba(255,255,255,.64);
   --fs-surface-strong: rgba(255,255,255,.82);
 
-  /* --- Brand --- */
   --fs-brand: #0E6BFF;
   --fs-brand-2: #19C2FF;
 
-  /* --- Layout --- */
   --fs-container: 1160px;
   --fs-gutter: clamp(16px, 2.4vw, 26px);
   --fs-section-py: clamp(56px, 7vw, 96px);
 
-  /* --- Type --- */
   --fs-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
   --fs-h1: clamp(2.25rem, 1.8vw + 1.6rem, 3.15rem);
   --fs-h2: clamp(1.75rem, 1.1vw + 1.3rem, 2.25rem);
+  --fs-h3: 1.25rem;
   --fs-body: 1rem;
+  --fs-small: .92rem;
+
   --fs-lh: 1.52;
   --fs-lh-tight: 1.10;
 
-  /* --- Radius / Shadow physics --- */
   --fs-r1: 14px;
   --fs-r2: 18px;
   --fs-r3: 24px;
@@ -1092,18 +1094,20 @@ footer{
   --fs-sh1: 0 10px 24px rgba(12,18,32,.06);
   --fs-sh2: 0 18px 44px rgba(12,18,32,.08);
 
-  /* --- Section fade (internal mask; prevents overlap bands) --- */
   --fs-fade: clamp(64px, 8vw, 150px);
 
-  /* --- Navbar glass (light, integrated) --- */
-  --fs-nav-top: rgba(246,248,251,.86);
-  --fs-nav-bot: rgba(246,248,251,.68);
+  --fs-nav-top: rgba(246,248,251,.90);
+  --fs-nav-bot: rgba(246,248,251,.70);
   --fs-nav-border: rgba(11,18,32,.08);
-  --fs-nav-shadow: 0 10px 28px rgba(12,18,32,.10);
+  --fs-nav-shadow: 0 10px 26px rgba(12,18,32,.09);
 }
 
 html, body{ height: 100%; }
 
+/* Force canvas background (overrides legacy css reliably) */
+html{
+  background: var(--fs-bg0) !important;
+}
 body{
   margin: 0;
   font-family: var(--fs-font);
@@ -1113,20 +1117,50 @@ body{
   background:
     radial-gradient(1100px 520px at 15% -10%, rgba(14,107,255,.10), transparent 60%),
     radial-gradient(900px 520px at 95% 0%, rgba(25,194,255,.10), transparent 60%),
-    linear-gradient(180deg, var(--fs-bg0), var(--fs-bg1) 68%);
+    linear-gradient(180deg, var(--fs-bg0), var(--fs-bg1) 68%) !important;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
-/* Containers (systemize Webflow default) */
+/* Kill any dark cap at top by painting a light veil behind header/nav */
+body::before{
+  content:"";
+  position: fixed;
+  left: 0; right: 0; top: 0;
+  height: 220px;
+  pointer-events: none;
+  z-index: 40; /* below nav (50), above page bg */
+  background: linear-gradient(180deg, var(--fs-bg0) 0%, rgba(246,248,251,0) 100%);
+}
+
+/* Containers */
 .w-container{
   max-width: var(--fs-container);
   padding-left: var(--fs-gutter);
   padding-right: var(--fs-gutter);
 }
 
-/* Navbar: force light glass (kills dark top band) */
+/* Typography baseline (system look, less Webflow-default) */
+h1, h2, h3{
+  color: var(--fs-ink);
+  letter-spacing: -0.02em;
+  margin: 0 0 .5rem 0;
+}
+h1{ font-size: var(--fs-h1); line-height: var(--fs-lh-tight); }
+h2{ font-size: var(--fs-h2); line-height: 1.16; }
+h3{ font-size: var(--fs-h3); line-height: 1.22; letter-spacing: -0.01em; }
+
+p{
+  color: var(--fs-muted);
+  margin: 0 0 1rem 0;
+}
+small, .fs-small{
+  font-size: var(--fs-small);
+  color: var(--fs-faint);
+}
+
+/* Navbar glass (integrated, Swiss) */
 .w-nav{
   position: sticky;
   top: 0;
@@ -1138,34 +1172,32 @@ body{
   -webkit-backdrop-filter: blur(18px);
 }
 
-/* Section rhythm */
+/* Better anchor scrolling */
 section[id]{
+  scroll-margin-top: 96px;
   position: relative;
   isolation: isolate;
   padding-top: var(--fs-section-py);
   padding-bottom: var(--fs-section-py);
-  background: transparent; /* important: no stacking bands */
+  background: transparent;
 }
 
-/* Per-section surface intent (safe selectors via IDs) */
+/* Enable sections by IDs (safe selectors) */
 #services, #process, #areas, #trust-badges, #reviews, #cases, #certs, #faq, #contact, #footer{
   --fs-section-bg: var(--fs-surface);
 }
 
-/* Band-free surface layer INSIDE the section bounds */
+/* Band-free internal surface layer */
 section[id]::before{
   content:"";
   position:absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-
   background: var(--fs-section-bg, transparent);
-  opacity: 1;
   transform: translateZ(0);
 }
 
-/* Preferred: mask-fade (no overlap, no bands) */
 @supports ((-webkit-mask-image: linear-gradient(#000,#000)) or (mask-image: linear-gradient(#000,#000))){
   section[id]::before{
     -webkit-mask-image: linear-gradient(
@@ -1185,7 +1217,6 @@ section[id]::before{
   }
 }
 
-/* Fallback: internal gradient (still inside bounds, avoids overlap outside section) */
 @supports not ((-webkit-mask-image: linear-gradient(#000,#000)) or (mask-image: linear-gradient(#000,#000))){
   section[id]::before{
     background: linear-gradient(
@@ -1198,18 +1229,27 @@ section[id]::before{
   }
 }
 
-/* Content above surface layer */
 section[id] > *{
   position: relative;
   z-index: 1;
 }
 
-/* Ensure hero is clean (no extra bands) */
-#hero{
-  background: transparent !important;
+/* Keep hero clean */
+#hero{ background: transparent !important; }
+
+/* Buttons baseline (system atom) */
+.w-button{
+  border-radius: 999px;
+  box-shadow: var(--fs-sh1);
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.w-button:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--fs-sh2);
+  filter: saturate(1.02);
 }
 
-/* baseline: inputs readable + aligned to radius system */
+/* Inputs baseline */
 .w-input, .w-select, .w-textarea{
   background: rgba(255,255,255,.92);
   border: 1px solid rgba(11,18,32,.12);
@@ -1223,3 +1263,4 @@ section[id] > *{
   border-radius: 10px;
 }
 /* FS_ACTIVE_THEME_END */
+
