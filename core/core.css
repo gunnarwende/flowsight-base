@@ -1050,12 +1050,7 @@ footer{
 
 /* FS_ACTIVE_THEME_START */
 /* Swiss High-End System (Phase A) — Single Source of Truth (EOF)
-   Focus this iteration:
-   - kill dark top band (canvas veil)
-   - enforce background overrides
-   - typographic baseline
-   - navbar glass polish
-   - keep band-free internal section surfaces
+   Focus: remove dark header band + unify nav glass + calm type baseline
 */
 
 :root{
@@ -1067,11 +1062,11 @@ footer{
   --fs-faint: rgba(11,18,32,.56);
   --fs-line: rgba(11,18,32,.10);
 
-  --fs-surface: rgba(255,255,255,.64);
+  /* Subtle surfaces to avoid "layer film" */
+  --fs-surface: rgba(255,255,255,.58);
   --fs-surface-strong: rgba(255,255,255,.82);
 
   --fs-brand: #0E6BFF;
-  --fs-brand-2: #19C2FF;
 
   --fs-container: 1160px;
   --fs-gutter: clamp(16px, 2.4vw, 26px);
@@ -1080,7 +1075,6 @@ footer{
   --fs-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
   --fs-h1: clamp(2.25rem, 1.8vw + 1.6rem, 3.15rem);
   --fs-h2: clamp(1.75rem, 1.1vw + 1.3rem, 2.25rem);
-  --fs-h3: 1.25rem;
   --fs-body: 1rem;
   --fs-small: .92rem;
 
@@ -1096,18 +1090,17 @@ footer{
 
   --fs-fade: clamp(64px, 8vw, 150px);
 
-  --fs-nav-top: rgba(246,248,251,.90);
-  --fs-nav-bot: rgba(246,248,251,.70);
+  /* Light nav glass (Swiss) */
+  --fs-nav-top: rgba(246,248,251,.92);
+  --fs-nav-bot: rgba(246,248,251,.72);
   --fs-nav-border: rgba(11,18,32,.08);
-  --fs-nav-shadow: 0 10px 26px rgba(12,18,32,.09);
+  --fs-nav-shadow: 0 10px 26px rgba(12,18,32,.08);
 }
 
 html, body{ height: 100%; }
 
-/* Force canvas background (overrides legacy css reliably) */
-html{
-  background: var(--fs-bg0) !important;
-}
+/* Force canvas background (override legacy) */
+html{ background: var(--fs-bg0) !important; }
 body{
   margin: 0;
   font-family: var(--fs-font);
@@ -1123,14 +1116,14 @@ body{
   overflow-x: hidden;
 }
 
-/* Kill any dark cap at top by painting a light veil behind header/nav */
+/* Paint a light veil behind the top viewport (kills dark cap from legacy wrappers) */
 body::before{
   content:"";
   position: fixed;
   left: 0; right: 0; top: 0;
-  height: 220px;
+  height: 260px;
   pointer-events: none;
-  z-index: 40; /* below nav (50), above page bg */
+  z-index: 5;
   background: linear-gradient(180deg, var(--fs-bg0) 0%, rgba(246,248,251,0) 100%);
 }
 
@@ -1141,26 +1134,22 @@ body::before{
   padding-right: var(--fs-gutter);
 }
 
-/* Typography baseline (system look, less Webflow-default) */
-h1, h2, h3{
+/* Typography baseline */
+h1, h2{
   color: var(--fs-ink);
   letter-spacing: -0.02em;
-  margin: 0 0 .5rem 0;
+  margin: 0 0 .55rem 0;
 }
 h1{ font-size: var(--fs-h1); line-height: var(--fs-lh-tight); }
 h2{ font-size: var(--fs-h2); line-height: 1.16; }
-h3{ font-size: var(--fs-h3); line-height: 1.22; letter-spacing: -0.01em; }
 
 p{
   color: var(--fs-muted);
   margin: 0 0 1rem 0;
 }
-small, .fs-small{
-  font-size: var(--fs-small);
-  color: var(--fs-faint);
-}
+small{ font-size: var(--fs-small); color: var(--fs-faint); }
 
-/* Navbar glass (integrated, Swiss) */
+/* Navbar: force LIGHT glass + also fix menu/links so it cannot look dark */
 .w-nav{
   position: sticky;
   top: 0;
@@ -1172,7 +1161,22 @@ small, .fs-small{
   -webkit-backdrop-filter: blur(18px);
 }
 
-/* Better anchor scrolling */
+/* Kill any dark menu background (desktop & mobile overlay) */
+.w-nav-menu,
+.w-nav-overlay{
+  background: transparent !important;
+}
+
+/* Nav links: Swiss (dark on light) */
+.w-nav-link{
+  color: rgba(11,18,32,.72) !important;
+  transition: color .16s ease, opacity .16s ease;
+}
+.w-nav-link:hover{
+  color: rgba(11,18,32,.92) !important;
+}
+
+/* Section rhythm + anchor comfort */
 section[id]{
   scroll-margin-top: 96px;
   position: relative;
@@ -1182,7 +1186,7 @@ section[id]{
   background: transparent;
 }
 
-/* Enable sections by IDs (safe selectors) */
+/* Sections with subtle surface */
 #services, #process, #areas, #trust-badges, #reviews, #cases, #certs, #faq, #contact, #footer{
   --fs-section-bg: var(--fs-surface);
 }
@@ -1216,7 +1220,6 @@ section[id]::before{
     );
   }
 }
-
 @supports not ((-webkit-mask-image: linear-gradient(#000,#000)) or (mask-image: linear-gradient(#000,#000))){
   section[id]::before{
     background: linear-gradient(
@@ -1229,15 +1232,12 @@ section[id]::before{
   }
 }
 
-section[id] > *{
-  position: relative;
-  z-index: 1;
-}
+section[id] > *{ position: relative; z-index: 1; }
 
-/* Keep hero clean */
+/* Hero clean */
 #hero{ background: transparent !important; }
 
-/* Buttons baseline (system atom) */
+/* Buttons baseline */
 .w-button{
   border-radius: 999px;
   box-shadow: var(--fs-sh1);
