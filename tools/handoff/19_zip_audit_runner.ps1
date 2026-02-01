@@ -72,7 +72,7 @@ foreach ($m in $idMatches) {
   if (-not $idCounts.ContainsKey($k)) { $idCounts[$k] = 0 }
   $idCounts[$k]++
 }
-$dupIds = $idCounts.GetEnumerator() | Where-Object { $_.Value -gt 1 } | Sort-Object Name
+  $dupIds = @($idCounts.GetEnumerator() | Where-Object { $_.Value -gt 1 } | Sort-Object Name)
 
 # contract checks (minimal + high-signal)
 $needSections = @("hero","services","process","areas","trust-badges","reviews","cases","certs","faq","contact","footer")
@@ -118,7 +118,7 @@ foreach ($s in $needSections) {
 $lines.Add("")
 
 $lines.Add("== DUPLICATE IDs (any element) ==")
-if ($dupIds.Count -eq 0) { $lines.Add("none") } else {
+if (@($dupIds).Count -eq 0) { $lines.Add("none") } else {
   $fail = $true
   foreach ($d in $dupIds) { $lines.Add(("{0} x{1}" -f $d.Name, $d.Value)) }
 }
