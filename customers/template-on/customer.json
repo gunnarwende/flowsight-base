@@ -1,18 +1,4 @@
 {
-  "modules": {
-    "header": true,
-    "hero": true,
-    "services": true,
-    "process": true,
-    "areas": true,
-    "trust_badges": true,
-    "reviews": true,
-    "cases": true,
-    "certs": true,
-    "faq": true,
-    "contact": true,
-    "footer": true
-  },
   "business": {
     "name": "Beispiel Sanitär & Spenglerei AG",
     "region_label": "Kanton Zürich • Zürich & Umgebung",
@@ -32,84 +18,77 @@
   },
   "services": {
     "items": [
-      { "title": "Rohrbruch / Leckortung", "description": "Schnelle Lecksuche, Abdichtung, provisorische Sofortmassnahmen." },
-      { "title": "Abfluss verstopft", "description": "Küche, Bad, WC – professionell reinigen, ohne Pfuschlösungen." },
-      { "title": "Wasserschaden", "description": "Sofortmassnahmen, Koordination, Dokumentation für Versicherung." },
-      { "title": "Boiler / Warmwasser", "description": "Reparatur, Austausch, Wartung." },
-      { "title": "Armaturen / WC", "description": "Montage, Reparatur, Dichtungen, Spülungen." },
-      { "title": "Sanitär-Service", "description": "Unterhalt, kleine Umbauten, schnelle Einsätze." }
+      { "title": "Rohrbruch / Leckortung", "label": "Rohrbruch / Leckortung", "name": "Rohrbruch / Leckortung", "description": "Schnelle Lecksuche, Abdichtung, provisorische Sofortmassnahmen.", "text": "Schnelle Lecksuche, Abdichtung, provisorische Sofortmassnahmen." },
+      { "title": "Abfluss verstopft", "label": "Abfluss verstopft", "name": "Abfluss verstopft", "description": "Küche, Bad, WC – professionell reinigen, ohne Pfuschlösungen.", "text": "Küche, Bad, WC – professionell reinigen, ohne Pfuschlösungen." },
+      { "title": "Wasserschaden", "label": "Wasserschaden", "name": "Wasserschaden", "description": "Sofortmassnahmen, Koordination, Dokumentation für Versicherung.", "text": "Sofortmassnahmen, Koordination, Dokumentation für Versicherung." },
+      { "title": "Boiler / Warmwasser", "label": "Boiler / Warmwasser", "name": "Boiler / Warmwasser", "description": "Reparatur, Austausch, Wartung.", "text": "Reparatur, Austausch, Wartung." },
+      { "title": "Armaturen / WC", "label": "Armaturen / WC", "name": "Armaturen / WC", "description": "Montage, Reparatur, Dichtungen, Spülungen.", "text": "Montage, Reparatur, Dichtungen, Spülungen." },
+      { "title": "Sanitär-Service", "label": "Sanitär-Service", "name": "Sanitär-Service", "description": "Unterhalt, kleine Umbauten, schnelle Einsätze.", "text": "Unterhalt, kleine Umbauten, schnelle Einsätze." }
     ]
   },
-
   "process": {
     "headline": "So läuft’s ab",
     "subline": "Transparent, sauber, termintreu.",
     "items": [
-      { "title": "Kontakt", "text": "Kurz schildern – wir klären die nächsten Schritte." },
-      { "title": "Termin / Einsatz", "text": "Wir kommen vorbereitet – Notfall oder geplant." },
-      { "title": "Ausführung", "text": "Saubere Arbeit, klare Kommunikation." },
-      { "title": "Abnahme", "text": "Funktion geprüft, alles dokumentiert." }
-    ],
-    "steps": [
-      { "title": "Kontakt", "text": "Kurz schildern – wir klären die nächsten Schritte." },
-      { "title": "Termin / Einsatz", "text": "Wir kommen vorbereitet – Notfall oder geplant." },
-      { "title": "Ausführung", "text": "Saubere Arbeit, klare Kommunikation." },
-      { "title": "Abnahme", "text": "Funktion geprüft, alles dokumentiert." }
+      { "title": "Kontakt", "label": "Kontakt", "name": "Kontakt", "text": "Kurz schildern – wir klären die nächsten Schritte.", "description": "Kurz schildern – wir klären die nächsten Schritte." },
+      { "title": "Termin / Einsatz", "label": "Termin / Einsatz", "name": "Termin / Einsatz", "text": "Wir kommen vorbereitet – Notfall oder geplant.", "description": "Wir kommen vorbereitet – Notfall oder geplant." },
+      { "title": "Ausführung", "label": "Ausführung", "name": "Ausführung", "text": "Saubere Arbeit, klare Kommunikation.", "description": "Saubere Arbeit, klare Kommunikation." },
+      { "title": "Abnahme", "label": "Abnahme", "name": "Abnahme", "text": "Funktion geprüft, alles dokumentiert.", "description": "Funktion geprüft, alles dokumentiert." }
     ]
   },
-
   "areas": {
     "headline": "Einsatzgebiet",
     "subline": "Zürich und Umgebung.",
-    "items": [ "Zürich", "Winterthur", "Uster", "Horgen", "Wädenswil", "Küsnacht" ]
+    "items": [
+      { "title": "Zürich", "label": "Zürich", "name": "Zürich", "text": "Zürich" },
+      { "title": "Winterthur", "label": "Winterthur", "name": "Winterthur", "text": "Winterthur" },
+      { "title": "Uster", "label": "Uster", "name": "Uster", "text": "Uster" },
+      { "title": "Horgen", "label": "Horgen", "name": "Horgen", "text": "Horgen" },
+      { "title": "Wädenswil", "label": "Wädenswil", "name": "Wädenswil", "text": "Wädenswil" },
+      { "title": "Küsnacht", "label": "Küsnacht", "name": "Küsnacht", "text": "Küsnacht" }
+    ]
   },
-
   "trust": {
     "reviews": {
       "headline": "Bewertungen aus der Region",
       "items": [
-        { "author": "A. M.", "text": "Sehr schnell vor Ort, sauber gearbeitet, faire Kosten." },
-        { "author": "M. K.", "text": "Notfall am Sonntag – freundlich, kompetent, Problem gelöst." }
+        { "author": "A. M.", "name": "A. M.", "title": "A. M.", "text": "Sehr schnell vor Ort, sauber gearbeitet, faire Kosten." },
+        { "author": "M. K.", "name": "M. K.", "title": "M. K.", "text": "Notfall am Sonntag – freundlich, kompetent, Problem gelöst." }
       ]
     }
   },
-
   "cases": {
     "headline": "Ausgewählte Projekte",
     "subline": "Vorher / Nachher – sauber dokumentiert.",
     "items": [
       {
         "title": "Badumbau – Dusche",
+        "label": "Badumbau – Dusche",
+        "name": "Badumbau – Dusche",
         "subline": "Sauber umgesetzt, klar dokumentiert.",
+        "description": "Sauber umgesetzt, klar dokumentiert.",
         "photos": [
-          { "src": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80", "alt": "Bad vorher" },
-          { "src": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80", "alt": "Bad nachher" },
-          { "src": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80", "alt": "Detail" }
+          { "src": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80", "url": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80", "image": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80", "alt": "Vorher" },
+          { "src": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80", "url": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80", "image": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80", "alt": "Nachher" },
+          { "src": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80", "url": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80", "image": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80", "alt": "Detail" }
         ]
       }
     ]
   },
-
   "certs": {
     "headline": "Zertifikate & Partner",
     "items": [
-      { "title": "Zertifikat/Partner 1" },
-      { "title": "Zertifikat/Partner 2" }
+      { "title": "Zertifikat/Partner 1", "label": "Zertifikat/Partner 1", "name": "Zertifikat/Partner 1", "text": "Zertifikat/Partner 1" },
+      { "title": "Zertifikat/Partner 2", "label": "Zertifikat/Partner 2", "name": "Zertifikat/Partner 2", "text": "Zertifikat/Partner 2" }
     ]
   },
-
   "faq": {
     "headline": "Häufige Fragen",
     "items": [
-      { "q": "Sind Sie 24/7 erreichbar?", "a": "Für Notfälle sind wir rund um die Uhr erreichbar." },
-      { "q": "Wie schnell sind Sie vor Ort?", "a": "Je nach Lage – wir geben am Telefon eine realistische Einschätzung." }
-    ],
-    "questions": [
-      { "q": "Sind Sie 24/7 erreichbar?", "a": "Für Notfälle sind wir rund um die Uhr erreichbar." },
-      { "q": "Wie schnell sind Sie vor Ort?", "a": "Je nach Lage – wir geben am Telefon eine realistische Einschätzung." }
+      { "q": "Sind Sie 24/7 erreichbar?", "question": "Sind Sie 24/7 erreichbar?", "title": "Sind Sie 24/7 erreichbar?", "a": "Für Notfälle sind wir rund um die Uhr erreichbar.", "answer": "Für Notfälle sind wir rund um die Uhr erreichbar.", "text": "Für Notfälle sind wir rund um die Uhr erreichbar." },
+      { "q": "Wie schnell sind Sie vor Ort?", "question": "Wie schnell sind Sie vor Ort?", "title": "Wie schnell sind Sie vor Ort?", "a": "Je nach Lage – wir geben am Telefon eine realistische Einschätzung.", "answer": "Je nach Lage – wir geben am Telefon eine realistische Einschätzung.", "text": "Je nach Lage – wir geben am Telefon eine realistische Einschätzung." }
     ]
   },
-
   "contact": {
     "form": { "headline": "Kontakt & Soforthilfe" },
     "phones": {
@@ -120,7 +99,6 @@
     "opening_hours": { "label": "Mo–Fr 08:00–17:00 • Notfall 24/7" },
     "map": { "embed_url": "https://www.google.com/maps/embed?pb=!1m18..." }
   },
-
   "links": {
     "google_review": "https://search.google.com/local/writereview?placeid=PLACE_ID_HERE"
   },
