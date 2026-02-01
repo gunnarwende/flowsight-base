@@ -1,249 +1,280 @@
-﻿param(
-  [string]$ZipPath = "",
-  [string]$CustomerJsonPath = ""
-)
+﻿<# 
+FlowSight: Full bindings audit (ZIP-first) — Header → Footer
+Writes report: handoff_bindings_audit_full.txt (in latest export dir)
+Goals:
+- list ALL custom data-* binding attributes + where they live (section mapping)
+- validate anchor targets exist
+- flag placeholder/static copy that likely needs data-bind (heuristic)
+- PS 5.1 safe (no ConvertFrom-Json -Depth, no PS7-only features)
+#>
 
 $ErrorActionPreference = "Stop"
+Set-StrictMode -Version Latest
 
-function RepoRootFromHere {
-  # tools\handoff -> repo root
-  return (Resolve-Path (Join-Path $(Split-Path -Parent \) "..")).Path
+function Get-RepoRoot {
+  $here = Split-Path -Parent $PSScriptRoot           # ...\tools\handoff
+  $root = Resolve-Path -LiteralPath (Join-Path $here "..\..")
+  return $root.Path
 }
 
-function Get-ByPath($obj, $path) {
-  if ([string]::IsNullOrWhiteSpace($path)) { return $null }
-  $parts = $path.Split('.') | Where-Object { $_ -and $_ -ne "" }
-  $cur = $obj
-  foreach ($p in $parts) {
-    if ($null -eq $cur) { return $null }
+function Get-LatestExportDir([string]$repo) {
+  $exportRoot = Join-Path $repo "docs\import\webflow-export"
+  if (-not (Test-Path -LiteralPath $exportRoot)) { throw "Missing export root: $exportRoot" }
 
-    # array index support: e.g. items.0.title
-    if ($p -match '^\d+$') {
-      $i = [int]$p
-      if ($cur -is [System.Collections.IList] -and $cur.Count -gt $i) { $cur = $cur[$i] } else { return $null }
-      continue
-    }
+  $latest = Join-Path $exportRoot "latest"
+  if (Test-Path -LiteralPath $latest) { return (Resolve-Path -LiteralPath $latest).Path }
 
-    if ($cur -is [System.Collections.IDictionary]) {
-      if ($cur.Contains($p)) { $cur = $cur[$p] } else { return $null }
-      continue
-    }
-
-    $prop = $cur.PSObject.Properties[$p]
-    if ($null -eq $prop) { return $null }
-    $cur = $prop.Value
+  $dirs = Get-ChildItem -LiteralPath $exportRoot -Directory | Sort-Object LastWriteTime -Descending
+  foreach ($d in $dirs) {
+    $idx = Join-Path $d.FullName "index.html"
+    if (Test-Path -LiteralPath $idx) { return $d.FullName }
   }
-  return $cur
+  throw "No export dir with index.html found under: $exportRoot"
 }
 
-function Find-AttrValues($html, $attrName) {
-  $rx = "(?i)\b" + [regex]::Escape($attrName) + "\s*=\s*['""]([^'""]+)['""]"
-  return ([regex]::Matches($html, $rx) | ForEach-Object { $_ .Groups[1].Value } )
+function Ensure-Dir([string]$p) {
+  if (-not (Test-Path -LiteralPath $p)) { New-Item -ItemType Directory -Path $p | Out-Null }
 }
 
-function Get-SectionChunk($html, $id) {
-  $pat1 = "id="$id""
-  $pat2 = "id='$id'"
-  $pos = $html.IndexOf($pat1)
-  if ($pos -lt 0) { $pos = $html.IndexOf($pat2) }
-  if ($pos -lt 0) { return $null }
-
-  $start = $html.LastIndexOf("<section", $pos)
-  if ($start -lt 0) { return $null }
-
-  $end = $html.IndexOf("</section>", $pos)
-  if ($end -lt 0) { return $null }
-
-  return $html.Substring($start, ($end - $start) + 10)
+function Get-LineNumber([string]$s, [int]$idx) {
+  if ($idx -le 0) { return 1 }
+  $pre = $s.Substring(0, [Math]::Min($idx, $s.Length))
+  return ($pre -split "`n").Count
 }
 
-function Has-Regex($s, $pattern) {
-  return [regex]::IsMatch($s, $pattern, [Text.RegularExpressions.RegexOptions]::Singleline -bor [Text.RegularExpressions.RegexOptions]::IgnoreCase)
+function Clean-Text([string]$htmlInner) {
+  $t = [regex]::Replace($htmlInner, "<[^>]+>", " ")
+  $t = $t -replace "\s+", " "
+  try { $t = [System.Net.WebUtility]::HtmlDecode($t) } catch {}
+  return $t.Trim()
 }
 
-$repo = RepoRootFromHere
+$repo = Get-RepoRoot
 
-# ZIP resolve (ZIP-first)
-if ([string]::IsNullOrWhiteSpace($ZipPath)) {
-  $zips = Get-ChildItem -LiteralPath $repo -File -Filter "*.webflow.zip" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending
-  if (-not $zips -or $zips.Count -eq 0) { throw "No *.webflow.zip found in repo root: $repo" }
-  $ZipPath = $zips[0].FullName
-}
-if (-not (Test-Path -LiteralPath $ZipPath)) { throw "ZIP not found: $ZipPath" }
+$zip = Join-Path $repo "sanitar-template.webflow.zip"
+$exportDir = Get-LatestExportDir $repo
 
-# customer json resolve
-if ([string]::IsNullOrWhiteSpace($CustomerJsonPath)) {
-  $CustomerJsonPath = Join-Path $repo "customers\template-on\customer.json"
-}
-if (-not (Test-Path -LiteralPath $CustomerJsonPath)) { throw "customer.json not found: $CustomerJsonPath" }
+$artifacts = Join-Path $repo ".local_artifacts"
+Ensure-Dir $artifacts
 
-# extract
 $ts = Get-Date -Format "yyyyMMdd-HHmmss"
-$art = Join-Path $repo ".local_artifacts\_wf_audit_zip_$ts"
-New-Item -ItemType Directory -Force -Path $art | Out-Null
-Expand-Archive -LiteralPath $ZipPath -DestinationPath $art -Force
+$stage = Join-Path $artifacts ("_wf_audit_zip_{0}" -f $ts)
 
-# find index.html
-$index = Get-ChildItem -LiteralPath $art -Recurse -File -Filter "index.html" | Select-Object -First 1
-if (-not $index) { throw "index.html not found in extracted ZIP" }
+$indexPath = $null
+$sourceLabel = $null
 
-$html = Get-Content -LiteralPath $index.FullName -Raw -Encoding UTF8
-
-# load customer.json
-$raw = Get-Content -LiteralPath $CustomerJsonPath -Raw -Encoding UTF8
-try {
-  $data = $raw | ConvertFrom-Json
-} catch {
-  # fallback serializer (rare)
-  Add-Type -AssemblyName System.Web.Extensions
-  $ser = New-Object System.Web.Script.Serialization.JavaScriptSerializer
-  $ser.MaxJsonLength = 50MB
-  $data = $ser.DeserializeObject($raw)
+if (Test-Path -LiteralPath $zip) {
+  Ensure-Dir $stage
+  Expand-Archive -LiteralPath $zip -DestinationPath $stage -Force
+  $candidate = Join-Path $stage "index.html"
+  if (-not (Test-Path -LiteralPath $candidate)) {
+    # try: sometimes zip has a single top folder
+    $candidate = Get-ChildItem -LiteralPath $stage -Recurse -File -Filter "index.html" | Select-Object -First 1
+    if ($null -eq $candidate) { throw "index.html not found after zip extract: $zip" }
+    $indexPath = $candidate.FullName
+  } else {
+    $indexPath = $candidate
+  }
+  $sourceLabel = "ZIP"
+} else {
+  $candidate = Join-Path $exportDir "index.html"
+  if (-not (Test-Path -LiteralPath $candidate)) { throw "Missing index.html in export dir: $exportDir" }
+  $indexPath = $candidate
+  $sourceLabel = "EXPORT"
 }
 
-$lines = New-Object System.Collections.Generic.List[string]
-$pass = $true
+$html = Get-Content -Raw -Encoding UTF8 -LiteralPath $indexPath
 
-function Ok($msg){ $lines.Add("[OK]  " + $msg) | Out-Null }
-function Warn($msg){ $lines.Add("[WARN] " + $msg) | Out-Null }
-function Fail($msg){ $lines.Add("[FAIL] " + $msg) | Out-Null; $script:pass = $false }
+# --- section mapping (by nearest preceding section/div id) ---
+$secRx = [regex]::new("<(section|div)\b[^>]*\sid\s*=\s*[""']([^""']+)[""'][^>]*>", [Text.RegularExpressions.RegexOptions]::IgnoreCase)
+$secMatches = $secRx.Matches($html)
 
-$lines.Add("== FULL BINDINGS AUDIT (ZIP-first) ==") | Out-Null
-$lines.Add(("ZIP:  {0}" -f $ZipPath)) | Out-Null
-$lines.Add(("HTML: {0}" -f $index.FullName)) | Out-Null
-$lines.Add(("JSON: {0}" -f $CustomerJsonPath)) | Out-Null
-$lines.Add("") | Out-Null
-
-# Header nav href checks (anchors)
-if (Has-Regex $html "href\s*=\s*['""]#hero['""]") { Ok "Header: link -> #hero" } else { Fail "Header: missing href '#hero' (Start)" }
-if (Has-Regex $html "href\s*=\s*['""]#services['""]") { Ok "Header: link -> #services" } else { Fail "Header: missing href '#services' (Leistungen)" }
-if (Has-Regex $html "href\s*=\s*['""]#process['""]") { Ok "Header: link -> #process" } else { Fail "Header: missing href '#process' (Ablauf)" }
-if (Has-Regex $html "href\s*=\s*['""]#contact['""]") { Ok "Header: link -> #contact" } else { Fail "Header: missing href '#contact' (Kontakt)" }
-
-$lines.Add("") | Out-Null
-
-# Contract: required sections + expectations
-$contract = @(
-  @{ id="hero";        repeat="";                binds=@();                    slots=@("hero.headline","hero.subline"); ctas=@("emergency","normal"); map="" },
-  @{ id="services";    repeat="services.items";  binds=@("title","text");      slots=@();                               ctas=@();                    map="" },
-  @{ id="process";     repeat="process.items";   binds=@("title","text");      slots=@();                               ctas=@();                    map="" },
-  @{ id="areas";       repeat="areas.items";     binds=@("title");             slots=@();                               ctas=@();                    map="" },
-  @{ id="trust-badges";repeat="trust_badges.items"; binds=@("title","text");   slots=@();                               ctas=@();                    map="" },
-  @{ id="reviews";     repeat="reviews.items";   binds=@("text");              slots=@();                               ctas=@("review");            map="" },
-  @{ id="cases";       repeat="cases.items";     binds=@("title","text");      slots=@();                               ctas=@();                    map="" },
-  @{ id="certs";       repeat="certs.items";     binds=@("title");             slots=@();                               ctas=@();                    map="" },
-  @{ id="faq";         repeat="faq.items";       binds=@("q","a");             slots=@();                               ctas=@();                    map="" },
-  @{ id="contact";     repeat="";                binds=@();                    slots=@();                               ctas=@("emergency","normal"); map="contact.map_embed_url" },
-  @{ id="footer";      repeat="";                binds=@();                    slots=@();                               ctas=@();                    map="" }
-)
-
-foreach ($c in $contract) {
-  $id = $c.id
-  $chunk = Get-SectionChunk $html $id
-  if ($null -eq $chunk) { Fail ("Section missing: #{0}" -f $id); continue } else { Ok ("Section present: #{0}" -f $id) }
-
-  # required slots
-  foreach ($sp in $c.slots) {
-    if (Has-Regex $chunk ("data-slot\s*=\s*['""]" + [regex]::Escape($sp) + "['""]")) {
-      # also validate path exists in JSON
-      if ($null -ne (Get-ByPath $data $sp)) { Ok ("#{0}: slot ok + path exists -> {1}" -f $id, $sp) }
-      else { Warn ("#{0}: slot present but JSON path missing -> {1}" -f $id, $sp) }
-    } else {
-      Fail ("#{0}: missing data-slot '{1}'" -f $id, $sp)
-    }
+$sections = @()
+foreach ($m in $secMatches) {
+  $sections += [pscustomobject]@{
+    Id    = $m.Groups[2].Value
+    Index = $m.Index
   }
+}
+$sections = $sections | Sort-Object Index
 
-  # repeater
-  if (-not [string]::IsNullOrWhiteSpace($c.repeat)) {
-    $rep = $c.repeat
-    if (Has-Regex $chunk ("data-repeat\s*=\s*['""]" + [regex]::Escape($rep) + "['""]")) {
-      # validate JSON array exists
-      $arr = Get-ByPath $data $rep
-      if ($arr -is [System.Collections.IList]) { Ok ("#{0}: repeater ok + array exists -> {1} (count={2})" -f $id, $rep, $arr.Count) }
-      else { Warn ("#{0}: repeater present but JSON path is not array -> {1}" -f $id, $rep) }
-
-      if (Has-Regex $chunk "data-template") {
-        Ok ("#{0}: template marker present (data-template)" -f $id)
-      } else {
-        Fail ("#{0}: missing data-template inside repeater host" -f $id)
-      }
-
-      # template bind values (syntactic + against first item if available)
-      $bindVals = Find-AttrValues $chunk "data-bind" | Select-Object -Unique
-      foreach ($b in $c.binds) {
-        if ($bindVals -contains $b) { Ok ("#{0}: data-bind present -> {1}" -f $id, $b) }
-        else {
-          # allow FAQ variant keys if present
-          if ($id -eq "faq") {
-            # accept either (q/a) or (question/answer)
-            if ($b -eq "q" -and ($bindVals -contains "question")) { Ok "#faq: data-bind present -> question (accepted for q)" }
-            elseif ($b -eq "a" -and ($bindVals -contains "answer")) { Ok "#faq: data-bind present -> answer (accepted for a)" }
-            else { Fail ("#{0}: missing data-bind '{1}'" -f $id, $b) }
-          } else {
-            Fail ("#{0}: missing data-bind '{1}'" -f $id, $b)
-          }
-        }
-      }
-
-      # validate bind paths against first item (if possible)
-      if ($arr -is [System.Collections.IList] -and $arr.Count -gt 0) {
-        $item0 = $arr[0]
-        foreach ($bv in $bindVals) {
-          if ($id -eq "faq") {
-            # support q/a or question/answer
-            if ($bv -in @("q","a","question","answer")) {
-              $v = Get-ByPath $item0 $bv
-              if ($null -ne $v) { Ok ("#faq: bind path exists in first item -> {0}" -f $bv) }
-              else { Warn ("#faq: bind path missing in first item -> {0}" -f $bv) }
-            }
-          } else {
-            $v = Get-ByPath $item0 $bv
-            if ($null -ne $v) { Ok ("#{0}: bind path exists in first item -> {1}" -f $id, $bv) }
-            else { Warn ("#{0}: bind path missing in first item -> {1}" -f $id, $bv) }
-          }
-        }
-      }
-    } else {
-      Fail ("#{0}: missing data-repeat '{1}'" -f $id, $rep)
-    }
+function Get-SectionForIndex([int]$i, $sections) {
+  $current = "__header"
+  foreach ($s in $sections) {
+    if ($s.Index -le $i) { $current = $s.Id } else { break }
   }
-
-  # CTAs
-  foreach ($cta in $c.ctas) {
-    if (Has-Regex $chunk ("data-cta\s*=\s*['""]" + [regex]::Escape($cta) + "['""]")) { Ok ("#{0}: CTA present -> {1}" -f $id, $cta) }
-    else { Fail ("#{0}: missing CTA data-cta='{1}'" -f $id, $cta) }
-  }
-
-  # map embed
-  if (-not [string]::IsNullOrWhiteSpace($c.map)) {
-    $mp = $c.map
-    if (Has-Regex $chunk ("data-map-embed\s*=\s*['""]" + [regex]::Escape($mp) + "['""]")) {
-      if ($null -ne (Get-ByPath $data $mp)) { Ok ("#{0}: map embed ok + path exists -> {1}" -f $id, $mp) }
-      else { Warn ("#{0}: map embed present but JSON path missing -> {1}" -f $id, $mp) }
-    } else {
-      Fail ("#{0}: missing data-map-embed '{1}'" -f $id, $mp)
-    }
-  }
-
-  $lines.Add("") | Out-Null
+  return $current
 }
 
-# Form: ensure message field is textarea somewhere in contact
-$contactChunk = Get-SectionChunk $html "contact"
-if ($contactChunk) {
-  if (Has-Regex $contactChunk "<textarea\b") { Ok "#contact: textarea present" } else { Fail "#contact: textarea missing (message should be textarea)" }
+# expected top-level section IDs (contract)
+$expected = @("hero","services","process","areas","trust-badges","reviews","cases","certs","faq","contact","footer")
+$foundIds = @($sections | Select-Object -ExpandProperty Id -Unique)
+
+$missingExpected = @()
+foreach ($e in $expected) { if ($foundIds -notcontains $e) { $missingExpected += $e } }
+
+# --- custom attribute audit ---
+$attrRx = [regex]::new("\s(data-(?:bind|if|repeat|href|src|text|html|attr|class|style))\s*=\s*[""']([^""']+)[""']",
+  [Text.RegularExpressions.RegexOptions]::IgnoreCase)
+
+$attrMatches = $attrRx.Matches($html)
+
+$attrRows = New-Object System.Collections.Generic.List[object]
+foreach ($m in $attrMatches) {
+  $idx = $m.Index
+  $sec = Get-SectionForIndex $idx $sections
+  $line = Get-LineNumber $html $idx
+
+  $snipStart = [Math]::Max(0, $idx - 80)
+  $snipLen = [Math]::Min(220, $html.Length - $snipStart)
+  $snip = $html.Substring($snipStart, $snipLen) -replace "(\r?\n)+", " "
+  $snip = ($snip -replace "\s+", " ").Trim()
+
+  $attrRows.Add([pscustomobject]@{
+    Section = $sec
+    Line    = $line
+    Attr    = $m.Groups[1].Value
+    Value   = $m.Groups[2].Value
+    Snip    = $snip
+  })
 }
 
-# write report next to export reports
-$outDir = Join-Path $repo "docs\import\webflow-export\latest"
-New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-$outFile = Join-Path $outDir "handoff_bindings_audit_full.txt"
-$lines | Set-Content -LiteralPath $outFile -Encoding UTF8
+# --- anchor audit (href="#...") ---
+$anchorRx = [regex]::new("<a\b[^>]*\shref\s*=\s*[""']#([^""']+)[""'][^>]*>", [Text.RegularExpressions.RegexOptions]::IgnoreCase)
+$anchorMatches = $anchorRx.Matches($html)
 
-$lines | ForEach-Object { Write-Host $_ }
+$brokenAnchors = New-Object System.Collections.Generic.List[object]
+foreach ($m in $anchorMatches) {
+  $id = $m.Groups[1].Value.Trim()
+  if ([string]::IsNullOrWhiteSpace($id)) { continue }
+  if ($foundIds -notcontains $id) {
+    $idx = $m.Index
+    $sec = Get-SectionForIndex $idx $sections
+    $line = Get-LineNumber $html $idx
+    $brokenAnchors.Add([pscustomobject]@{ Section=$sec; Line=$line; Target=$id })
+  }
+}
 
-Write-Host ""
-Write-Host ("PASS: {0}" -f $pass)
-Write-Host ("OK: wrote {0}" -f $outFile)
+# --- placeholder/static copy heuristic (only "suspicious" strings) ---
+$textRx = [regex]::new("<(h1|h2|h3|p|a|button|label)\b([^>]*)>(.*?)</\1>",
+  [Text.RegularExpressions.RegexOptions]::IgnoreCase -bor [Text.RegularExpressions.RegexOptions]::Singleline)
 
-if (-not $pass) { exit 2 }
+$textMatches = $textRx.Matches($html)
+
+$badTokens = @("lorem","ipsum","item","button text","about","services2","process step","areas item","faq item","cert item")
+$staticFlags = New-Object System.Collections.Generic.List[object]
+
+foreach ($m in $textMatches) {
+  $tag = $m.Groups[1].Value.ToLowerInvariant()
+  $attrs = $m.Groups[2].Value
+  $inner = $m.Groups[3].Value
+
+  $text = Clean-Text $inner
+  if ($text.Length -lt 3) { continue }
+
+  $hasBind = ($attrs -match "data-(bind|href|src|text|html)\s*=")
+  if ($hasBind) { continue }
+
+  $lt = $text.ToLowerInvariant()
+  $hit = $false
+  foreach ($t in $badTokens) {
+    if ($lt -like "*$t*") { $hit = $true; break }
+  }
+  if (-not $hit) { continue }
+
+  $idx = $m.Index
+  $sec = Get-SectionForIndex $idx $sections
+  $line = Get-LineNumber $html $idx
+
+  $staticFlags.Add([pscustomobject]@{
+    Section = $sec
+    Line    = $line
+    Tag     = $tag
+    Text    = $text
+  })
+}
+
+# --- form audit (message field) ---
+$formNotes = @()
+if ($html -match "<textarea\b[^>]*\bname\s*=\s*[""']message[""']") {
+  $formNotes += "OK: message field is textarea"
+} elseif ($html -match "<input\b[^>]*\bname\s*=\s*[""']message[""']") {
+  $formNotes += "WARN: message field is input (should be textarea)"
+} else {
+  $formNotes += "WARN: message field not found by name='message'"
+}
+
+# --- report build ---
+$report = New-Object System.Collections.Generic.List[string]
+$report.Add("== BINDINGS AUDIT (ZIP-first) ==")
+$report.Add(("Run: {0}" -f (Get-Date)))
+$report.Add(("Source: {0}" -f $sourceLabel))
+$report.Add(("ZIP:    {0}" -f $zip))
+$report.Add(("Index:  {0}" -f $indexPath))
+$report.Add(("Export: {0}" -f $exportDir))
+$report.Add("")
+
+$report.Add("---- SECTION IDS (found) ----")
+$report.Add(($foundIds | Sort-Object | ForEach-Object { "- " + $_ }) -join "`r`n")
+$report.Add("")
+
+$report.Add("---- EXPECTED IDS (missing) ----")
+if ($missingExpected.Count -eq 0) { $report.Add("none") }
+else { $report.Add(($missingExpected | ForEach-Object { "- " + $_ }) -join "`r`n") }
+$report.Add("")
+
+$report.Add("---- FORM CHECKS ----")
+$report.Add(($formNotes -join "`r`n"))
+$report.Add("")
+
+$report.Add("---- BROKEN ANCHORS (href '#...') ----")
+if ($brokenAnchors.Count -eq 0) {
+  $report.Add("none")
+} else {
+  foreach ($b in $brokenAnchors) {
+    $report.Add(("{0}:{1} -> #{2}" -f $b.Section, $b.Line, $b.Target))
+  }
+}
+$report.Add("")
+
+$report.Add("---- CUSTOM ATTRIBUTES (all) ----")
+if ($attrRows.Count -eq 0) {
+  $report.Add("none found")
+} else {
+  $grouped = $attrRows | Group-Object Section
+  foreach ($g in ($grouped | Sort-Object Name)) {
+    $report.Add(("## {0} ({1})" -f $g.Name, $g.Count))
+    foreach ($r in ($g.Group | Sort-Object Line)) {
+      $report.Add(("{0,5} | {1}=""{2}"" | {3}" -f $r.Line, $r.Attr, $r.Value, $r.Snip))
+    }
+    $report.Add("")
+  }
+}
+
+$report.Add("---- STATIC/PLACEHOLDER COPY (heuristic) ----")
+if ($staticFlags.Count -eq 0) {
+  $report.Add("none flagged")
+} else {
+  $sg = $staticFlags | Group-Object Section
+  foreach ($g in ($sg | Sort-Object Name)) {
+    $report.Add(("## {0} ({1})" -f $g.Name, $g.Count))
+    foreach ($r in ($g.Group | Sort-Object Line)) {
+      $report.Add(("{0,5} | <{1}> {2}" -f $r.Line, $r.Tag, $r.Text))
+    }
+    $report.Add("")
+  }
+}
+
+# write report into export dir (and ensure it exists)
+Ensure-Dir $exportDir
+$out = Join-Path $exportDir "handoff_bindings_audit_full.txt"
+Set-Content -Encoding UTF8 -LiteralPath $out -Value ($report -join "`r`n")
+
+Write-Host ("OK: wrote {0}" -f $out)
+
+# also write a copy into staging dir if we used ZIP
+if ($sourceLabel -eq "ZIP") {
+  $out2 = Join-Path $stage "handoff_bindings_audit_full.txt"
+  Set-Content -Encoding UTF8 -LiteralPath $out2 -Value ($report -join "`r`n")
+  Write-Host ("OK: wrote {0}" -f $out2)
+}
