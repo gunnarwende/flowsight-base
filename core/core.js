@@ -353,3 +353,54 @@ function routeCTAs(root, data){
     boot();
   }
 })();
+
+/* FS_FAST_ANCHORS_START */
+/* Fast anchor navigation (prevents Webflow smooth-scroll lag)
+   - intercepts internal hash links early (capture)
+   - scrolls instantly with sticky-nav offset
+   Optional:
+   window.FLOWSIGHT_SCROLL_BEHAVIOR = "smooth" | "auto" (default auto)
+*/
+(function(){
+  'use strict';
+
+  function getNavOffset(){
+    var nav = document.querySelector('.w-nav');
+    var h = nav ? nav.offsetHeight : 0;
+    return Math.max(0, h + 12);
+  }
+
+  function onClick(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+
+    var href = a.getAttribute('href');
+    if (!href || href === '#') return;
+
+    var id = href.slice(1);
+    var target = document.getElementById(id);
+    if (!target) return;
+
+    // override Webflow scroll handlers
+    e.preventDefault();
+    e.stopPropagation();
+
+    // close mobile nav if open
+    var openBtn = document.querySelector('.w-nav-button.w--open');
+    if (openBtn) { try { openBtn.click(); } catch(_){} }
+
+    var offset = getNavOffset();
+    var top = target.getBoundingClientRect().top + (window.pageYOffset || 0) - offset;
+    if (top < 0) top = 0;
+
+    var behavior = (window.FLOWSIGHT_SCROLL_BEHAVIOR || 'auto');
+    window.scrollTo({ top: top, behavior: behavior === 'smooth' ? 'smooth' : 'auto' });
+
+    // keep URL hash (without triggering default jump)
+    try { history.pushState(null, '', href); } catch(_){}
+  }
+
+  // capture = true so we win against Webflow handlers
+  document.addEventListener('click', onClick, true);
+})();
+/* FS_FAST_ANCHORS_END */

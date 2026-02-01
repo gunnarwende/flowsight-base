@@ -1,248 +1,102 @@
 {
-    "business":  {
-                     "name":  "Beispiel Sanitär \u0026 Spenglerei AG",
-                     "region_label":  "Kanton Zürich • Region",
-                     "brand":  {
-                                   "logo":  {
-                                                "src":  "https://example.com/logo.svg"
-                                            }
-                               }
-                 },
-    "hero":  {
-                 "headline":  "24/7 Sanitär-Notfall in Zürich \u0026 Umgebung",
-                 "subline":  "Soforthilfe bei Rohrbruch, verstopften Abflüssen, Wasserschaden – schnell vor Ort, transparent, sauber.",
-                 "trust_badges":  [
-                                      {
-                                          "label":  "24/7 Notfall"
-                                      },
-                                      {
-                                          "label":  "Schnell vor Ort"
-                                      },
-                                      {
-                                          "label":  "Transparente Preise"
-                                      },
-                                      {
-                                          "label":  "Top Bewertungen"
-                                      }
-                                  ]
-             },
-    "services":  {
-                     "header":  {
-                                    "eyebrow":  "Leistungen",
-                                    "headline":  "Sanitär \u0026 Spenglerei",
-                                    "subline":  "Notfall und geplante Arbeiten – zuverlässig und sauber umgesetzt."
-                                },
-                     "items":  [
-                                   {
-                                       "description":  "Schnelle Lecksuche, Abdichtung, provisorische Sofortmassnahmen.",
-                                       "title":  "Rohrbruch / Leckortung"
-                                   },
-                                   {
-                                       "description":  "Küche, Bad, WC – professionell reinigen, ohne Pfuschlösungen.",
-                                       "title":  "Abfluss verstopft"
-                                   },
-                                   {
-                                       "description":  "Sofortmassnahmen, Koordination, Dokumentation für Versicherung.",
-                                       "title":  "Wasserschaden"
-                                   },
-                                   {
-                                       "description":  "Reparatur, Austausch, Wartung.",
-                                       "title":  "Boiler / Warmwasser"
-                                   },
-                                   {
-                                       "description":  "Montage, Reparatur, Dichtungen, Spülungen.",
-                                       "title":  "Armaturen / WC"
-                                   },
-                                   {
-                                       "description":  "Unterhalt, kleine Umbauten, schnelle Einsätze.",
-                                       "title":  "Sanitär-Service"
-                                   }
-                               ]
-                 },
-    "trust":  {
-                  "reviews":  {
-                                  "headline":  "Bewertungen aus der Region",
-                                  "cta":  {
-                                              "label":  "Google Bewertung schreiben"
-                                          },
-                                  "items":  [
-                                                {
-                                                    "author":  "A. M.",
-                                                    "text":  "Sehr schnell vor Ort, sauber gearbeitet, faire Kosten."
-                                                },
-                                                {
-                                                    "author":  "M. K.",
-                                                    "text":  "Notfall am Sonntag – freundlich, kompetent, Problem gelöst."
-                                                }
-                                            ]
-                              }
-              },
-    "contact":  {
-                    "header":  {
-                                   "subline":  "Soforthilfe oder Anfrage – wir melden uns zeitnah."
-                               },
-                    "form":  {
-                                 "headline":  "Kontakt \u0026 Soforthilfe"
-                             },
-                    "phones":  {
-                                   "emergency":  {
-                                                     "e164":  "+41440000000",
-                                                     "display":  "24/7 Notfall: 044 000 00 00"
-                                                 },
-                                   "normal":  {
-                                                  "e164":  "+41441111111",
-                                                  "display":  "Büro: 044 111 11 11"
-                                              }
-                               },
-                    "address":  {
-                                    "street":  "Musterstrasse 12"
-                                },
-                    "opening_hours":  {
-                                          "label":  "Mo–Fr 08:00–17:00 • Notfall 24/7"
-                                      },
-                    "map":  {
-                                "embed_url":  "https://www.google.com/maps/embed?pb=!1m18..."
-                            }
-                },
-    "links":  {
-                  "google_review":  "https://search.google.com/local/writereview?placeid=PLACE_ID_HERE"
-              },
-    "cta":  {
-                "labels":  {
-                               "review":  "Google Bewertung schreiben"
-                           }
-            },
-    "features":  {
-                     "process":  {
-                                     "enabled":  true
-                                 },
-                     "areas":  {
-                                   "enabled":  true
-                               },
-                     "cases":  {
-                                   "enabled":  true
-                               },
-                     "certs":  {
-                                   "enabled":  true
-                               },
-                     "faq":  {
-                                 "enabled":  true
-                             }
-                 },
-    "process":  {
-                    "headline":  "So läuft\u0027s ab",
-                    "subline":  "Transparent, sauber, termintreu.",
-                    "steps":  [
-                                  {
-                                      "text":  "Kurz schildern, wir klären die nächsten Schritte.",
-                                      "title":  "Kontakt"
-                                  },
-                                  {
-                                      "text":  "Wir kommen vorbereitet – Notfall oder geplant.",
-                                      "title":  "Termin / Einsatz"
-                                  },
-                                  {
-                                      "text":  "Saubere Arbeit, klare Kommunikation.",
-                                      "title":  "Ausführung"
-                                  },
-                                  {
-                                      "text":  "Funktion geprüft, alles dokumentiert.",
-                                      "title":  "Abnahme"
-                                  }
-                              ]
-                },
-    "areas":  {
-                  "headline":  "Einsatzgebiet",
-                  "subline":  "Zürich und Umgebung.",
-                  "items":  [
-                                {
-                                    "label":  "Zürich Stadt"
-                                },
-                                {
-                                    "label":  "Bezirk Horgen"
-                                },
-                                {
-                                    "label":  "Bezirk Meilen"
-                                }
-                            ]
-              },
-    "cases":  {
-                  "headline":  "Ausgewählte Projekte",
-                  "subline":  "Einblick in unsere Arbeit.",
-                  "items":  [
-                                {
-                                    "title":  "Projekt 1",
-                                    "photos":  [
-                                                   {
-                                                       "src":  "https://example.com/case1_1.jpg",
-                                                       "alt":  "Vorher"
-                                                   },
-                                                   {
-                                                       "src":  "https://example.com/case1_2.jpg",
-                                                       "alt":  "Umbau"
-                                                   },
-                                                   {
-                                                       "src":  "https://example.com/case1_3.jpg",
-                                                       "alt":  "Nachher"
-                                                   }
-                                               ],
-                                    "text":  "Kurzbeschreibung (1 Satz)."
-                                }
-                            ]
-              },
-    "certs":  {
-                  "headline":  "Zertifikate \u0026 Partner",
-                  "subline":  "Qualität, auf die Sie zählen können.",
-                  "items":  [
-                                {
-                                    "logo":  {
-                                                 "src":  "https://example.com/cert1.svg",
-                                                 "alt":  "Partner Logo"
-                                             },
-                                    "label":  "Zertifikat/Partner 1"
-                                },
-                                {
-                                    "logo":  {
-                                                 "src":  "https://example.com/cert2.svg",
-                                                 "alt":  "Partner Logo"
-                                             },
-                                    "label":  "Zertifikat/Partner 2"
-                                }
-                            ]
-              },
-    "faq":  {
-                "headline":  "Häufige Fragen",
-                "subline":  "Kurz und verständlich.",
-                "items":  [
-                              {
-                                  "text":  "Für Notfälle sind wir rund um die Uhr erreichbar.",
-                                  "title":  "Sind Sie 24/7 erreichbar?"
-                              },
-                              {
-                                  "text":  "Je nach Lage – wir geben am Telefon eine realistische Einschätzung.",
-                                  "title":  "Wie schnell sind Sie vor Ort?"
-                              }
-                          ]
-            }
-
-  ,"theme": {
-    "colors": {
-      "primary": "#0E7490",
-      "primary_600": "#155E75",
-      "primary_200": "#A5F3FC",
-      "on_primary": "#FFFFFF",
-      "accent": "#F59E0B",
-      "on_accent": "#111827",
-      "bg": "#FFFFFF",
-      "surface": "#F8FAFC",
-      "surface_2": "#F1F5F9",
-      "text": "#0F172A",
-      "muted": "#475569",
-      "border": "#E2E8F0",
-      "success": "#16A34A",
-      "danger": "#DC2626",
-      "radius": "14px",
-      "shadow_1": "0 10px 30px rgba(2, 6, 23, .08)"
+  "business": {
+    "name": "Beispiel Sanitär & Spenglerei AG",
+    "region_label": "Kanton Zürich • Zürich & Umgebung",
+    "brand": {
+      "logo": {
+        "src": "https://dummyimage.com/220x60/ffffff/0b1220.png&text=LOGO"
+      }
+    }
+  },
+  "hero": {
+    "headline": "24/7 Sanitär-Notfall in Zürich & Umgebung",
+    "subline": "Soforthilfe bei Rohrbruch, verstopften Abflüssen, Wasserschaden – schnell vor Ort, transparent, sauber.",
+    "trust_badges": [
+      { "label": "24/7 Notfall" },
+      { "label": "Schnell vor Ort" },
+      { "label": "Klare Kommunikation" },
+      { "label": "Top Bewertungen" }
+    ]
+  },
+  "services": {
+    "items": [
+      { "title": "Rohrbruch / Leckortung", "description": "Schnelle Lecksuche, Abdichtung, provisorische Sofortmassnahmen." },
+      { "title": "Abfluss verstopft", "description": "Küche, Bad, WC – professionell reinigen, ohne Pfuschlösungen." },
+      { "title": "Wasserschaden", "description": "Sofortmassnahmen, Koordination, Dokumentation für Versicherung." },
+      { "title": "Boiler / Warmwasser", "description": "Reparatur, Austausch, Wartung." },
+      { "title": "Armaturen / WC", "description": "Montage, Reparatur, Dichtungen, Spülungen." },
+      { "title": "Sanitär-Service", "description": "Unterhalt, kleine Umbauten, schnelle Einsätze." }
+    ]
+  },
+  "process": {
+    "headline": "So läuft’s ab",
+    "subline": "Transparent, sauber, termintreu.",
+    "steps": [
+      { "title": "Kontakt", "text": "Kurz schildern – wir klären die nächsten Schritte." },
+      { "title": "Termin / Einsatz", "text": "Wir kommen vorbereitet – Notfall oder geplant." },
+      { "title": "Ausführung", "text": "Saubere Arbeit, klare Kommunikation." },
+      { "title": "Abnahme", "text": "Funktion geprüft, alles dokumentiert." }
+    ]
+  },
+  "areas": {
+    "headline": "Einsatzgebiet",
+    "subline": "Zürich und Umgebung.",
+    "items": [ "Zürich", "Winterthur", "Uster", "Horgen", "Wädenswil", "Küsnacht" ]
+  },
+  "trust": {
+    "reviews": {
+      "headline": "Bewertungen aus der Region",
+      "items": [
+        { "author": "A. M.", "text": "Sehr schnell vor Ort, sauber gearbeitet, faire Kosten." },
+        { "author": "M. K.", "text": "Notfall am Sonntag – freundlich, kompetent, Problem gelöst." }
+      ]
+    }
+  },
+  "cases": {
+    "headline": "Ausgewählte Projekte",
+    "subline": "Vorher / Nachher – sauber dokumentiert.",
+    "items": [
+      {
+        "title": "Badumbau – Dusche",
+        "subline": "Sauber umgesetzt, klar dokumentiert.",
+        "photos": [
+          { "src": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80", "alt": "Bad vorher" },
+          { "src": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80", "alt": "Bad nachher" },
+          { "src": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80", "alt": "Detail" }
+        ]
+      }
+    ]
+  },
+  "certs": {
+    "headline": "Zertifikate & Partner",
+    "items": [
+      { "title": "Zertifikat/Partner 1" },
+      { "title": "Zertifikat/Partner 2" }
+    ]
+  },
+  "faq": {
+    "headline": "Häufige Fragen",
+    "items": [
+      { "q": "Sind Sie 24/7 erreichbar?", "a": "Für Notfälle sind wir rund um die Uhr erreichbar." },
+      { "q": "Wie schnell sind Sie vor Ort?", "a": "Je nach Lage – wir geben am Telefon eine realistische Einschätzung." }
+    ]
+  },
+  "contact": {
+    "form": { "headline": "Kontakt & Soforthilfe" },
+    "phones": {
+      "emergency": { "display": "24/7 Notfall: 044 000 00 00", "e164": "+41440000000" },
+      "normal": { "display": "Büro: 044 111 11 11", "e164": "+41441111111" }
+    },
+    "address": { "street": "Musterstrasse 12" },
+    "opening_hours": { "label": "Mo–Fr 08:00–17:00 • Notfall 24/7" },
+    "map": { "embed_url": "https://www.google.com/maps/embed?pb=!1m18..." }
+  },
+  "links": {
+    "google_review": "https://search.google.com/local/writereview?placeid=PLACE_ID_HERE"
+  },
+  "cta": {
+    "labels": {
+      "review": "Google Bewertung schreiben"
     }
   }
 }
