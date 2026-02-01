@@ -3,6 +3,35 @@ param()
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+function Resolve-ExportRoot {
+  $repo = Get-Location
+
+  # Prefer latest *.webflow.zip in repo root
+  $zip = Get-ChildItem -LiteralPath $repo -Filter "*.webflow.zip" -ErrorAction SilentlyContinue |
+    Sort-Object LastWriteTime -Descending | Select-Object -First 1
+
+  if ($zip) {
+    $ts = Get-Date -Format "yyyyMMdd-HHmmss"
+    $dest = Join-Path $repo ".local_artifacts\_wf_verify_zip_$ts"
+    New-Item -ItemType Directory -Path $dest | Out-Null
+    Expand-Archive -LiteralPath $zip.FullName -DestinationPath $dest -Force
+    return @{ mode="zip"; root=$dest; zip=$zip.FullName }
+  }
+
+  # Fallback: latest export dir
+  $latest = Join-Path $repo "docs\import\webflow-export\latest"
+  if (-not (Test-Path -LiteralPath $latest)) { throw "No ZIP in repo root and missing export dir: $latest" }
+  return @{ mode="dir"; root=$latest; zip="" }
+}
+
+function Resolve-HtmlFile([string]$root){
+  $idx = Get-ChildItem -LiteralPath $root -Recurse -Filter "index.html" -ErrorAction SilentlyContinue | Select-Object -First 1
+  if ($idx) { return $idx.FullName }
+  $any = Get-ChildItem -LiteralPath $root -Recurse -Filter "*.html" | Select-Object -First 1
+  if ($any) { return $any.FullName }
+  throw "No HTML found under: $root"
+}
+
 function Get-SectionHtml([string]$html, [string]$id){
   $rx = '<section[^>]*\sid\s*=\s*["'']' + [regex]::Escape($id) + '["''][\s\S]*?</section>'
   $m = [regex]::Match($html, $rx, [Text.RegularExpressions.RegexOptions]::IgnoreCase)
@@ -10,17 +39,13 @@ function Get-SectionHtml([string]$html, [string]$id){
   return ""
 }
 
-$root = (Get-Location)
-$latest = Join-Path $root "docs\import\webflow-export\latest"
-if (-not (Test-Path -LiteralPath $latest)) { throw "Missing export dir: $latest" }
+$repo = Get-Location
+$outDir = Join-Path $repo "docs\import\webflow-export\latest"
+if (-not (Test-Path -LiteralPath $outDir)) { New-Item -ItemType Directory -Path $outDir | Out-Null }
 
-$htmlFile = Get-ChildItem -LiteralPath $latest -Recurse -Filter "index.html" -ErrorAction SilentlyContinue | Select-Object -First 1
-if (-not $htmlFile){
-  $htmlFile = Get-ChildItem -LiteralPath $latest -Recurse -Filter "*.html" | Select-Object -First 1
-}
-if (-not $htmlFile){ throw "No HTML found in: $latest" }
-
-$html = Get-Content -Raw -Encoding UTF8 -LiteralPath $htmlFile.FullName
+$res = Resolve-ExportRoot
+$htmlPath = Resolve-HtmlFile $res.root
+$html = Get-Content -Raw -Encoding UTF8 -LiteralPath $htmlPath
 
 $checks = @(
   @{ id="services"; rep='data-repeat\s*=\s*["'']services\.items["'']'; must=@('data-template','data-bind\s*=\s*["'']title["'']','data-bind\s*=\s*["'']text["'']') },
@@ -31,13 +56,15 @@ $checks = @(
   @{ id="cases";    rep='data-repeat\s*=\s*["'']cases\.items["'']';    must=@('data-template','data-bind\s*=\s*["'']title["'']','data-bind\s*=\s*["'']text["'']','data-bind-image\s*=\s*["'']photos\.0\.src["'']') }
 )
 
-Write-Host "== VERIFY CUSTOM ATTRIBUTES =="
-Write-Host ("HTML: " + $htmlFile.FullName)
+Write-Host "== VERIFY CUSTOM ATTRIBUTES (ZIP-first) =="
+Write-Host ("HTML: " + $htmlPath)
+if ($res.mode -eq "zip") { Write-Host ("ZIP:  " + $res.zip) }
 Write-Host ""
 
 $passAll = $true
 $report = New-Object System.Collections.Generic.List[string]
-$report.Add("HTML: " + $htmlFile.FullName)
+$report.Add("HTML: " + $htmlPath)
+if ($res.mode -eq "zip") { $report.Add("ZIP:  " + $res.zip) }
 $report.Add("")
 
 foreach ($c in $checks){
@@ -69,12 +96,12 @@ foreach ($c in $checks){
     $report.Add("[OK]  #" + $c.id)
   } else {
     Write-Host ("[FAIL] #" + $c.id)
+    $report.Add("[FAIL] #" + $c.id)
     foreach ($line in $miss){
       Write-Host ("      " + $line)
       $report.Add("      " + $line)
     }
     $passAll = $false
-    $report.Add("[FAIL] #" + $c.id)
   }
 
   Write-Host ""
@@ -83,7 +110,7 @@ foreach ($c in $checks){
 
 Write-Host ("PASS: " + $passAll)
 
-$out = Join-Path $latest "handoff_verify_custom_attrs.txt"
+$out = Join-Path $outDir "handoff_verify_custom_attrs.txt"
 $report.Add("PASS: " + $passAll)
 $report | Set-Content -Encoding UTF8 -LiteralPath $out
 Write-Host ("OK: wrote " + $out)
