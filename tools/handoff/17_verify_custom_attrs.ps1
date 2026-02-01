@@ -10,27 +10,15 @@ function Get-SectionHtml([string]$html, [string]$id){
   return ""
 }
 
-$root = Get-Location
+$root = (Get-Location)
 $latest = Join-Path $root "docs\import\webflow-export\latest"
-$zip = Get-ChildItem -LiteralPath $root -Filter "*.webflow.zip" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+if (-not (Test-Path -LiteralPath $latest)) { throw "Missing export dir: $latest" }
 
-$work = $latest
-if (-not (Test-Path -LiteralPath $latest) -and $zip){
-  # extract to local artifacts
-  $art = Join-Path $root ".local_artifacts"
-  if (-not (Test-Path -LiteralPath $art)) { New-Item -ItemType Directory -Path $art | Out-Null }
-  $ts = Get-Date -Format "yyyyMMdd-HHmmss"
-  $work = Join-Path $art ("_verify_export_" + $ts)
-  New-Item -ItemType Directory -Path $work | Out-Null
-  Expand-Archive -LiteralPath $zip.FullName -DestinationPath $work -Force
-}
-
-# pick an HTML file (prefer index.html)
-$htmlFile = Get-ChildItem -LiteralPath $work -Recurse -Filter "index.html" -ErrorAction SilentlyContinue | Select-Object -First 1
+$htmlFile = Get-ChildItem -LiteralPath $latest -Recurse -Filter "index.html" -ErrorAction SilentlyContinue | Select-Object -First 1
 if (-not $htmlFile){
-  $htmlFile = Get-ChildItem -LiteralPath $work -Recurse -Filter "*.html" | Select-Object -First 1
+  $htmlFile = Get-ChildItem -LiteralPath $latest -Recurse -Filter "*.html" | Select-Object -First 1
 }
-if (-not $htmlFile){ throw "No HTML found in: $work" }
+if (-not $htmlFile){ throw "No HTML found in: $latest" }
 
 $html = Get-Content -Raw -Encoding UTF8 -LiteralPath $htmlFile.FullName
 
@@ -48,47 +36,58 @@ Write-Host ("HTML: " + $htmlFile.FullName)
 Write-Host ""
 
 $passAll = $true
+$report = New-Object System.Collections.Generic.List[string]
+$report.Add("HTML: " + $htmlFile.FullName)
+$report.Add("")
 
 foreach ($c in $checks){
+  $secPass = $true
+  $miss = New-Object System.Collections.Generic.List[string]
+
   $sec = Get-SectionHtml $html $c.id
   if (-not $sec){
     Write-Host ("[FAIL] section #" + $c.id + " not found as <section id=...>")
+    $report.Add("[FAIL] #" + $c.id + " section not found")
     $passAll = $false
     continue
   }
 
   if (-not ([regex]::IsMatch($sec, $c.rep, [Text.RegularExpressions.RegexOptions]::IgnoreCase))){
-    Write-Host ("[FAIL] #" + $c.id + " missing repeater: " + $c.rep)
-    $passAll = $false
-  } else {
-    Write-Host ("[OK]  #" + $c.id + " repeater found")
+    $miss.Add("missing repeater: " + $c.rep)
+    $secPass = $false
   }
 
   foreach ($m in $c.must){
     if (-not ([regex]::IsMatch($sec, $m, [Text.RegularExpressions.RegexOptions]::IgnoreCase))){
-      Write-Host ("      [MISS] " + $m)
-      $passAll = $false
+      $miss.Add("MISS: " + $m)
+      $secPass = $false
     }
   }
 
-  if ($passAll){
-    Write-Host ("      bindings look OK")
+  if ($secPass){
+    Write-Host ("[OK]  #" + $c.id + " (repeater + required binds present)")
+    $report.Add("[OK]  #" + $c.id)
   } else {
-    Write-Host ("      bindings need attention (see MISS above)")
+    Write-Host ("[FAIL] #" + $c.id)
+    foreach ($line in $miss){
+      Write-Host ("      " + $line)
+      $report.Add("      " + $line)
+    }
+    $passAll = $false
+    $report.Add("[FAIL] #" + $c.id)
   }
 
   Write-Host ""
+  $report.Add("")
 }
 
-if ($passAll){
-  Write-Host "PASS: All required custom attributes present."
-} else {
-  Write-Host "FAIL: Missing required custom attributes (see above)."
-}
+Write-Host ("PASS: " + $passAll)
 
-# write report to latest (if exists)
-if (Test-Path -LiteralPath $latest){
-  $out = Join-Path $latest "handoff_verify_custom_attrs.txt"
-  "PASS: " + $passAll | Set-Content -Encoding UTF8 -LiteralPath $out
-  Write-Host ("OK: wrote " + $out)
+$out = Join-Path $latest "handoff_verify_custom_attrs.txt"
+$report.Add("PASS: " + $passAll)
+$report | Set-Content -Encoding UTF8 -LiteralPath $out
+Write-Host ("OK: wrote " + $out)
+
+if (-not $passAll){
+  exit 1
 }
