@@ -118,28 +118,42 @@
   }
 
   function bindTemplateNode(node, item, rootData){
-    // Relative binds
     node.querySelectorAll('[data-bind]').forEach(el => {
       const rel = el.getAttribute('data-bind');
       const val = getByPath(item, rel);
       if (val !== undefined) setText(el, val);
     });
 
-    // Allow absolute slots inside templates (rare but supported)
+    node.querySelectorAll('[data-bind-image]').forEach(el => {
+      const rel = el.getAttribute('data-bind-image');
+      const val = getByPath(item, rel);
+      if (val !== undefined) setImage(el, val);
+    });
+
+    node.querySelectorAll('[data-bind-alt]').forEach(el => {
+      const rel = el.getAttribute('data-bind-alt');
+      const val = getByPath(item, rel);
+      if (val !== undefined) el.setAttribute('alt', String(val));
+    });
+
+    node.querySelectorAll('[data-bind-href]').forEach(el => {
+      const rel = el.getAttribute('data-bind-href');
+      const val = getByPath(item, rel);
+      if (val !== undefined) setHref(el, val);
+    });
+
     node.querySelectorAll('[data-slot]').forEach(el => {
       const path = el.getAttribute('data-slot');
       const val = getByPath(rootData, path);
       if (val !== undefined) setText(el, val);
     });
 
-    // Allow href binds inside templates
     node.querySelectorAll('[data-slot-href]').forEach(el => {
       const path = el.getAttribute('data-slot-href');
       const val = getByPath(rootData, path);
       if (val !== undefined) setHref(el, val);
     });
 
-    // Allow image binds inside templates
     node.querySelectorAll('[data-slot-image]').forEach(el => {
       const path = el.getAttribute('data-slot-image');
       const val = getByPath(rootData, path);
@@ -147,20 +161,22 @@
     });
   }
 
-  function renderRepeaters(root, data){
+function renderRepeaters(root, data, ctx){
+    const context = ctx || data;
+
     root.querySelectorAll('[data-repeat]').forEach(host => {
       const path = host.getAttribute('data-repeat');
-      const arr = getByPath(data, path);
+
+      let arr = getByPath(context, path);
+      if (!Array.isArray(arr)) arr = getByPath(data, path);
 
       if (!Array.isArray(arr)){
-        // Not an array => do nothing (keep template visible in designer)
         return;
       }
 
       const tpl = clearRepeaterHost(host);
       if (!tpl) return;
 
-      // Hide template (keep for cloning)
       tpl.style.display = 'none';
 
       const frag = document.createDocumentFragment();
@@ -171,6 +187,10 @@
         clone.style.display = '';
 
         bindTemplateNode(clone, item, data);
+
+        // nested repeaters inside clone
+        renderRepeaters(clone, data, item);
+
         frag.appendChild(clone);
       });
 
@@ -178,7 +198,7 @@
     });
   }
 
-  function routeCTAs(root, data){
+function routeCTAs(root, data){
     const emergencyTel = getByPath(data, 'contact.phones.emergency.e164');
     const emergencyLabel = getByPath(data, 'contact.phones.emergency.display') || '24/7 Notfall';
     const normalTel = getByPath(data, 'contact.phones.normal.e164');
