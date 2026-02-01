@@ -404,3 +404,65 @@ function routeCTAs(root, data){
   document.addEventListener('click', onClick, true);
 })();
 /* FS_FAST_ANCHORS_END */
+
+/* FS_TEMPLATE_ON_QA_START */
+/* Template-on QA Mode:
+   - ensures all standard sections are visible on template-on
+   - removes common hide mechanisms (display:none, hidden, w-condition-invisible)
+   - logs missing IDs (hard facts)
+*/
+(function(){
+  'use strict';
+
+  function isTemplateOn(){
+    var u = String(window.FLOWSIGHT_CUSTOMER_URL || '');
+    return (u.indexOf('/customers/template-on/') >= 0) || (u.indexOf('customers/template-on') >= 0);
+  }
+
+  var QA = isTemplateOn() || !!window.FLOWSIGHT_DEBUG;
+  if (!QA) return;
+
+  var IDS = ['hero','services','process','areas','trust-badges','reviews','cases','certs','faq','contact','footer'];
+
+  function unhide(el){
+    if (!el) return;
+    try { el.hidden = false; } catch(_){}
+    try { el.removeAttribute('hidden'); } catch(_){}
+    try { el.classList.remove('w-condition-invisible'); } catch(_){}
+    try { el.style.removeProperty('display'); } catch(_){}
+    try { el.style.removeProperty('visibility'); } catch(_){}
+    try { el.style.removeProperty('opacity'); } catch(_){}
+  }
+
+  function forceShow(){
+    var missing = [];
+    IDS.forEach(function(id){
+      var s = document.getElementById(id);
+      if (!s){ missing.push(id); return; }
+      unhide(s);
+
+      // also unhide common hidden descendants (Webflow conditionals etc.)
+      var hiddenKids = s.querySelectorAll('[hidden], .w-condition-invisible');
+      for (var i=0; i<hiddenKids.length; i++) unhide(hiddenKids[i]);
+    });
+
+    if (window.FLOWSIGHT_DEBUG && missing.length){
+      console.warn('[FlowSight][QA] Missing section IDs in DOM:', missing);
+    }
+  }
+
+  // Run multiple times to beat late-applied Webflow/JS hides
+  function boot(){
+    forceShow();
+    setTimeout(forceShow, 50);
+    setTimeout(forceShow, 350);
+    setTimeout(forceShow, 900);
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+/* FS_TEMPLATE_ON_QA_END */
