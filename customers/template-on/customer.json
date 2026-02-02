@@ -1,16 +1,16 @@
 ﻿{
   "business": {
     "name": "Muster Sanitär & Heizung AG",
-    "region_label": "Zürich & Umgebung",
+    "region_label": "Kanton Zürich",
     "brand": {
       "logo": {
-        "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='40'%3E%3Crect width='180' height='40' rx='12' fill='%23000'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Arial' font-size='16' fill='%23fff'%3ELOGO%3C/text%3E%3C/svg%3E"
+        "src": "https://cdn.jsdelivr.net/gh/gunnarwende/flowsight-base@main/assets/brand/logo.svg"
       }
     }
   },
   "hero": {
-    "headline": "Sanitär, Heizung & Service – zuverlässig in Zürich",
-    "subline": "Notfall 24/7, Reparaturen, Wartung und Badumbau – sauber ausgeführt, klar kommuniziert.",
+    "headline": "Sanitär, Heizung & Spenglerei – zuverlässig im Raum Zürich",
+    "subline": "24/7 Notfall. Reparaturen, Wartung und Umbauten – sauber ausgeführt, klar kommuniziert.",
     "trust_badges": [
       { "label": "24/7 Notfall" },
       { "label": "Transparente Offerten" },
@@ -18,78 +18,94 @@
     ]
   },
   "services": {
+    "headline": "Leistungen",
+    "subline": "Alles aus einer Hand – schnell vor Ort, präzise umgesetzt.",
     "items": [
-      { "title": "Rohrbruch / Leckortung", "text": "Schnelle Lecksuche, Abdichtung, provisorische Sofortmassnahmen." },
-      { "title": "Abfluss verstopft", "text": "Küche, Bad, WC – professionell reinigen, ohne Pfuschlösungen." },
-      { "title": "Wasserschaden", "text": "Sofortmassnahmen, Koordination, Dokumentation für Versicherung." },
-      { "title": "Boiler / Warmwasser", "text": "Reparatur, Austausch, Wartung." },
-      { "title": "Armaturen / WC", "text": "Montage, Reparatur, Dichtungen, Spülungen." },
-      { "title": "Sanitär-Service", "text": "Unterhalt, kleine Umbauten, schnelle Einsätze." }
+      { "title": "Sanitär", "text": "Reparaturen, Installationen, Badumbau und Neuanschlüsse." },
+      { "title": "Heizung", "text": "Wartung, Austausch, Störungen – inklusive Wärmepumpe." },
+      { "title": "Spenglerei", "text": "Dachentwässerung, Blecharbeiten, Abdichtungen." },
+      { "title": "Service & Unterhalt", "text": "Regelmässige Kontrollen, Entkalkung, Kleinreparaturen." }
     ]
   },
   "process": {
+    "headline": "Ablauf",
+    "subline": "Einfach. Verlässlich. Dokumentiert.",
     "items": [
-      { "title": "Kontakt", "text": "Anrufen oder Formular senden – wir reagieren sofort." },
-      { "title": "Kurzklärung", "text": "Symptome, Dringlichkeit, ETA/Termin – transparent." },
-      { "title": "Ausführung", "text": "Sauber, geschützt, dokumentiert – mit klarer Kommunikation." },
-      { "title": "Abschluss", "text": "Abnahme, Empfehlungen, nächste Schritte (wenn sinnvoll)." }
+      { "title": "Kontakt", "text": "Kurz schildern – wir klären das Vorgehen." },
+      { "title": "Vor-Ort / Notfall", "text": "Termin oder 24/7 Einsatz – je nach Lage." },
+      { "title": "Umsetzung", "text": "Sauber, termintreu, mit klarer Kommunikation." },
+      { "title": "Abschluss", "text": "Übergabe, Hinweise, nächste Schritte." }
     ]
   },
   "areas": {
+    "headline": "Einsatzgebiet",
+    "subline": "Zürich und Umgebung – schnell erreichbar.",
     "items": [
       { "title": "Zürich" },
-      { "title": "Winterthur" },
-      { "title": "Dietikon" },
-      { "title": "Uster" }
+      { "title": "Oberrieden" },
+      { "title": "Horgen" },
+      { "title": "Thalwil" }
     ]
   },
-  "cases": {
+  "trustBadges": {
     "items": [
-      { "title": "Badumbau – Dusche", "text": "Vorher/Nachher – klare Linien, hochwertige Armaturen." },
-      { "title": "Boilerersatz", "text": "Austausch inkl. Entsorgung & Inbetriebnahme." },
-      { "title": "Leckortung EFH", "text": "Schnelle Ortung, minimaler Eingriff, saubere Wiederherstellung." }
-    ]
-  },
-  "certs": {
-    "items": [
-      { "title": "Zertifikat/Partner 1" },
-      { "title": "Zertifikat/Partner 2" }
-    ]
-  },
-  "faq": {
-    "items": [
-      { "title": "Wie schnell sind Sie vor Ort?", "text": "Wir melden uns sofort mit ETA – Notfälle priorisiert." },
-      { "title": "Arbeiten Sie mit Offerte?", "text": "Ja – transparent nach Kurzklärung (Fixpreis wenn möglich)." },
-      { "title": "Welche Marken verbauen Sie?", "text": "Qualitätsmarken nach Bedarf – passend zu Budget und Lebensdauer." }
+      { "title": "Erreichbarkeit", "text": "Notfall 24/7 – im Ernstfall sofort reagieren." },
+      { "title": "Qualität", "text": "Saubere Ausführung nach Schweizer Standard." },
+      { "title": "Transparenz", "text": "Klare Absprachen und nachvollziehbare Offerten." }
     ]
   },
   "trust": {
     "reviews": {
       "headline": "Kundenstimmen",
+      "subline": "Echte Rückmeldungen aus der Region.",
       "items": [
-        { "author": "A. Muster", "text": "Schnell, sauber und fair – jederzeit wieder." },
-        { "author": "B. Beispiel", "text": "Top Kommunikation, sehr professionell." },
-        { "author": "C. Keller", "text": "Saubere Arbeit, Baustelle perfekt geschützt." }
+        { "author": "A. Muster", "text": "Schnell vor Ort, sauber gearbeitet." },
+        { "author": "B. Beispiel", "text": "Top Kommunikation – klare Absprachen." },
+        { "author": "C. Test", "text": "Sehr professionell und zuverlässig." }
       ]
     }
+  },
+  "cases": {
+    "headline": "Referenzen",
+    "subline": "Ausgewählte Arbeiten – sauber dokumentiert.",
+    "items": [
+      {
+        "title": "Badumbau EFH",
+        "text": "Komplettsanierung mit klarer Planung und sauberer Ausführung.",
+        "photos": [
+          { "src": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=70", "alt": "Badumbau – Referenzbild" },
+          { "src": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=70", "alt": "Sanitärinstallation – Referenzbild" },
+          { "src": "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=70", "alt": "Detailansicht – Referenzbild" }
+        ]
+      }
+    ]
+  },
+  "certs": {
+    "headline": "Zertifikate & Partner",
+    "subline": "Nachweise, die Vertrauen schaffen.",
+    "items": [
+      { "title": "Meisterbetrieb" },
+      { "title": "Zertifizierte Partner" },
+      { "title": "Schweizer Qualitätsstandard" }
+    ]
+  },
+  "faq": {
+    "headline": "FAQ",
+    "subline": "Kurz erklärt – schnell verstanden.",
+    "items": [
+      { "title": "Wie schnell sind Sie vor Ort?", "text": "Je nach Situation sofort – wir melden uns mit ETA." },
+      { "title": "Gibt es fixe Preise?", "text": "Nein – wir erstellen eine transparente Offerte nach Kurzklärung." }
+    ]
   },
   "contact": {
     "phones": {
       "emergency": { "display": "Notfall: 044 000 00 00", "e164": "+41440000000" },
       "normal":    { "display": "Büro: 044 111 11 11",   "e164": "+41441111111" }
     },
-    "address": {
-      "street": "Musterstrasse 12, 8000 Zürich"
-    },
-    "opening_hours": {
-      "label": "Mo–Fr 08:00–18:00, Notfall 24/7"
-    },
-    "map": {
-      "embed_url": "https://www.google.com/maps?q=Z%C3%BCrich%2C%20Switzerland&output=embed"
-    },
-    "form": {
-      "headline": "Kontakt aufnehmen"
-    }
+    "address": { "street": "Musterstrasse 1, 8000 Zürich" },
+    "opening_hours": { "label": "Mo–Fr 08:00–18:00, Notfall 24/7" },
+    "map": { "embed_url": "https://www.google.com/maps/embed?..." },
+    "form": { "headline": "Kontakt aufnehmen" }
   },
   "cta": {
     "labels": {
@@ -99,10 +115,20 @@
     }
   },
   "links": {
-    "google_review": "https://www.google.com/search?q=Sanit%C3%A4r%20Z%C3%BCrich",
+    "google_review": "https://g.page/r/....",
     "legal": {
       "impressum_url": "/impressum",
       "privacy_url": "/datenschutz"
     }
+  },
+  "flags": {
+    "services": true,
+    "process": true,
+    "areas": true,
+    "cases": true,
+    "certs": true,
+    "faq": true,
+    "reviews": true,
+    "trustBadges": true
   }
 }
