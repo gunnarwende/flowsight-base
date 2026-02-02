@@ -1,4 +1,4 @@
-/* FlowSight core.js
+﻿/* FlowSight core.js
    Version: 1.0 (2026-01-30)
    Responsibilities:
      - load customer.json
@@ -155,12 +155,28 @@
     });
 
     node.querySelectorAll('[data-slot-image]').forEach(el => {
+
       const path = el.getAttribute('data-slot-image');
-      const val = getByPath(rootData, path);
+
+      const local = fsClosestItemData(el);
+
+      const vLocal = local ? getByPath(local, path) : undefined;
+
+      const val = (vLocal !== undefined) ? vLocal : getByPath(rootData, path);
+
       if (val !== undefined) setImage(el, val);
+
     });
   }
 
+function fsClosestItemData(el){
+  var n = el;
+  while (n) {
+    if (n.__fsItemData !== undefined) return n.__fsItemData;
+    n = n.parentElement;
+  }
+  return undefined;
+}
 function renderRepeaters(root, data, ctx){
     const context = ctx || data;
 
@@ -183,6 +199,7 @@ function renderRepeaters(root, data, ctx){
 
       arr.forEach(item => {
         const clone = tpl.cloneNode(true);
+clone.__fsItemData = item;
         clone.removeAttribute('data-template');
         clone.style.display = '';
 
@@ -619,11 +636,18 @@ function routeCTAs(root, data){
     });
 
     node.querySelectorAll('[data-slot-image]').forEach(function(el){
-      var path = el.getAttribute('data-slot-image');
-      var v = getByPath(rootData, path);
-      if (v !== undefined){ setImage(el, v); did = true; }
-    });
 
+      var path = el.getAttribute('data-slot-image');
+
+      var local = fsClosestItemData(el);
+
+      var vLocal = local ? getByPath(local, path) : undefined;
+
+      var v = (vLocal !== undefined) ? vLocal : getByPath(rootData, path);
+
+      if (v !== undefined){ setImage(el, v); did = true; }
+
+    });
     // fallback for bind-less templates
     if (!did){
       smartFallbackFill(node, item, repeatPath);
@@ -751,3 +775,4 @@ function routeCTAs(root, data){
 
 })();
 /* FS_REPEAT_FALLBACK_END */
+
