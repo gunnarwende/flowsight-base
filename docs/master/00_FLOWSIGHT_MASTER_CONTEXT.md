@@ -1,93 +1,112 @@
 # 00_FLOWSIGHT_MASTER_CONTEXT.md
-Version: 1.0 (2026-01-30)
-Status: verbindlich (oberste Instanz)
+Version: 1.2 (2026-02-01)
+Status: verbindlich (oberste Instanz / Single Source of Truth)
 
-## 1. Ziel (nicht verhandelbar)
-FlowSight macht Sanitär-/Spenglerbetriebe **24/7 erreichbar**, **fängt jeden Lead ab** und **erzeugt nach jedem Auftrag automatisch Google-Rezensionen**.
+## 1) Ziel (nicht verhandelbar)
+Wir bauen ein **Swiss-High-End Webflow-Template** für lokale SHK-Betriebe (**Sanitär / Heizung / Spenglerei / Service**).
 
-FlowSight ist **kein Website-Projekt**, sondern ein **Lead-Capture- und Lead-Conversion-System** für lokale Servicebetriebe (Start: Sanitär/Spengler 24/7).
+Kernziel: **kein Lead darf verloren gehen**.
+- klare Primär-CTAs (Notfall / Kontakt)
+- solide Trust-Architektur (Bewertungen, Referenzen)
+- sauberer, konsistenter Auftritt (ruhig, technisch, premium)
 
-Demo-Kunde: **Walter Leuthold – Sanitär & Spenglerei** (linker Zürichsee).  
-Die bestehende Website dient **nur zur Kenntnisnahme**, nicht als Vorlage.
+## 2) Systemprinzip (fix)
+- **Webflow** liefert Struktur/HTML + Navigator-Namen + Custom Attributes.
+- Optik + Runtime kommt aus dem Repo **flowsight-base** über **jsDelivr per Commit-SHA**.
+- Kundenspezifik ist primär **`customers/<customer>/customer.json`**.
 
-## 2. Systemarchitektur (4 Module)
-1) Website – Conversion-Container (Mittel zum Zweck)  
-2) Google Business Profile – Traffic + Social Proof  
-3) Chat-Modul – Lead-Abfang bei Nicht-Anruf  
-4) Voice-Agent – 24/7 Notfalltelefon & Qualifizierung
+Wichtig: Das Template ist ein **skalierbarer Baukasten**. Alles, was systemisch ist, muss in Repo/Specs landen (kein Webflow-„Fummeln“).
 
-## 3. Technische Grundentscheidung (fix)
-- Webflow = Struktur/HTML, Klassen, Data-Attribute
-- Keine Fleißarbeit im Designer (keine tausend manuellen Overrides)
-- Kein CMS-Gefummel
-- **Baukasten-Ansatz**:
-  - `core.css` = globales Design-System (für alle Kunden gleich)
-  - `core.js`  = Runtime/Logik (Slots, Repeater, CTA-Routing, Hooks)
-  - `customer.json` = **einzige** kundenspezifische Datei
-  - `customer.v1.schema.json` = Validierung/Contract
+## 3) Current Scope (jetzt)
+Wir halten Fokus auf:
+1) **Struktur/Contract** im Webflow-Template (IDs, Navigator-Namen, Templates, Bindings, Form-Felder).
+2) **Automatisierte Verifikation** via ZIP-Audit (ZIP-first).
+3) **High-End Design-System** in `core/core.css` als **einziger** Override-Block am Dateiende.
 
-## 4. No-Drift-Regeln (ab jetzt hart)
-### 4.1 Webflow
-- Keine Margins/Paddings manuell setzen
-- Keine Typo-Overrides
-- Keine Inline-Styles
-- Keine “Optik”-Combo-Klassen (Combo nur für Zustände wie `is-active`)
-- Nur: Klassen + Data-Attribute + saubere Struktur
+Nicht im Scope, bis explizit beauftragt:
+- Chat-/Voice-/Tracking-Add-ons (nur als technische Hooks, keine Produktdiskussion)
 
-### 4.2 Datenmodell
-- Kein Slot/Path ohne Schema
-- Keine “mal schnell”-Felder
-- Schema-Änderungen nur als eigene Phase (Phase 3)
+## 4) Hard Rules (No-Drift)
+### 4.1 CSS – exakt ein finaler Override-Block
+In `core/core.css` wird genau **ein** finaler Override-Block gepflegt (am Dateiende):
 
-### 4.3 CSS/JS
-- Keine kundenspezifischen CSS-Regeln
-- Keine “quick fixes” ohne System-Entscheidung
-- Runtime bleibt generisch: bindet nur Daten, entscheidet keine Kundensonderfälle
+```css
+/* FS_ACTIVE_THEME_START */
+...
+/* FS_ACTIVE_THEME_END */
+```
 
-## 5. Arbeitsmodus (Kommunikationsvertrag)
-- Kurz, präzise, reproduzierbar
-- Immer Navigator-Namen nennen, wenn Webflow-Klicks nötig sind
-- Keine unnötigen Erklärungen, keine Symbol-Icons
-- Qualität vor Geschwindigkeit
-- Wenn etwas unklar ist: Fix als **exakter Schritt** (wo klicken, was eintragen)
+- Keine zweiten Theme-/Fade-Blöcke.
+- Alles Systemische (Tokens/Canvas/Nav-Glass/Fades/Container/Shadow-Radii) lebt **nur** dort.
 
-## 6. Phasenmodell
-### Phase 1 – Struktur (Webflow)
-- Sections/Wrapper/Container/Templates anlegen
-- Klassen setzen
-- Data-Attribute setzen
-- Keine optischen Webflow-Overrides
+### 4.2 Webflow – „dumm“, keine Optik
+- Keine manuellen Typo-/Spacing-Overrides in Webflow.
+- Keine Inline-Styles.
+- Nur: **saubere Struktur**, **Klassen**, **IDs**, **Custom Attributes**.
 
-### Phase 2 – Wiring & Verification (Webflow Container produktionsfähig)
-Ziel: Die Webflow-Site als FlowSight-Conversion-Container so „verkabeln“, dass sie reproduzierbar verifiziert werden kann.
+### 4.3 Contract vor Design
+Bevor CSS/Design-Finetuning weitergeht, müssen ZIP-Checks **PASS** sein:
+- Sections vorhanden
+- Repeater korrekt (data-repeat + data-template + data-bind)
+- Nav Keys vorhanden
+- Contact-Form korrekt (inkl. message = textarea)
 
-**2A – Wiring (HTML/Attribute/Forms/Anchors)**
-- Slot-/Binding-Coverage gemäß Blueprint (Data-Attributes vollständig)
-- Navigation/Anchors: echte Section-IDs + hrefs (keine Platzhalter außer Legal)
-- Form-Mapping: `name/email/phone/message` + Success/Fail States
-- Keine Inline-JSON (Customer URL via `window.FLOWSIGHT_CUSTOMER_URL`), Runtime nur über CDN
+## 5) Verbindlicher Seiten-Contract (IDs)
+Diese Sections müssen als `section[id]` existieren:
+- `hero`
+- `services`
+- `process`
+- `areas`
+- `trust-badges`
+- `reviews`
+- `cases`
+- `certs`
+- `faq`
+- `contact`
+- `footer`
 
-**2B – Automatisierte Verifikation (No-Drift)**
-- Webflow Export ZIP nach `C:\flowsight-base\` legen
-- 1 Command als Checkpoint:
-  - `powershell -ExecutionPolicy Bypass -File .\tools\handoff\run_phase2.ps1`
-- Reports/Artefakte liegen immer unter:
-  - `docs\import\webflow-export\latest\`
+Hinweis: Der Header ist als Webflow-Navbar im `body` – **ohne** eigene Section-ID.
 
-### Phase 3 – Design-System & Datenmodell-Erweiterung (core.css / schema)
-- `core.css`: Tokens → Layout-Primitives → Components → Module-Skins
-- Responsive ausschließlich per CSS
-- Schema-Änderungen nur in dieser Phase (Versionierung v1 → v2)
-- Webflow bleibt “dumm”
+## 6) Navigation Contract
+Header-Navigation hat genau **4** Links, stabil über `data-nav` Keys:
+- `start`  → `#hero`
+- `services` → `#services`
+- `process` → `#process`
+- `contact` → `#contact`
 
-### Phase 4 – Automation
-- Chat, Voice, Review-Flow, Lead-Routing, Tracking
+Labels sind deutsch (Start / Leistungen / Ablauf / Kontakt). Keys bleiben englisch, weil stabil.
+
+## 7) Standard-Loop (operativ)
+1) Webflow → Export ZIP nach `C:\flowsight-base\sanitar-template.webflow.zip`.
+2) ZIP-first Audit laufen lassen (Tools).
+3) Erst wenn Contract/Bindings PASS sind: CSS/Design weiter.
+
+## 8) Output-Disziplin (Chat-übergreifend)
+- Wenn ein Tool fehlschlägt: **nur** Konsolenoutput + Name der betroffenen Navigator-Node.
+- Anweisungen immer als: **Style → Settings (ID/Custom Attributes/Link/etc.)**.
+- Keine Optionen, kein „vielleicht“.
 
 
-## 7. Global Definition of Done (DoD)
-Eine Phase gilt nur als fertig, wenn:
-- Austausch von `customer.json` ändert **nur Content**, nie Layout/Verhalten
-- Keine JS-Fehler
-- Performance: keine unnötigen Render-Blocker
-- Niemand muss fragen “wo ist was definiert”
-- Reproduzierbar für nächste Kundeninstanz
+## 9) Deployment Contract (jsDelivr)
+Webflow bekommt pro Deploy eine **fixe Commit-SHA**.
+
+Head:
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gunnarwende/flowsight-base@<SHA>/core/core.css">
+<script>
+  window.FLOWSIGHT_CUSTOMER_URL="https://cdn.jsdelivr.net/gh/gunnarwende/flowsight-base@<SHA>/customers/template-on/customer.json";
+  window.FLOWSIGHT_DEBUG=true;
+</script>
+```
+
+Footer:
+```html
+<script src="https://cdn.jsdelivr.net/gh/gunnarwende/flowsight-base@<SHA>/core/core.js" defer></script>
+```
+
+## 10) PowerShell-Patch Standard
+Jede Repo-Änderung wird immer als vollständiger PowerShell-Workflow geliefert:
+- Backup
+- Patch/Edit (robust, marker-basiert)
+- git status → add → commit → push
+- Ausgabe: **NEUE HEAD SHA** + **fertiger Head/Footer Code** (Copy/Paste)

@@ -1,349 +1,61 @@
 # 05_CORE_CSS_HIGHEND.md
-Version: 1.0 (2026-01-30)
+Version: 1.2 (2026-02-01)
 
-Diese Datei enthält den vollständigen `core/core.css` Stand auf FlowSight-Niveau.
-Policy: Webflow = Struktur, `core.css` = 100% Optik.
+## 1) Hard Rule
+In `core/core.css` wird ausschließlich **ein** globaler Override-Block gepflegt und zwar am Dateiende:
 
 ```css
-/* FlowSight core.css
-   Version: 1.0 (2026-01-30)
-   Policy: Webflow does structure only. All visuals live here.
-*/
-
-/* =========================================
-   1) TOKENS
-========================================= */
-:root{
-  /* Colors */
-  --c-bg: #070A10;
-  --c-surface: #0B1020;
-  --c-surface-2: #0F1730;
-  --c-text: #EAF0FF;
-  --c-muted: rgba(234,240,255,.72);
-  --c-faint: rgba(234,240,255,.52);
-  --c-line: rgba(234,240,255,.12);
-
-  --c-brand: #57E3FF;
-  --c-brand-2: #7C5CFF;
-  --c-emergency: #FF3B5C;
-  --c-success: #2BE7A7;
-  --c-warning: #FFD166;
-
-  /* Typography */
-  --ff-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  --ff-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-
-  --fs-900: clamp(2.35rem, 2vw + 1.9rem, 3.25rem);
-  --fs-800: clamp(1.85rem, 1.2vw + 1.55rem, 2.35rem);
-  --fs-700: 1.5rem;
-  --fs-600: 1.25rem;
-  --fs-500: 1.1rem;
-  --fs-400: 1rem;
-  --fs-300: .95rem;
-  --fs-200: .875rem;
-
-  --lh-tight: 1.1;
-  --lh-normal: 1.45;
-
-  /* Spacing scale */
-  --sp-0: 0;
-  --sp-1: .25rem;
-  --sp-2: .5rem;
-  --sp-3: .75rem;
-  --sp-4: 1rem;
-  --sp-5: 1.25rem;
-  --sp-6: 1.5rem;
-  --sp-7: 2rem;
-  --sp-8: 2.5rem;
-  --sp-9: 3rem;
-  --sp-10: 4rem;
-  --sp-11: 5rem;
-  --sp-12: 6rem;
-
-  /* Radius */
-  --r-1: .6rem;
-  --r-2: .9rem;
-  --r-3: 1.2rem;
-  --r-4: 1.6rem;
-
-  /* Shadows */
-  --sh-1: 0 10px 30px rgba(0,0,0,.35);
-  --sh-2: 0 12px 50px rgba(0,0,0,.45);
-  --sh-glow: 0 0 0 1px rgba(87,227,255,.22), 0 0 44px rgba(87,227,255,.12);
-
-  /* Container */
-  --container: 1120px;
-
-  /* Focus */
-  --focus: 0 0 0 3px rgba(87,227,255,.35);
-}
-
-/* =========================================
-   2) BASE / RESET
-========================================= */
-*{ box-sizing: border-box; }
-html,body{ height: 100%; }
-body{
-  margin: 0;
-  font-family: var(--ff-sans);
-  font-size: var(--fs-400);
-  line-height: var(--lh-normal);
-  color: var(--c-text);
-  background:
-    radial-gradient(1200px 600px at 20% -10%, rgba(124,92,255,.25), transparent 60%),
-    radial-gradient(900px 520px at 90% 0%, rgba(87,227,255,.18), transparent 60%),
-    linear-gradient(180deg, var(--c-bg), #05070C 70%);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-img{ max-width: 100%; height: auto; display: block; }
-a{ color: inherit; text-decoration: none; }
-a:hover{ text-decoration: none; }
-button, input, textarea, select{ font: inherit; color: inherit; }
-:focus-visible{ outline: none; box-shadow: var(--focus); border-radius: var(--r-1); }
-::selection{ background: rgba(87,227,255,.25); }
-
-@media (prefers-reduced-motion: reduce){
-  *{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
-}
-
-/* =========================================
-   3) LAYOUT PRIMITIVES
-========================================= */
-.section{
-  padding: var(--sp-11) var(--sp-4);
-}
-.section--muted{
-  background: linear-gradient(180deg, rgba(234,240,255,.04), rgba(234,240,255,0));
-  border-top: 1px solid var(--c-line);
-  border-bottom: 1px solid var(--c-line);
-}
-.container{
-  width: 100%;
-  max-width: var(--container);
-  margin-inline: auto;
-}
-.stack{ display: flex; flex-direction: column; }
-.stack--sm{ gap: var(--sp-3); }
-.stack--md{ gap: var(--sp-4); }
-.stack--lg{ gap: var(--sp-6); }
-.stack--xl{ gap: var(--sp-8); }
-
-.cluster{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.cluster--sm{ gap: var(--sp-3); }
-.cluster--md{ gap: var(--sp-4); }
-.cluster--space{ justify-content: space-between; }
-
-.grid{ display: grid; gap: var(--sp-6); }
-.grid--2col{ grid-template-columns: 1fr; }
-.grid--cards{ grid-template-columns: repeat(1, minmax(0,1fr)); }
-.grid--reviews{ grid-template-columns: repeat(1, minmax(0,1fr)); }
-.grid--badges{ grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--sp-4); }
-.grid--footer{ grid-template-columns: 1fr; gap: var(--sp-6); }
-
-@media (min-width: 768px){
-  .grid--2col{ grid-template-columns: 1.2fr .8fr; align-items: start; }
-  .grid--cards{ grid-template-columns: repeat(3, minmax(0,1fr)); }
-  .grid--reviews{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .grid--badges{ grid-template-columns: repeat(4, minmax(0,1fr)); }
-  .grid--footer{ grid-template-columns: 1.2fr .8fr; }
-}
-
-/* =========================================
-   4) TYPO PRIMITIVES
-========================================= */
-.h1, .hero-headline{
-  font-size: var(--fs-900);
-  line-height: var(--lh-tight);
-  letter-spacing: -0.02em;
-  margin: 0;
-}
-.h3, .service-card-title{
-  font-size: var(--fs-600);
-  line-height: 1.25;
-  margin: 0;
-}
-.lead, .hero-subline{
-  font-size: var(--fs-500);
-  color: var(--c-muted);
-  margin: 0;
-  max-width: 65ch;
-}
-.text, .service-card-description, .review-text{
-  color: var(--c-muted);
-  margin: 0;
-}
-.meta, .review-author, .footer-hours-label{
-  color: var(--c-faint);
-  font-size: var(--fs-200);
-}
-
-/* =========================================
-   5) COMPONENTS
-========================================= */
-.btn, .w-button{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .55rem;
-  padding: .85rem 1.05rem;
-  border-radius: var(--r-2);
-  border: 1px solid var(--c-line);
-  background: rgba(234,240,255,.04);
-  color: var(--c-text);
-  box-shadow: var(--sh-1);
-  cursor: pointer;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
-  white-space: nowrap;
-}
-.btn:hover, .w-button:hover{
-  transform: translateY(-1px);
-  background: rgba(234,240,255,.07);
-  border-color: rgba(234,240,255,.18);
-}
-.btn:active, .w-button:active{ transform: translateY(0); }
-
-.btn--primary{
-  background: linear-gradient(135deg, rgba(87,227,255,.18), rgba(124,92,255,.14));
-  border-color: rgba(87,227,255,.35);
-  box-shadow: var(--sh-1), var(--sh-glow);
-}
-.btn--ghost{
-  background: rgba(234,240,255,.03);
-  border-color: rgba(234,240,255,.14);
-  box-shadow: none;
-}
-.btn--emergency{
-  background: linear-gradient(135deg, rgba(255,59,92,.22), rgba(255,209,102,.10));
-  border-color: rgba(255,59,92,.45);
-  box-shadow: var(--sh-1);
-}
-.card{
-  border-radius: var(--r-3);
-  border: 1px solid rgba(234,240,255,.12);
-  background: linear-gradient(180deg, rgba(234,240,255,.04), rgba(234,240,255,.02));
-  box-shadow: var(--sh-2);
-  padding: var(--sp-6);
-}
-.card--soft{
-  background: rgba(234,240,255,.03);
-  box-shadow: var(--sh-1);
-}
-.badge{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: .7rem .9rem;
-  border-radius: 999px;
-  border: 1px solid rgba(87,227,255,.25);
-  background: rgba(87,227,255,.06);
-  color: var(--c-text);
-  font-size: var(--fs-200);
-}
-
-/* Forms */
-.form, .contact-form{
-  display: block;
-}
-.field, .w-input{
-  width: 100%;
-  padding: .85rem .9rem;
-  border-radius: var(--r-2);
-  border: 1px solid rgba(234,240,255,.14);
-  background: rgba(0,0,0,.18);
-  color: var(--c-text);
-}
-.field:focus, .w-input:focus{ box-shadow: var(--focus); border-color: rgba(87,227,255,.4); outline: none; }
-
-/* =========================================
-   6) MODULE SKINS (thin)
-========================================= */
-/* Header */
-.site-header, .navbar{
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  backdrop-filter: blur(12px);
-  background: rgba(7,10,16,.55);
-  border-bottom: 1px solid rgba(234,240,255,.10);
-}
-.header-bar, .container-navbar{
-  max-width: var(--container);
-  margin-inline: auto;
-  padding: var(--sp-4);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
-}
-.brand, .w-nav-brand{
-  width: 140px;
-  height: 44px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: left center;
-}
-
-/* Hero */
-.section--hero, .section-hero{
-  padding-top: calc(var(--sp-12) + var(--sp-4));
-}
-.hero-grid, .container-hero{
-  max-width: var(--container);
-  margin-inline: auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-8);
-  padding: var(--sp-4);
-}
-@media (min-width: 900px){
-  .hero-grid, .container-hero{
-    grid-template-columns: 1.2fr .8fr;
-    align-items: start;
-  }
-}
-
-/* Services */
-.container-services{ max-width: var(--container); margin-inline: auto; padding: var(--sp-4); }
-.services-grid{ display: grid; gap: var(--sp-6); grid-template-columns: repeat(1, minmax(0,1fr)); }
-@media (min-width: 768px){ .services-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
-.service-card{ border-radius: var(--r-3); border: 1px solid rgba(234,240,255,.12); background: rgba(234,240,255,.03); padding: var(--sp-6); box-shadow: var(--sh-1); }
-.service-card-cta{ margin-top: var(--sp-4); }
-
-/* Trust badges */
-.container-trust-badges{ max-width: var(--container); margin-inline: auto; padding: var(--sp-4); }
-.trust-badges{ display: grid; gap: var(--sp-4); grid-template-columns: repeat(2, minmax(0,1fr)); }
-@media (min-width: 768px){ .trust-badges{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
-.trust-badge{ border-radius: 999px; border: 1px solid rgba(87,227,255,.22); background: rgba(87,227,255,.06); padding: .85rem .95rem; text-align: center; }
-.trust-badge-label{ margin: 0; font-size: var(--fs-200); color: var(--c-text); }
-
-/* Reviews */
-.container-reviews{ max-width: var(--container); margin-inline: auto; padding: var(--sp-4); }
-.reviews-grid{ display: grid; gap: var(--sp-6); grid-template-columns: 1fr; }
-@media (min-width: 768px){ .reviews-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
-.review-card{ border-radius: var(--r-3); border: 1px solid rgba(234,240,255,.12); background: rgba(234,240,255,.03); padding: var(--sp-6); box-shadow: var(--sh-1); }
-.reviews-cta{ margin-top: var(--sp-6); }
-
-/* Contact */
-.container-contact{ max-width: var(--container); margin-inline: auto; padding: var(--sp-4); }
-.contact-map{ margin-top: var(--sp-6); border-radius: var(--r-3); overflow: hidden; border: 1px solid rgba(234,240,255,.12); background: rgba(0,0,0,.12); min-height: 280px; }
-.contact-phone{ margin: 0; color: var(--c-text); }
-.contact-phone--emergency{ color: #fff; font-weight: 650; }
-.contact-address{ margin: 0; color: var(--c-muted); }
-
-/* Footer */
-.container-footer{ max-width: var(--container); margin-inline: auto; padding: var(--sp-6) var(--sp-4); border-top: 1px solid rgba(234,240,255,.10); color: var(--c-muted); }
-.footer-legal{ color: var(--c-faint); font-size: var(--fs-200); }
-
-/* =========================================
-   7) WEBFLOW ALIASES (compat)
-   Keep these minimal: map Webflow structure classes to system ones.
-========================================= */
-.section-services, .section-trust-badges, .section-reviews, .section-contact, .section-footer{
-  padding: var(--sp-11) var(--sp-4);
-}
+/* FS_ACTIVE_THEME_START */
+/* FS_ACTIVE_THEME_END */
 ```
+
+Kein zweites Theme, kein zweites `:root`, keine weiteren Fade-Blöcke irgendwo.
+
+## 2) Design-Zielbild
+- ruhig, technisch, Swiss high-end
+- ein durchgehender Canvas (keine harten Section-Cuts)
+- konsistentes System für Typo, Spacing, Radii, Shadows
+
+## 3) Token-Contract (Beispiele)
+Folgende Tokens müssen im Active Theme existieren (Name/Meaning stabil):
+- Farben:
+  - `--fs-bg0`, `--fs-bg1`, `--fs-surface`, `--fs-line`
+  - `--fs-ink`, `--fs-muted`
+  - `--fs-brand`
+- Layout:
+  - `--fs-container`, `--fs-gutter`, `--fs-section-py`
+- Typo:
+  - `--fs-font`, `--fs-h1`, `--fs-h2`, `--fs-body`, `--fs-lh`
+- Physik:
+  - `--fs-r1`, `--fs-r2`, `--fs-r3`
+  - `--fs-sh1`, `--fs-sh2`, `--fs-hair`
+- Transitions:
+  - `--fs-fade-h`
+
+## 4) Layout-Contract
+- `.w-container` wird systemisiert:
+  - `max-width: var(--fs-container)`
+  - `padding-left/right: var(--fs-gutter)`
+- `section[id]` bekommt Rhythmus:
+  - `padding-top/bottom: var(--fs-section-py)`
+  - `position: relative; isolation: isolate;`
+
+## 5) Fade-to-Light (ohne sichtbare Bänder)
+- Ziel: keine harten Kanten zwischen Sections.
+- Umsetzung: Fades über Mask/Gradient auf `section[id]::before/::after` oder section surfaces.
+- Wichtig: Fades dürfen nicht wie „Layer-Balken“ wirken.
+
+## 6) Header-Integration (Nav-Glass)
+- `.w-nav` wird visuell integriert:
+  - halbtransparenter Hintergrund
+  - `backdrop-filter: blur(...)`
+  - Hairline Border
+  - sehr weicher Shadow (keine harte Kante)
+
+Wichtig: Sticky-Verhalten kommt über CSS (nicht über Webflow "Position: fixed").
+
+## 7) Keine Webflow-Optik
+Webflow soll keine „Design-Quelle“ sein:
+- keine lokalen Font/Color Overrides
+- keine manuell gesetzten Abstände pro Element
+- Design immer im Active Theme zentralisieren

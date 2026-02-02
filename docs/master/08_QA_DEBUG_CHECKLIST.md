@@ -1,56 +1,53 @@
 # 08_QA_DEBUG_CHECKLIST.md
-Version: 1.0 (2026-01-30)
+Version: 1.2 (2026-02-01)
 
-## 1. Phase-1 QA (Webflow Struktur)
-- Jede Section existiert im Navigator wie in `03_WEBFLOW_PHASE1_BLUEPRINT.md`
-- Kein Element hat manuelle Typo/Margin/Padding Overrides
-- Repeater-Hosts:
-  - genau 1 Template (data-template) pro Host
-  - Template liegt *innerhalb* des Hosts
-- Phones:
-  - Emergency/Normal haben je: data-slot, data-slot-href, data-href-prefix="tel:"
-- Reviews CTA ist außerhalb des Reviews Grid (als Geschwister), nicht in Template
+Ziel: Mit einem Webflow-Export-ZIP sicherstellen, dass Contract/Binds/IDs/Forms korrekt sind.
 
-## 2. Runtime QA (core.js)
-- `window.FLOWSIGHT_CUSTOMER_URL` ist gesetzt und lädt (Network 200)
-- Keine Console Errors
-- Repeater rendert: Service Cards/Reviews/Badges werden vervielfacht
-- Slots binden: Headline/Subline/Footer etc. zeigen echte Werte
-- CTA routing:
-  - Emergency → tel:+41...
-  - Normal → tel:+41...
-  - Review → Google Review URL (target _blank)
+## A) ZIP-First Quick Audit (empfohlen)
+1) ZIP in Repo-Root ablegen:
+   - `C:\flowsight-base\sanitar-template.webflow.zip`
+2) Audit laufen lassen:
+   ```powershell
+   cd C:\flowsight-base
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\handoff\19_zip_audit_runner.ps1 -Open
+   ```
+3) Erwartete Ergebnisse:
+   - **Sections**: alle required IDs (`hero...footer`) vorhanden
+   - **Header Nav Keys**: start/services/process/contact OK
+   - **Form**: message textarea OK
+   - **Repeaters**: jeder Host hat `data-repeat` + Template `data-template` + required `data-bind`
 
-## 3. Styling QA (core.css)
-- Seite sieht ohne Webflow-Designer-Overrides korrekt aus
-- Header sticky + lesbar
-- Hero hat spacing + CTA Styling
-- Grids brechen responsiv korrekt um
-- Map hat iframe + rounded corners
-
-## 4. Häufigste Fehler (Fix ohne Diskussion)
-### A) Nichts ändert sich nach Publish
-- Prüfen: core.css Link eingebunden?
-- Prüfen: core.js Link eingebunden?
-- Prüfen: Customer URL erreichbar?
-- Cache: testweise Commit-SHA statt @main nutzen
-
-### B) Repeater zeigt nur 1 Karte
-- Template nicht im Host (data-template außerhalb)
-- Host hat mehrere Templates
-- data-repeat zeigt auf falschen Pfad
-
-### C) Telefonlink klickt nicht
-- Element ist <p> statt <a> (empfohlen: Link Block oder Text Link)
-- data-slot-href fehlt oder e164 fehlt
-- data-href-prefix fehlt
-
-### D) Map leer
-- data-map-embed steht auf falschem Element
-- embed_url fehlt oder ist kein Google Maps Embed URL
-
-## 5. Minimal Debug Toggle
-In Footer-Code (nur temporär):
+## B) Einzel-Checks (wenn Quick Audit failt)
+### B1) Section Inventory
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\handoff\15_section_inventory.ps1
 ```
-<script>window.FLOWSIGHT_DEBUG = true;</script>
+Erwartung: genau diese IDs:
+`hero, services, process, areas, trust-badges, reviews, cases, certs, faq, contact, footer`
+
+### B2) Verify Custom Attributes
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\handoff\17_verify_custom_attrs.ps1
 ```
+Achtungspunkte:
+- fehlendes `data-template` in einem Repeater
+- fehlendes `data-bind="title"` / `data-bind="text"`
+
+### B3) Full Bindings Audit
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\handoff\18_audit_bindings_full.ps1
+```
+Erwartung:
+- keine Missing-Paths für Pflicht-Slots
+- keine Duplicate IDs
+- Navigation-Mapping vorhanden
+
+## C) Live-Checks (nach Deploy)
+- Header Links springen sofort an die richtige Section
+- CTAs rufen `tel:` korrekt auf (Notfall/Normal)
+- Repeaters rendern korrekt (keine doppelten Template-Cards)
+- Fades: keine „Balken“, keine harten Kanten
+
+## D) Debug Toggle
+- in Webflow Head: `window.FLOWSIGHT_DEBUG=true;`
+- zum Release: `false`

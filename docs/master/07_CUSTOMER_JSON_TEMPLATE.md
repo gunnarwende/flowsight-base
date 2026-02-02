@@ -1,13 +1,14 @@
 # 07_CUSTOMER_JSON_TEMPLATE.md
-Version: 1.0 (2026-01-30)
+Version: 1.2 (2026-02-01)
 
-Diese Datei ist die **Copy/Paste-Vorlage** für `customers/<customer>/customer.json`.
+Ziel: Referenzstruktur für `customers/<name>/customer.json`.
 
+## 1) Template (JSON)
 ```json
 {
   "business": {
-    "name": "Walter Leuthold – Sanitär & Spenglerei",
-    "region_label": "Oberrieden • linker Zürichsee",
+    "name": "Muster Sanitär & Heizung AG",
+    "region_label": "Kanton Zürich",
     "brand": {
       "logo": {
         "src": "https://example.com/logo.svg"
@@ -15,97 +16,106 @@ Diese Datei ist die **Copy/Paste-Vorlage** für `customers/<customer>/customer.j
     }
   },
   "hero": {
-    "headline": "24/7 Sanitär-Notfall in Oberrieden & Umgebung",
-    "subline": "Soforthilfe bei Rohrbruch, verstopften Abflüssen, Wasserschaden – schnell vor Ort, transparent, sauber.",
-    "trust_badges": [
-      {
-        "label": "24/7 Notfall"
-      },
-      {
-        "label": "Schnell vor Ort"
-      },
-      {
-        "label": "Transparente Preise"
-      },
-      {
-        "label": "Top Bewertungen"
-      }
-    ]
+    "headline": "Sanitär, Heizung & Spenglerei – zuverlässig in Zürich",
+    "subline": "24/7 Notfall, Reparaturen, Badumbau und Wartung."
   },
   "services": {
     "items": [
-      {
-        "title": "Rohrbruch / Leckortung",
-        "description": "Schnelle Lecksuche, Abdichtung, provisorische Sofortmassnahmen."
-      },
-      {
-        "title": "Abfluss verstopft",
-        "description": "Küche, Bad, WC – professionell reinigen, ohne Pfuschlösungen."
-      },
-      {
-        "title": "Wasserschaden",
-        "description": "Sofortmassnahmen, Koordination, Dokumentation für Versicherung."
-      },
-      {
-        "title": "Boiler / Warmwasser",
-        "description": "Reparatur, Austausch, Wartung."
-      },
-      {
-        "title": "Armaturen / WC",
-        "description": "Montage, Reparatur, Dichtungen, Spülungen."
-      },
-      {
-        "title": "Sanitär-Service",
-        "description": "Unterhalt, kleine Umbauten, schnelle Einsätze."
-      }
+      { "title": "Sanitär", "text": "Reparaturen, Installationen, Badumbau." },
+      { "title": "Heizung", "text": "Wartung, Austausch, Störungen." },
+      { "title": "Spenglerei", "text": "Dachrinnen, Blecharbeiten, Abdichtungen." },
+      { "title": "Service", "text": "Unterhalt, Entkalkung, Kleinreparaturen." }
+    ]
+  },
+  "process": {
+    "items": [
+      { "title": "Kontakt", "text": "Anrufen oder Formular senden." },
+      { "title": "Analyse", "text": "Kurze Klärung, Termin oder Notfall." },
+      { "title": "Ausführung", "text": "Saubere Arbeit, klare Kommunikation." },
+      { "title": "Abschluss", "text": "Dokumentation und Empfehlung." }
+    ]
+  },
+  "areas": {
+    "items": [
+      { "title": "Zürich" },
+      { "title": "Winterthur" },
+      { "title": "Uster" }
+    ]
+  },
+  "cases": {
+    "items": [
+      { "title": "Badumbau EFH", "text": "Vorher/Nachher – Komplettsanierung." },
+      { "title": "Heizungsservice", "text": "Wartung + Störungsbehebung." }
+    ]
+  },
+  "certs": {
+    "items": [
+      { "title": "Meisterbetrieb" },
+      { "title": "Zertifizierte Partner" }
+    ]
+  },
+  "faq": {
+    "items": [
+      { "title": "Wie schnell sind Sie vor Ort?", "text": "Je nach Lage – wir melden uns sofort mit ETA." },
+      { "title": "Gibt es fixe Preise?", "text": "Transparente Offerte nach Kurzklärung." }
     ]
   },
   "trust": {
     "reviews": {
-      "headline": "Bewertungen aus der Region",
+      "headline": "Kundenstimmen",
       "items": [
-        {
-          "author": "A. M.",
-          "text": "Sehr schnell vor Ort, sauber gearbeitet, faire Kosten."
-        },
-        {
-          "author": "M. K.",
-          "text": "Notfall am Sonntag – freundlich, kompetent, Problem gelöst."
-        }
+        { "author": "A. Muster", "text": "Schnell, sauber, fair." },
+        { "author": "B. Beispiel", "text": "Top Kommunikation und Qualität." }
       ]
     }
   },
   "contact": {
-    "form": {
-      "headline": "Kontakt & Soforthilfe"
-    },
     "phones": {
-      "emergency": {
-        "display": "24/7 Notfall: 044 000 00 00",
-        "e164": "+41440000000"
-      },
-      "normal": {
-        "display": "Büro: 044 111 11 11",
-        "e164": "+41441111111"
-      }
+      "emergency": { "display": "Notfall: 044 000 00 00", "e164": "+41440000000" },
+      "normal":    { "display": "Büro: 044 111 11 11",   "e164": "+41441111111" }
     },
     "address": {
-      "street": "Musterstrasse 12"
+      "street": "Musterstrasse 1, 8000 Zürich"
     },
     "opening_hours": {
-      "label": "Mo–Fr 08:00–17:00 • Notfall 24/7"
+      "label": "Mo–Fr 08:00–18:00, Notfall 24/7"
     },
     "map": {
-      "embed_url": "https://www.google.com/maps/embed?pb=!1m18..."
+      "embed_url": "https://www.google.com/maps/embed?..."
+    },
+    "form": {
+      "headline": "Kontakt aufnehmen"
     }
-  },
-  "links": {
-    "google_review": "https://search.google.com/local/writereview?placeid=PLACE_ID_HERE"
   },
   "cta": {
     "labels": {
-      "review": "Google Bewertung schreiben"
+      "emergency": "Jetzt Notfall anrufen",
+      "normal": "Jetzt anrufen",
+      "review": "Bewertung schreiben"
+    }
+  },
+  "links": {
+    "google_review": "https://g.page/r/....",
+    "legal": {
+      "impressum_url": "/impressum",
+      "privacy_url": "/datenschutz"
     }
   }
 }
 ```
+
+## 2) Naming Rules
+- Arrays heißen immer `items`.
+- Textfelder heißen immer `text` (nicht `description`).
+- Telefonnummern: immer `display` + `e164`.
+
+## 3) Feature Flags (optional, wenn gebraucht)
+Wenn Sections per `data-if` steuerbar werden sollen:
+- `flags.services`
+- `flags.process`
+- `flags.areas`
+- `flags.cases`
+- `flags.certs`
+- `flags.faq`
+
+(Erst einführen, wenn es im HTML tatsächlich benutzt wird.)
