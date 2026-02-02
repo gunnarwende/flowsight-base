@@ -16,3 +16,9 @@ docs/import/**
 customers/template/
 # FS_LOCAL_IGNORE_END
 
+# FlowSight: local-only artifacts (do not commit)
+backups/
+intern/
+handoff_bindings_audit_full.txt
+docs/master/Archiv/
+core/*.bak*
