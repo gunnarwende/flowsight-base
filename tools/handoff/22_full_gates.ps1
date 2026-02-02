@@ -20,6 +20,7 @@ function RunGate([string]$label, [string]$file, [string[]]$args = @()) {
 RunGate "ZIP audit"      ".\tools\handoff\19_zip_audit_runner.ps1"
 RunGate "Bindings audit" ".\tools\handoff\18_audit_bindings_full.ps1"
 RunGate "Drift gates"    ".\tools\handoff\21_drift_gates.ps1"
+RunGate "Repo hygiene gate" ".\tools\handoff\23_repo_hygiene_gate.ps1"
 RunGate "Customer gate"  ".\tools\handoff\20_customer_contract_gate.ps1" @("-Customer",$Customer)
 
 Write-Host ""
