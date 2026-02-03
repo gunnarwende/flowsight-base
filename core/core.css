@@ -1180,6 +1180,38 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: var(--fs-focus);
   border-color: rgba(11, 95, 255, .45);
 }
+  /* FS_P0_GUARD_START: visibility + stacking rescue */
+  html, body { height: auto; }
+  body { overflow-x: hidden; overflow-y: auto; }
+
+  /* Ensure all contract sections can render */
+  section[id]{
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+    min-height: 0;
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+  }
+
+  /* Kill accidental full-page overlays on sections */
+  section[id]::before,
+  section[id]::after{
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Header contract: fixed top, no layout push; anchor offset */
+  .w-nav{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+  }
+  section[id]{ scroll-margin-top: 88px; }
+  body{ padding-top: 88px; }
+  /* FS_P0_GUARD_END */
 /* FS_ACTIVE_THEME_END */
 
 /* FS_HEADER_FORCE_START */
@@ -1201,4 +1233,5 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   top: 0 !important;
 }
 /* FS_HEADER_FORCE_END */
+
 
