@@ -809,7 +809,6 @@ function routeCTAs(root, data){
           hits++;
           var p = n.parentElement;
           if (p) {
-            // safest: remove only the artifact text
             n.textContent = "";
             var info = p.tagName +
               (p.id ? ("#" + p.id) : "") +
@@ -825,19 +824,15 @@ function routeCTAs(root, data){
   // --- B) auto-hide empty sections (contract ids)
   var AUTOHIDE_IDS = ["services","process","areas","trust-badges","reviews","cases","certs","faq"];
 
+  // IMPORTANT: do NOT rely on computed styles, otherwise hidden sections can never be unhidden.
   function countRenderableChildren(el) {
     if (!el) return 0;
     var kids = el.children ? Array.prototype.slice.call(el.children) : [];
     var c = 0;
     kids.forEach(function (k) {
       if (!isRenderableTag(k)) return;
-      // ignore known templates if present
       if (k.hasAttribute && (k.hasAttribute("data-repeat-template") || k.hasAttribute("data-template"))) return;
-      // ignore hidden nodes
-      try {
-        var cs = getComputedStyle(k);
-        if (cs.display === "none" || cs.visibility === "hidden") return;
-      } catch (e) {}
+      if (k.hasAttribute && k.hasAttribute("hidden")) return;
       c++;
     });
     return c;
@@ -851,16 +846,16 @@ function routeCTAs(root, data){
     if (repeaters.length) {
       var rendered = 0;
       repeaters.forEach(function (r) { rendered += countRenderableChildren(r); });
-      return rendered === 0;
+      // If hydrated and we have items -> not empty.
+      if (rendered > 0) return false;
+      // If not hydrated yet, do NOT immediately mark empty; fall through to heuristic below.
     }
 
-    // Fallback heuristic: if there is no meaningful content besides headings/structure.
-    // (We still prefer keeping sections that have images/iframes/forms.)
+    // Keep sections that have media/forms even if text is short
     var hasMedia = qsa("img,iframe,video,svg,canvas,form,input,textarea,button", sec).length > 0;
     if (hasMedia) return false;
 
     var text = (sec.innerText || "").trim();
-    // If only whitespace or extremely short -> treat as empty
     if (!text || text.length < 8) return true;
 
     return false;
@@ -876,12 +871,16 @@ function routeCTAs(root, data){
         if (sec.hasAttribute("data-fs-keep")) return;
 
         var empty = sectionLooksEmpty(sec);
+
         if (empty) {
-          sec.setAttribute("hidden", "");
-          sec.setAttribute("data-fs-hidden-reason", "empty");
-          warn("[Flowsight][P2.3] auto-hide empty section:", "#" + id);
+          // hide only if state changes (dedupe logs)
+          if (sec.getAttribute("data-fs-hidden-reason") !== "empty") {
+            sec.setAttribute("hidden", "");
+            sec.setAttribute("data-fs-hidden-reason", "empty");
+            warn("[Flowsight][P2.3] auto-hide empty section:", "#" + id);
+          }
         } else {
-          // if it was previously hidden by us and now has content, unhide
+          // unhide if we previously hid it
           if (sec.getAttribute("data-fs-hidden-reason") === "empty") {
             sec.removeAttribute("hidden");
             sec.removeAttribute("data-fs-hidden-reason");
@@ -910,6 +909,7 @@ function routeCTAs(root, data){
   window.addEventListener("load", schedule);
 })();
 /* FS_P2_3_AUTOHIDE_END */
+
 
 
 
