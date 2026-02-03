@@ -1,4 +1,4 @@
-/* FS-HIGHEND-BUTTONS v1 */
+﻿/* FS-HIGHEND-BUTTONS v1 */
 
 :root{
   --fs-radius-lg: 18px;
@@ -749,7 +749,7 @@ section::after{
   border-radius: var(--fs-radius, 16px);
 }
 
-/* If your “cards” are divs, this will add a consistent premium surface */
+/* If your â€œcardsâ€ are divs, this will add a consistent premium surface */
 div[class*="card"], div[class*="Card"], .card{
   background: rgba(255,255,255,0.62);
   border: 1px solid rgba(15,23,42,0.10);
@@ -759,7 +759,7 @@ div[class*="card"], div[class*="Card"], .card{
   backdrop-filter: blur(10px);
 }
 
-/* Buttons: calmer, more premium (less “default blue block”) */
+/* Buttons: calmer, more premium (less â€œdefault blue blockâ€) */
 a.w-button, .btn{
   border-radius: calc(var(--fs-radius, 16px) - 4px);
   border: 1px solid rgba(255,255,255,0.25);
@@ -911,7 +911,7 @@ body{
   background: transparent !important;
 }
 
-/* 5) Hero controlled overlay so top doesn’t “cut” */
+/* 5) Hero controlled overlay so top doesnâ€™t â€œcutâ€ */
 #hero{
   position: relative;
   isolation: isolate;
@@ -936,7 +936,7 @@ body{
   z-index: 1;
 }
 
-/* 6) Reduce “too much empty hero” on desktop (keeps mobile intact) */
+/* 6) Reduce â€œtoo much empty heroâ€ on desktop (keeps mobile intact) */
 @media (min-width: 992px){
   #hero{
     min-height: 80vh !important;
@@ -1049,188 +1049,139 @@ footer{
 }
 
 /* FS_ACTIVE_THEME_START */
-/* Swiss High-End System (Phase A) — Single Source of Truth (EOF)
-   This iteration:
-   - ensure ALL sections can be seen (template-on superset is separate file)
-   - fix washed hero text/CTAs
-   - force nav to LIGHT glass (override dark band)
-*/
-
 :root{
-  --fs-bg0: #F6F8FB;
-  --fs-bg1: #FFFFFF;
+  /* Colors (Swiss High-End, light) */
+  --fs-bg0: #f7f8fb;
+  --fs-bg1: #eef2f6;
+  --fs-surface: #ffffff;
+  --fs-line: rgba(15, 23, 42, .10);
+  --fs-ink: rgba(2, 6, 23, .92);
+  --fs-muted: rgba(2, 6, 23, .68);
+  --fs-brand: #0b4dd9;
 
-  --fs-ink: #0B1220;
-  --fs-muted: rgba(11,18,32,.78); /* slightly darker for readability */
-  --fs-faint: rgba(11,18,32,.58);
-  --fs-line: rgba(11,18,32,.10);
+  /* Layout */
+  --fs-container: 1120px;
+  --fs-gutter: clamp(16px, 4vw, 28px);
+  --fs-section-py: clamp(64px, 6.5vw, 104px);
+  --fs-gap: 16px;
+  --fs-nav-h: 80px; /* for anchor scroll-margin */
 
-  --fs-surface: rgba(255,255,255,.58);
-  --fs-surface-strong: rgba(255,255,255,.82);
+  /* Type */
+  --fs-font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --fs-lh: 1.55;
+  --fs-h1: clamp(2.1rem, 3.0vw, 3.15rem);
+  --fs-h2: clamp(1.55rem, 2.1vw, 2.25rem);
+  --fs-h3: clamp(1.125rem, 1.35vw, 1.375rem);
+  --fs-body: 16px;
+  --fs-small: 14px;
 
-  --fs-brand: #0E6BFF;
+  /* Physics */
+  --fs-hair: 1px;
+  --fs-r1: 10px;
+  --fs-r2: 16px;
+  --fs-r3: 20px;
+  --fs-sh1: 0 8px 24px rgba(2, 6, 23, .06);
+  --fs-sh2: 0 16px 44px rgba(2, 6, 23, .10);
 
-  --fs-container: 1160px;
-  --fs-gutter: clamp(16px, 2.4vw, 26px);
-  --fs-section-py: clamp(56px, 7vw, 96px);
-  --fs-fade: clamp(64px, 8vw, 150px);
+  /* Motion */
+  --fs-ease: cubic-bezier(.2,.8,.2,1);
+  --fs-dur-1: 160ms;
+  --fs-dur-2: 240ms;
 
-  --fs-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-  --fs-h1: clamp(2.25rem, 1.8vw + 1.6rem, 3.15rem);
-  --fs-h2: clamp(1.75rem, 1.1vw + 1.3rem, 2.25rem);
-  --fs-body: 1rem;
-  --fs-small: .92rem;
-  --fs-lh: 1.52;
-  --fs-lh-tight: 1.10;
-
-  --fs-r1: 14px;
-  --fs-r2: 18px;
-  --fs-r3: 24px;
-
-  --fs-sh1: 0 10px 24px rgba(12,18,32,.06);
-  --fs-sh2: 0 18px 44px rgba(12,18,32,.08);
-
-  /* Light nav glass */
-  --fs-nav-top: rgba(246,248,251,.92);
-  --fs-nav-bot: rgba(246,248,251,.72);
-  --fs-nav-border: rgba(11,18,32,.08);
-  --fs-nav-shadow: 0 10px 26px rgba(12,18,32,.08);
+  /* Focus */
+  --fs-focus: 0 0 0 2px rgba(11, 95, 255, .22);
 }
 
-html, body{ height:100%; }
-html{ background: var(--fs-bg0) !important; }
-
+/* Canvas / Base */
+html{ scroll-behavior: smooth; }
 body{
-  margin:0;
   font-family: var(--fs-font);
-  font-size: var(--fs-body);
   line-height: var(--fs-lh);
   color: var(--fs-ink);
   background:
-    radial-gradient(1100px 520px at 15% -10%, rgba(14,107,255,.10), transparent 60%),
-    radial-gradient(900px 520px at 95% 0%, rgba(25,194,255,.10), transparent 60%),
-    linear-gradient(180deg, var(--fs-bg0), var(--fs-bg1) 68%) !important;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  overflow-x:hidden;
+    radial-gradient(1200px 800px at 20% -10%, rgba(11, 95, 255, .06), transparent 55%),
+    linear-gradient(180deg, var(--fs-bg0), var(--fs-bg1));
 }
 
-/* Containers */
+/* Container system */
 .w-container{
   max-width: var(--fs-container);
+  width: 100%;
   padding-left: var(--fs-gutter);
   padding-right: var(--fs-gutter);
 }
 
-/* Typography baseline */
-h1, h2{
-  color: var(--fs-ink);
-  letter-spacing: -0.02em;
-  margin: 0 0 .55rem 0;
-}
-h1{ font-size: var(--fs-h1); line-height: var(--fs-lh-tight); }
-h2{ font-size: var(--fs-h2); line-height: 1.16; }
-p{ color: var(--fs-muted); margin: 0 0 1rem 0; }
-small{ font-size: var(--fs-small); color: var(--fs-faint); }
-
-/* HERO readability guard (works even if Webflow uses non-p tags) */
-#hero, #hero *{ text-shadow: none; }
-#hero p, #hero .w-richtext, #hero .w-richtext p{ color: var(--fs-muted) !important; opacity: 1 !important; }
-
-/* FORCE nav to light glass (raise specificity to beat older !important rules) */
-body .w-nav,
-body nav.w-nav,
-body .navbar.w-nav{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background-color: var(--fs-nav-top) !important;
-  background: linear-gradient(180deg, var(--fs-nav-top), var(--fs-nav-bot)) !important;
-  border-bottom: 1px solid var(--fs-nav-border) !important;
-  box-shadow: var(--fs-nav-shadow) !important;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-/* Ensure menu/overlay cannot paint dark */
-body .w-nav-menu,
-body .w-nav-overlay{
-  background: transparent !important;
-}
-
-/* Nav links Swiss */
-body .w-nav-link{
-  color: rgba(11,18,32,.72) !important;
-  transition: color .16s ease, opacity .16s ease;
-}
-body .w-nav-link:hover{
-  color: rgba(11,18,32,.92) !important;
-}
-
-/* Section rhythm */
+/* Section rhythm + anchor comfort */
 section[id]{
-  scroll-margin-top: 96px;
+  padding-block: var(--fs-section-py);
+  scroll-margin-top: var(--fs-nav-h);
   position: relative;
   isolation: isolate;
-  padding-top: var(--fs-section-py);
-  padding-bottom: var(--fs-section-py);
-  background: transparent;
 }
 
-/* Sections with subtle surface */
-#services, #process, #areas, #trust-badges, #reviews, #cases, #certs, #faq, #contact, #footer{
-  --fs-section-bg: var(--fs-surface);
-}
-
-/* Band-free internal surface layer */
-section[id]::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  background: var(--fs-section-bg, transparent);
-  transform: translateZ(0);
-}
-
-@supports ((-webkit-mask-image: linear-gradient(#000,#000)) or (mask-image: linear-gradient(#000,#000))){
-  section[id]::before{
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 var(--fs-fade), #000 calc(100% - var(--fs-fade)), transparent 100%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 var(--fs-fade), #000 calc(100% - var(--fs-fade)), transparent 100%);
-  }
-}
-@supports not ((-webkit-mask-image: linear-gradient(#000,#000)) or (mask-image: linear-gradient(#000,#000))){
-  section[id]::before{
-    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--fs-section-bg, transparent) 18%, var(--fs-section-bg, transparent) 82%, rgba(255,255,255,0) 100%);
-  }
-}
-
-section[id] > *{ position: relative; z-index: 1; }
-
-/* Buttons baseline (avoid faded CTAs) */
-.w-button{
-  opacity: 1 !important;
-  border-radius: 999px;
+/* Header glass (integrated, high-end) */
+.w-nav{
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(255,255,255,.72);
+  border-bottom: var(--fs-hair) solid var(--fs-line);
   box-shadow: var(--fs-sh1);
-  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-}
-.w-button:hover{
-  transform: translateY(-1px);
-  box-shadow: var(--fs-sh2);
-  filter: saturate(1.02);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 }
 
-/* Inputs baseline */
+/* Typography polish */
+h1,h2,h3{ letter-spacing: -0.01em; }
+p{ color: var(--fs-muted); }
+
+/* Buttons */
+.btn, .w-button{
+  border-radius: var(--fs-r2);
+  transition: transform var(--fs-dur-1) var(--fs-ease),
+              box-shadow var(--fs-dur-1) var(--fs-ease),
+              background-color var(--fs-dur-1) var(--fs-ease),
+              color var(--fs-dur-1) var(--fs-ease),
+              border-color var(--fs-dur-1) var(--fs-ease);
+}
+.btn--primary{
+  background: var(--fs-brand);
+  color: #fff;
+  box-shadow: var(--fs-sh1);
+}
+.btn--primary:hover{ transform: translateY(-1px); box-shadow: var(--fs-sh2); }
+.btn--ghost{
+  background: transparent;
+  border: var(--fs-hair) solid var(--fs-line);
+  color: var(--fs-ink);
+}
+.btn--ghost:hover{ background: rgba(2,6,23,.04); }
+
+/* Cards / Surfaces (generic) */
+.service_card, .process__item, .trust__item, .reviews__card, .cases__card, .certs__item, .faq__item{
+  background: var(--fs-surface);
+  border: var(--fs-hair) solid var(--fs-line);
+  border-radius: var(--fs-r3);
+  box-shadow: var(--fs-sh1);
+}
+
+/* Forms */
 .w-input, .w-select, .w-textarea{
-  background: rgba(255,255,255,.92);
-  border: 1px solid rgba(11,18,32,.12);
-  border-radius: var(--fs-r1);
+  background: var(--fs-surface);
+  border: var(--fs-hair) solid var(--fs-line);
+  border-radius: var(--fs-r2);
+  color: var(--fs-ink);
 }
+.w-input::placeholder, .w-textarea::placeholder{ color: rgba(2,6,23,.45); }
 
-/* focus */
-:focus-visible{
+/* Focus (high-end, accessible) */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
   outline: none;
-  box-shadow: 0 0 0 3px rgba(14,107,255,.22);
-  border-radius: 10px;
+  box-shadow: var(--fs-focus);
+  border-color: rgba(11, 95, 255, .45);
 }
 /* FS_ACTIVE_THEME_END */
+
+
+
+
