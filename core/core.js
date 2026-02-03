@@ -345,7 +345,11 @@ function routeCTAs(root, data){
       const data = await loadCustomerData();
       if (!data) return;
 
-      log('customer loaded');
+      log("customer loaded");
+
+      /* FS_BOOT_AFTER_CUSTOMER_LOADED */
+
+      fsApplyDataIf(document, data);
 
       setDocumentTitle(data);
       
@@ -353,6 +357,8 @@ function routeCTAs(root, data){
 // Order matters: first render repeaters (creates nodes), then bind slots, then CTAs & map.
       applyConditionals(document, data);
       renderRepeaters(document, data);
+      /* FS_BOOT_AFTER_REPEATERS */
+      fsApplyDataIf(document, data);
       bindSlots(document, data);
       routeCTAs(document, data);
       embedMap(document, data);
@@ -777,6 +783,62 @@ function routeCTAs(root, data){
 /* FS_REPEAT_FALLBACK_END */
 
 
+/* FS_P2_4_DATAIF_START
+  Deterministic conditional rendering:
+  - data-if="flags.x" where flags.x is:
+      - boolean (false => hide)
+      - object { enabled:false } => hide
+  - missing/null => visible (default, no lead loss)
+  - writes: hidden + data-fs-hidden-reason="if:false"
+  - idempotent; never unhides anything hidden for other reasons
+*/
+function fsResolveDotPath(obj, path) {
+  if (!obj || !path) return undefined;
+  const parts = String(path).split(".").map(p => p.trim()).filter(Boolean);
+  let cur = obj;
+  for (const k of parts) {
+    if (cur == null) return undefined;
+    cur = cur[k];
+  }
+  return cur;
+}
+function fsEvalFlagEnabled(v) {
+  if (v === false) return false;
+  if (v && typeof v === "object" && v.enabled === false) return false;
+  return true; // includes undefined/null/true/objects without enabled=false
+}
+function fsIsEnabledFromDataIf(expr, rootData) {
+  const p = (expr || "").trim();
+  if (!p) return true;
+  const v = fsResolveDotPath(rootData, p);
+  return fsEvalFlagEnabled(v);
+}
+function fsApplyDataIf(root, rootData) {
+  try {
+    const scope = root || document;
+    const nodes = scope.querySelectorAll ? scope.querySelectorAll("[data-if]") : [];
+    nodes.forEach(el => {
+      const expr = el.getAttribute("data-if");
+      const enabled = fsIsEnabledFromDataIf(expr, rootData);
+
+      if (!enabled) {
+        el.hidden = true;
+        el.setAttribute("data-fs-hidden-reason", "if:false");
+        return;
+      }
+
+      // only unhide if we previously hid it via if:false
+      if (el.hidden && el.getAttribute("data-fs-hidden-reason") === "if:false") {
+        el.hidden = false;
+        el.removeAttribute("data-fs-hidden-reason");
+      }
+    });
+  } catch (e) {
+    if (window && window.FLOWSIGHT_DEBUG) console.warn("[FS_P2_4] applyDataIf failed", e);
+  }
+}
+/* FS_P2_4_DATAIF_END */
+
 /* FS_P2_3_AUTOHIDE_START: auto-hide empty sections + sanitize slot artifacts (debug-safe) */
 (function () {
   var DEBUG = !!window.FLOWSIGHT_DEBUG;
@@ -882,7 +944,7 @@ function routeCTAs(root, data){
         } else {
           // unhide if we previously hid it
           if (sec.getAttribute("data-fs-hidden-reason") === "empty") {
-            sec.removeAttribute("hidden");
+            if (!(sec.getAttribute && sec.getAttribute("data-fs-hidden-reason") === "if:false")) { sec.removeAttribute("hidden"); }
             sec.removeAttribute("data-fs-hidden-reason");
             warn("[Flowsight][P2.3] unhide section (now has content):", "#" + id);
           }
@@ -909,6 +971,7 @@ function routeCTAs(root, data){
   window.addEventListener("load", schedule);
 })();
 /* FS_P2_3_AUTOHIDE_END */
+
 
 
 

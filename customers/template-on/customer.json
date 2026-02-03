@@ -192,7 +192,7 @@
                                           "label":  "Mo–Fr 08:00–18:00, Notfall 24/7"
                                       },
                     "map":  {
-                                "embed_url": "https://www.google.com/maps?q=Musterstrasse%201%2C%208000%20Z%C3%BCrich&output=embed"
+                                "embed_url":  "https://www.google.com/maps?q=Musterstrasse%201%2C%208000%20Z%C3%BCrich\u0026output=embed"
                             },
                     "form":  {
                                  "headline":  "Kontakt aufnehmen"
@@ -216,11 +216,10 @@
                   "services":  true,
                   "process":  true,
                   "areas":  true,
+                  "trustBadges":  true,
+                  "reviews":  true,
                   "cases":  true,
                   "certs":  true,
-                  "faq":  true,
-                  "reviews":  true,
-                  "trustBadges":  true
+                  "faq":  true
               }
 }
-

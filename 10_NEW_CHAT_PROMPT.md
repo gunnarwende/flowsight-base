@@ -58,20 +58,26 @@ Deterministisch, ruhig, hochwertig, kein Leadverlust, vollständig JSON-getriebe
 
 <!-- SNAPSHOT_START -->
 ## SNAPSHOT (auto-updated)
-- UPDATED_AT: <SET_ME>
-- DEPLOY_SHA: <SET_ME>
-- REPO_HEAD_SHA: 18d6901e3a095d3905c4fdce54f7d95f5f021aa0
+- UPDATED_AT: 2026-02-03 16:19:35
+- DEPLOY_SHA: 18d6901e3a095d3905c4fdce54f7d95f5f021aa0
+- REPO_HEAD_SHA: 533f87af338018f47822bb3f226dde0d382e7a5b
 
 ### DONE
-- <SET_ME>
+- P0/P1 Stabilisierung: Seite rendert vollständig; Header fixed/stabil; Active Theme Block isoliert
+- P1.5 Map: embed_url in customers/template-on/customer.json auf gültiges Google Maps Embed gesetzt
+- P2.3.1: Auto-hide/Sanitize stabil & reversibel; Debug default false (keine Konsole-Spam)
+- Prompt-System: 10_NEW_CHAT_PROMPT.md als Source of Truth im Repo getrackt
 
 ### OPEN / NEXT
-- <SET_ME>
+- P2.4: Deterministisches Section-Toggling via data-if="flags.*" (contract-first, keine Heuristik-Wiring)
+- P2.5: Footer-Contract (aktuelles Jahr + business.name + Legal Links JSON-getrieben)
+- P2.6: Navigation-Contract (Anchor Routing + Header Offset deterministisch, kein Scroll-Magic)
+- P3.0: SEO/A11y Baseline (H1/Headings, Meta, Buttons/Links, Form labels/aria)
 
 ### Decisions (stabil halten)
 - Debug default: false
 - Auto-hide policy: enabled (safety net), but deterministic contracts must win.
-
+- Single-page template is intentional.
 <!-- SNAPSHOT_END -->
 
 ## NEXT-CHAT SUPER PROMPT (Renderer Instructions)
@@ -83,3 +89,4 @@ Am Chat-Ende:
    - den nächsten Sprint mit ZIP-first Commands startet,
    - keine UI-Guessing Passagen enthält,
    - die Deployment Snippets mit dem DEPLOY_SHA aus dem Snapshot ausgibt.
+
