@@ -1394,6 +1394,213 @@ section#footer{
   box-shadow: 0 16px 40px rgba(11,95,255,.18) !important;
 }
 /* FS_THEME_V2_TUNING_END */
+
+
+/* FS_THEME_V4_START: swiss high-end pass (no webflow edits)
+   Goals:
+   - remove 'blue band' / harsh background effects
+   - quieter premium surfaces + typographic hierarchy
+   - consistent CTA system (primary/ghost/danger) + visibility fixes
+   - header polish (less boring) without layout hacks
+*/
+
+/* ===== Foundations ===== */
+:root{
+  --fs-canvas: #f6f7f8;
+  --fs-surface: #ffffff;
+  --fs-surface-2: rgba(255,255,255,0.86);
+  --fs-border: rgba(11,18,32,0.12);
+
+  --fs-text: #0b1220;
+  --fs-muted: rgba(11,18,32,0.62);
+
+  --fs-primary: #0b2a4a;      /* deep navy */
+  --fs-primary-2: #0e3b6a;    /* hover */
+  --fs-danger: #b21d1d;       /* emergency */
+  --fs-danger-2: #8f1414;     /* hover */
+
+  --fs-radius: 16px;
+  --fs-radius-sm: 12px;
+
+  --fs-shadow-soft: 0 10px 28px rgba(11,18,32,0.08);
+  --fs-shadow-card: 0 14px 44px rgba(11,18,32,0.10);
+}
+
+/* Remove harsh backgrounds / "blue band" scroll artifacts */
+html, body{
+  background: var(--fs-canvas) !important;
+  color: var(--fs-text);
+}
+body:before, body:after,
+.section:before, .section:after,
+.hero_section:before, .hero_section:after{
+  content: none !important;
+}
+.hero_section,
+.section,
+.section--process, .section--areas, .section--trust, .section--reviews, .section--cases, .section--certs, .section--faq, .section--contact,
+.footer{
+  background: transparent !important;
+}
+
+/* ===== Header polish (minimal, premium) ===== */
+.w-nav{
+  background: rgba(246,247,248,0.86) !important;
+  border-bottom: 1px solid var(--fs-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.w-nav-link{
+  color: rgba(11,18,32,0.78) !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.w-nav-link:hover{
+  color: rgba(11,18,32,0.92) !important;
+}
+.w-nav-link.w--current{
+  color: var(--fs-primary) !important;
+}
+
+/* ===== Typography ===== */
+.hero_title{
+  letter-spacing: -0.02em;
+  font-weight: 720;
+  color: var(--fs-text);
+  max-width: 18ch;
+}
+.hero_text, .section_text, .section__subline{
+  color: var(--fs-muted);
+  line-height: 1.55;
+}
+.section_title, .section__title{
+  letter-spacing: -0.02em;
+  font-weight: 720;
+  color: var(--fs-text);
+}
+h3, .service_card__title, .process__item-title, .trust__title, .cases__title, .faq__q{
+  letter-spacing: -0.015em;
+  color: var(--fs-text);
+}
+
+/* Hero composition (reduce "unfinished empty" feel) */
+.hero_section{
+  min-height: 66vh;
+  padding-top: 120px;
+  padding-bottom: 56px;
+}
+.hero_section .container{
+  max-width: 1100px;
+}
+
+/* ===== Surfaces (cards) ===== */
+.service_card, .process__item, .trust__item, .reviews__item, .cases__item, .certs__item, .faq__item,
+.footer__legal, .contact__form, .contact__card, .contact__box{
+  background: var(--fs-surface);
+  border: 1px solid var(--fs-border);
+  border-radius: var(--fs-radius);
+  box-shadow: var(--fs-shadow-soft);
+}
+
+/* Generic: any element that already looks like a card should be calmer */
+[class*="__card"], [class*="card__"], [class*="__item"]{
+  border-color: var(--fs-border);
+}
+
+/* ===== Buttons (consistent system) ===== */
+.btn, .w-button, .contact__submit{
+  border-radius: 999px !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+/* Primary */
+.btn--primary, .contact__submit.btn--primary, input.btn--primary[type="submit"]{
+  background: var(--fs-primary) !important;
+  color: #fff !important;
+  border: 1px solid transparent !important;
+  box-shadow: 0 10px 24px rgba(11,42,74,0.18);
+}
+.btn--primary:hover, .contact__submit.btn--primary:hover, input.btn--primary[type="submit"]:hover{
+  background: var(--fs-primary-2) !important;
+}
+
+/* Ghost (make "Bewertung schreiben" visible) */
+.btn--ghost{
+  background: rgba(255,255,255,0.82) !important;
+  color: var(--fs-text) !important;
+  border: 1px solid rgba(11,18,32,0.18) !important;
+}
+.btn--ghost:hover{
+  background: #fff !important;
+  border-color: rgba(11,18,32,0.26) !important;
+}
+
+/* Contact phone CTAs: emergency vs office */
+.contact__phone--emergency{
+  background: var(--fs-danger) !important;
+  color: #fff !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+}
+.contact__phone--emergency:hover{
+  background: var(--fs-danger-2) !important;
+}
+.contact__phone--office{
+  background: var(--fs-primary) !important;
+  color: #fff !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+}
+.contact__phone--office:hover{
+  background: var(--fs-primary-2) !important;
+}
+
+/* ===== Forms (high-end inputs) ===== */
+.form__input, .form__textarea{
+  background: rgba(255,255,255,0.92) !important;
+  border: 1px solid rgba(11,18,32,0.16) !important;
+  border-radius: 12px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
+}
+.form__input:focus, .form__textarea:focus{
+  outline: none !important;
+  border-color: rgba(11,42,74,0.40) !important;
+  box-shadow: 0 0 0 4px rgba(11,42,74,0.10);
+}
+
+/* ===== Reviews: remove "table" vibe ===== */
+.reviews__item{
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.reviews__title{
+  font-weight: 720;
+  color: var(--fs-text);
+}
+.reviews__text{
+  color: var(--fs-muted);
+  line-height: 1.55;
+}
+
+/* ===== Footer: stronger finish ===== */
+.footer{
+  padding-top: 22px;
+  padding-bottom: 28px;
+}
+.footer__container{
+  border-top: 1px solid rgba(11,18,32,0.10);
+  padding-top: 18px;
+}
+.footer__legal-link{
+  color: rgba(11,18,32,0.70) !important;
+}
+.footer__legal-link:hover{
+  color: rgba(11,18,32,0.92) !important;
+  text-decoration: underline;
+}
+
+/* FS_THEME_V4_END */
+
 /* FS_ACTIVE_THEME_END */
 
 /* FS_HEADER_FORCE_START */
