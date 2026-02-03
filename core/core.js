@@ -260,6 +260,10 @@ function routeCTAs(root, data){
       // Only inject once
       if (el.querySelector('iframe')) return;
 
+      /* FS_P3_1_MAP_IFRAME_GUARD: prevent duplicate map iframes */
+
+      if (el && el.querySelector && el.querySelector('iframe')) return;
+
       const iframe = document.createElement('iframe');
       iframe.src = String(url);
       iframe.width = '100%';
@@ -536,11 +540,15 @@ function fsP30Apply(data){
   fsP30EnsureAlt(data);
 }
 /* FS_P3_0_SEO_A11Y_END */
-
 async function boot(){
+  /* FS_P3_1_IDEMPOTENCY_START: prevent double-boot (deterministic) */
+  if (window.__fsCoreBooting) return;
+  if (window.__fsCoreBooted) return;
+  window.__fsCoreBooting = 1;
+  /* FS_P3_1_IDEMPOTENCY_END */
     try{
       const data = await loadCustomerData();
-      if (!data) return;
+      if (!data){ window.__fsCoreBooting = 0; return; }
 
       log("customer loaded");
 
@@ -565,9 +573,14 @@ async function boot(){
       embedMap(document, data);
       initHooks(data);
 
+      window.__fsCoreBooted = 1;
+
+      window.__fsCoreBooting = 0;
+
       log('boot complete');
     } catch (e){
       warn('boot failed:', e);
+      window.__fsCoreBooting = 0;
     }
   }
 
@@ -1048,7 +1061,7 @@ async function boot(){
 
   async function run(){
     var data = await getCustomerData();
-    if (!data) return;
+    if (!data){ window.__fsCoreBooting = 0; return; }
 
     var reps = document.querySelectorAll('[data-repeat]');
     reps.forEach(function(rep){
@@ -1261,6 +1274,7 @@ function fsApplyDataIf(root, rootData) {
   window.addEventListener("load", schedule);
 })();
 /* FS_P2_3_AUTOHIDE_END */
+
 
 
 
