@@ -605,7 +605,7 @@ button, input, textarea, select{ font: inherit; color: inherit; }
 ========================================= */
 /* Header */
 .site-header, .navbar{
-  position: sticky;
+  position: fixed; left: 0; right: 0; width: 100%;
   top: 0;
   z-index: 20;
   backdrop-filter: blur(12px);
@@ -1121,7 +1121,7 @@ section[id]{
 
 /* Header glass (integrated, high-end) */
 .w-nav{
-  position: sticky;
+  position: fixed; left: 0; right: 0; width: 100%;
   top: 0;
   z-index: 999;
   background: rgba(255,255,255,.72);
@@ -1182,6 +1182,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 /* FS_ACTIVE_THEME_END */
 
+/* FS_HEADER_FORCE_START */
+/* Force header to be viewport-fixed across the whole page
+   Webflow Navigator: "01 Header" (class: header_wrap) */
+.header_wrap,
+.header_wrap .w-nav{
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 9999 !important;
+}
 
-
+/* Defensive: ensure Webflow Navbar never falls back to sticky */
+.w-nav{
+  position: fixed !important;
+  top: 0 !important;
+}
+/* FS_HEADER_FORCE_END */
 
