@@ -221,5 +221,8 @@
                   "cases":  true,
                   "certs":  true,
                   "faq":  true
-              }
+              },
+    "footer":  {
+                   "legal_title":  "Rechtliches"
+               }
 }

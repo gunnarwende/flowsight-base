@@ -527,10 +527,6 @@
                                                       "legal"
                                                   ],
                                      "properties":  {
-                                                        "google_review":  {
-                                                                              "type":  "string",
-                                                                              "minLength":  1
-                                                                          },
                                                         "legal":  {
                                                                       "type":  "object",
                                                                       "required":  [
@@ -539,16 +535,19 @@
                                                                                    ],
                                                                       "properties":  {
                                                                                          "impressum_url":  {
-                                                                                                               "type":  "string",
-                                                                                                               "minLength":  1
+                                                                                                               "type":  "string"
                                                                                                            },
                                                                                          "privacy_url":  {
-                                                                                                             "type":  "string",
-                                                                                                             "minLength":  1
+                                                                                                             "type":  "string"
                                                                                                          }
-                                                                                     }
-                                                                  }
-                                                    }
+                                                                                     },
+                                                                      "additionalProperties":  true
+                                                                  },
+                                                        "google_review":  {
+                                                                              "type":  "string"
+                                                                          }
+                                                    },
+                                     "additionalProperties":  true
                                  },
                        "flags":  {
                                      "type":  "object",
@@ -683,7 +682,16 @@
                                                                               ]
                                                                 }
                                                     }
-                                 }
+                                 },
+                       "footer":  {
+                                      "type":  "object",
+                                      "additionalProperties":  true,
+                                      "properties":  {
+                                                         "legal_title":  {
+                                                                             "type":  "string"
+                                                                         }
+                                                     }
+                                  }
                    },
     "additionalProperties":  true
 }

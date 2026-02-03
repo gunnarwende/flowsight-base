@@ -339,8 +339,99 @@ function routeCTAs(root, data){
       try { window.FlowSightVoice.init({ data }); } catch (e){ warn('Voice init failed:', e); }
     }
   }
+/* FS_P2_5_FOOTER_START
+  Footer Contract (JSON-driven):
+  - Year auto + business.name
+  - Legal links (privacy/impressum) ensure non-empty labels + aria-label
+  - Support footer.legal_title even if authored as data-bind (footer-scope alias)
+  - Optional links.google_review -> append link in footer legal block
+*/
+function fsFooterGet(obj, path){
+  try{
+    if (typeof getByPath === 'function') return getByPath(obj, path);
+  } catch(e){}
+  // fallback
+  const parts = String(path||'').split('.').filter(Boolean);
+  let cur = obj;
+  for (const k of parts){ if (cur == null) return undefined; cur = cur[k]; }
+  return cur;
+}
 
-  async function boot(){
+function fsApplyFooterContract(root, data){
+  try{
+    const footer = (root || document).querySelector && (root || document).querySelector('#footer');
+    if (!footer) return;
+
+    // A) footer.legal_title: allow authored as data-bind (alias) within footer scope only
+    footer.querySelectorAll('[data-bind="footer.legal_title"]').forEach(el => {
+      if ((el.textContent || '').trim()) return;
+      const v = fsFooterGet(data, 'footer.legal_title');
+      if (v != null) el.textContent = String(v);
+    });
+
+    // B) year + business name line (insert once)
+    const year = String(new Date().getFullYear());
+    const bname = fsFooterGet(data, 'business.name');
+    const metaText = '© ' + year + (bname ? (' ' + String(bname)) : '');
+
+    // Insert into footer__legal block if present; otherwise into footer container.
+    const legal = footer.querySelector('.footer__legal') || footer;
+    if (!legal.querySelector('[data-fs-footer-meta="1"]')){
+      const meta = document.createElement('div');
+      meta.className = 'footer__legal-title';
+      meta.setAttribute('data-fs-footer-meta','1');
+      meta.textContent = metaText;
+      legal.appendChild(meta);
+    } else {
+      const meta = legal.querySelector('[data-fs-footer-meta="1"]');
+      if (meta) meta.textContent = metaText;
+    }
+
+    // C) Ensure legal link labels are not empty (A11y safe)
+    const links = footer.querySelectorAll('a.footer__legal-link');
+    links.forEach(a => {
+      const href = a.getAttribute('href') || '';
+      const hasText = (a.textContent || '').trim().length > 0;
+
+      if (!hasText){
+        let label = '';
+        if (href.indexOf('datenschutz') >= 0 || href.indexOf('privacy') >= 0) label = 'Datenschutz';
+        if (href.indexOf('impressum') >= 0) label = 'Impressum';
+        if (!label) label = 'Rechtliches';
+        a.textContent = label;
+      }
+      if (!a.getAttribute('aria-label')){
+        a.setAttribute('aria-label', (a.textContent || 'Rechtliches').trim());
+      }
+    });
+
+    // D) Optional Google Review link
+    const gr = fsFooterGet(data, 'links.google_review');
+    if (gr && typeof gr === 'string'){
+      const url = gr.trim();
+      if (url){
+        const exists = footer.querySelector('a[data-fs-google-review="1"]');
+        if (!exists){
+          const a = document.createElement('a');
+          a.className = 'footer__legal-link w-inline-block';
+          a.href = url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.setAttribute('data-fs-google-review','1');
+          a.textContent = 'Google Reviews';
+          legal.appendChild(a);
+        } else {
+          exists.setAttribute('href', url);
+        }
+      }
+    }
+  } catch(e){
+    if (window && window.FLOWSIGHT_DEBUG) console.warn('[FS_P2_5] footer contract failed', e);
+  }
+}
+/* FS_P2_5_FOOTER_END */
+
+async function boot(){
     try{
       const data = await loadCustomerData();
       if (!data) return;
@@ -360,6 +451,8 @@ function routeCTAs(root, data){
       /* FS_BOOT_AFTER_REPEATERS */
       fsApplyDataIf(document, data);
       bindSlots(document, data);
+      /* FS_P2_5_FOOTER_APPLIED */
+      fsApplyFooterContract(document, data);
       routeCTAs(document, data);
       embedMap(document, data);
       initHooks(data);
@@ -971,6 +1064,7 @@ function fsApplyDataIf(root, rootData) {
   window.addEventListener("load", schedule);
 })();
 /* FS_P2_3_AUTOHIDE_END */
+
 
 
 
