@@ -1049,171 +1049,175 @@ footer{
 }
 
 /* FS_ACTIVE_THEME_START */
+/* FlowSight Swiss High-End Theme (Light, Premium, Low-Noise)
+   - Canvas: subtle light gradients (no visible bands)
+   - Surfaces: hairline + soft shadow
+   - Type: strict scale + calm rhythm
+*/
+
 :root{
-  /* Colors (Swiss High-End, light) */
-  --fs-bg0: #f7f8fb;
-  --fs-bg1: #eef2f6;
-  --fs-surface: #ffffff;
-  --fs-line: rgba(15, 23, 42, .10);
-  --fs-ink: rgba(2, 6, 23, .92);
-  --fs-muted: rgba(2, 6, 23, .68);
-  --fs-brand: #0b4dd9;
+  /* Colors (Light Swiss) */
+  --fs-bg0: #f6f8fb;
+  --fs-bg1: #eef2f7;
+  --fs-surface: rgba(255,255,255,.92);
+  --fs-line: rgba(15,23,42,.10);
+  --fs-ink: rgba(15,23,42,.94);
+  --fs-muted: rgba(15,23,42,.68);
+  --fs-brand: #0b5fff;
 
   /* Layout */
   --fs-container: 1120px;
   --fs-gutter: clamp(16px, 4vw, 28px);
-  --fs-section-py: clamp(64px, 6.5vw, 104px);
+  --fs-section-py: clamp(56px, 6vw, 96px);
   --fs-gap: 16px;
-  --fs-nav-h: 80px; /* for anchor scroll-margin */
 
   /* Type */
-  --fs-font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  --fs-lh: 1.55;
-  --fs-h1: clamp(2.1rem, 3.0vw, 3.15rem);
-  --fs-h2: clamp(1.55rem, 2.1vw, 2.25rem);
-  --fs-h3: clamp(1.125rem, 1.35vw, 1.375rem);
+  --fs-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --fs-lh: 1.58;
+  --fs-h1: clamp(2.05rem, 3vw, 3.05rem);
+  --fs-h2: clamp(1.55rem, 2.1vw, 2.2rem);
+  --fs-h3: clamp(1.1rem, 1.35vw, 1.35rem);
   --fs-body: 16px;
   --fs-small: 14px;
 
   /* Physics */
   --fs-hair: 1px;
-  --fs-r1: 10px;
+  --fs-r1: 12px;
   --fs-r2: 16px;
-  --fs-r3: 20px;
-  --fs-sh1: 0 8px 24px rgba(2, 6, 23, .06);
-  --fs-sh2: 0 16px 44px rgba(2, 6, 23, .10);
+  --fs-r3: 22px;
+  --fs-sh1: 0 10px 34px rgba(15,23,42,.08);
+  --fs-sh2: 0 22px 70px rgba(15,23,42,.12);
 
   /* Motion */
   --fs-ease: cubic-bezier(.2,.8,.2,1);
   --fs-dur-1: 160ms;
   --fs-dur-2: 240ms;
-
-  /* Focus */
-  --fs-focus: 0 0 0 2px rgba(11, 95, 255, .22);
 }
 
-/* Canvas / Base */
-html{ scroll-behavior: smooth; }
+/* ---- Base Canvas ---- */
+html, body{
+  height: 100%;
+}
+
 body{
   font-family: var(--fs-font);
+  font-size: var(--fs-body);
   line-height: var(--fs-lh);
   color: var(--fs-ink);
   background:
-    radial-gradient(1200px 800px at 20% -10%, rgba(11, 95, 255, .06), transparent 55%),
-    linear-gradient(180deg, var(--fs-bg0), var(--fs-bg1));
+    radial-gradient(1200px 700px at 20% -10%, rgba(11,95,255,.10), rgba(11,95,255,0) 60%),
+    radial-gradient(900px 600px at 85% 0%, rgba(15,23,42,.06), rgba(15,23,42,0) 55%),
+    linear-gradient(180deg, var(--fs-bg1), var(--fs-bg0) 40%, var(--fs-bg0));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Container system */
+a{ color: inherit; text-decoration: none; }
+a:hover{ color: var(--fs-brand); }
+
 .w-container{
-  max-width: var(--fs-container);
+  max-width: var(--fs-container) !important;
+  padding-left: var(--fs-gutter) !important;
+  padding-right: var(--fs-gutter) !important;
   width: 100%;
-  padding-left: var(--fs-gutter);
-  padding-right: var(--fs-gutter);
 }
 
-/* Section rhythm + anchor comfort */
+/* ---- Section Rhythm (no “bands”) ---- */
 section[id]{
   padding-block: var(--fs-section-py);
-  scroll-margin-top: var(--fs-nav-h);
   position: relative;
   isolation: isolate;
 }
 
-/* Header glass (integrated, high-end) */
+/* subtle “light fade” instead of bars */
+section[id]::before{
+  content:"";
+  position:absolute;
+  inset: -1px 0 auto 0;
+  height: 140px;
+  pointer-events:none;
+  background: linear-gradient(180deg, rgba(15,23,42,.06), rgba(15,23,42,0));
+  opacity: .55;
+}
+section[id]:first-of-type::before{ display:none; }
+
+/* ---- Header: premium glass ---- */
 .w-nav{
-  position: fixed; left: 0; right: 0; width: 100%;
-  top: 0;
-  z-index: 999;
-  background: rgba(255,255,255,.72);
-  border-bottom: var(--fs-hair) solid var(--fs-line);
-  box-shadow: var(--fs-sh1);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(246,248,251,.72) !important;
+  border-bottom: var(--fs-hair) solid rgba(15,23,42,.10) !important;
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(15,23,42,.06);
 }
 
-/* Typography polish */
-h1,h2,h3{ letter-spacing: -0.01em; }
-p{ color: var(--fs-muted); }
+/* ---- Type Hierarchy ---- */
+.hero_title{ font-size: var(--fs-h1); letter-spacing: -0.02em; }
+.section_title, .section__title{ font-size: var(--fs-h2); letter-spacing: -0.01em; }
+.service_card__title, .process__item-title, .trust__title, .cases__title, .faq__q{ font-size: var(--fs-h3); }
+.hero_text, .section_text, .section__subline{ color: var(--fs-muted); }
 
-/* Buttons */
-.btn, .w-button{
+/* ---- Surfaces / Cards (less UI-kit, more premium) ---- */
+.service_card,
+.process__item,
+.trust__item,
+.reviews__item,
+.cases__item,
+.faq__item,
+.footer__legal,
+.contact__form{
+  background: var(--fs-surface) !important;
+  border: var(--fs-hair) solid var(--fs-line) !important;
+  border-radius: var(--fs-r2) !important;
+  box-shadow: var(--fs-sh1) !important;
+}
+
+/* If those containers don’t exist, at least style the obvious “card-like” blocks */
+[class*="__item"]{
   border-radius: var(--fs-r2);
-  transition: transform var(--fs-dur-1) var(--fs-ease),
-              box-shadow var(--fs-dur-1) var(--fs-ease),
-              background-color var(--fs-dur-1) var(--fs-ease),
-              color var(--fs-dur-1) var(--fs-ease),
-              border-color var(--fs-dur-1) var(--fs-ease);
 }
+
+/* ---- Buttons ---- */
+.btn{
+  border-radius: 999px;
+  transition: transform var(--fs-dur-1) var(--fs-ease), box-shadow var(--fs-dur-1) var(--fs-ease), background var(--fs-dur-1) var(--fs-ease);
+}
+.btn:active{ transform: translateY(1px); }
+
 .btn--primary{
-  background: var(--fs-brand);
-  color: #fff;
-  box-shadow: var(--fs-sh1);
+  background: var(--fs-brand) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 28px rgba(11,95,255,.20);
 }
-.btn--primary:hover{ transform: translateY(-1px); box-shadow: var(--fs-sh2); }
+.btn--primary:hover{ box-shadow: 0 16px 44px rgba(11,95,255,.22); }
+
 .btn--ghost{
-  background: transparent;
-  border: var(--fs-hair) solid var(--fs-line);
-  color: var(--fs-ink);
+  background: transparent !important;
+  border: var(--fs-hair) solid rgba(15,23,42,.16) !important;
 }
-.btn--ghost:hover{ background: rgba(2,6,23,.04); }
-
-/* Cards / Surfaces (generic) */
-.service_card, .process__item, .trust__item, .reviews__card, .cases__card, .certs__item, .faq__item{
-  background: var(--fs-surface);
-  border: var(--fs-hair) solid var(--fs-line);
-  border-radius: var(--fs-r3);
-  box-shadow: var(--fs-sh1);
+.btn--ghost:hover{
+  background: rgba(15,23,42,.04) !important;
 }
 
-/* Forms */
-.w-input, .w-select, .w-textarea{
-  background: var(--fs-surface);
-  border: var(--fs-hair) solid var(--fs-line);
-  border-radius: var(--fs-r2);
-  color: var(--fs-ink);
+/* ---- Forms ---- */
+.form__input, .form__textarea{
+  background: rgba(255,255,255,.86) !important;
+  border: var(--fs-hair) solid rgba(15,23,42,.14) !important;
+  border-radius: var(--fs-r1) !important;
+  transition: box-shadow var(--fs-dur-1) var(--fs-ease), border-color var(--fs-dur-1) var(--fs-ease);
 }
-.w-input::placeholder, .w-textarea::placeholder{ color: rgba(2,6,23,.45); }
+.form__input:focus, .form__textarea:focus{
+  outline: none !important;
+  border-color: rgba(11,95,255,.38) !important;
+  box-shadow: 0 0 0 4px rgba(11,95,255,.12) !important;
+}
 
-/* Focus (high-end, accessible) */
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+/* ---- Focus (A11y, but high-end) ---- */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
   outline: none;
-  box-shadow: var(--fs-focus);
-  border-color: rgba(11, 95, 255, .45);
+  box-shadow: 0 0 0 4px rgba(11,95,255,.14);
+  border-radius: var(--fs-r1);
 }
-  /* FS_P1_FINAL_HEADER_START: final header contract + overlay stacking */
-  :root{ --fs-header-h: 88px; }
 
-  /* Single source of truth for header positioning */
-  .w-nav{
-    position: fixed !important;
-    top: 0 !important; left: 0; right: 0;
-    width: 100%;
-    z-index: 1000 !important;
-  }
-
-  /* Layout offset + anchor offset */
-  body{ padding-top: var(--fs-header-h); }
-  section[id]{ scroll-margin-top: var(--fs-header-h); }
-
-  /* Targeted overlay safety: keep pseudo layers behind content, not above it */
-  #hero, #process, #contact, #footer{
-    position: relative;
-    isolation: isolate;
-  }
-
-  #hero::before, #hero::after,
-  #process::before, #process::after,
-  #contact::before, #contact::after,
-  #footer::before, #footer::after{
-    pointer-events: none;
-    z-index: -1 !important;
-  }
-
-  #hero > *, #process > *, #contact > *, #footer > *{
-    position: relative;
-    z-index: 1;
-  }
-  /* FS_P1_FINAL_HEADER_END */
 /* FS_ACTIVE_THEME_END */
 
 /* FS_HEADER_FORCE_START */
@@ -1235,6 +1239,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   top: 0 !important;
 }
 /* FS_HEADER_FORCE_END */
+
 
 
 
