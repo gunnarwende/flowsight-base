@@ -776,3 +776,51 @@ function routeCTAs(root, data){
 })();
 /* FS_REPEAT_FALLBACK_END */
 
+/* FS_P1_6_MAP_SANITIZE_START: remove stray [object Object] near map embeds */
+(function () {
+  function fsSanitizeMapEmbeds() {
+    try {
+      var nodes = document.querySelectorAll('[data-map-embed]');
+      nodes.forEach(function (el) {
+        // 1) If the map container itself contains only the artifact text, clear it
+        var t = (el.textContent || '').trim();
+        if (t === '[object Object]' || t === 'object Object') {
+          el.textContent = '';
+        }
+
+        // 2) Remove stray text nodes around the embed (often ends up before the iframe)
+        var p = el.parentElement;
+        if (p) {
+          Array.from(p.childNodes).forEach(function (n) {
+            if (n && n.nodeType === 3) { // TEXT_NODE
+              var nt = (n.textContent || '').trim();
+              if (nt === '[object Object]' || nt === 'object Object') {
+                n.remove();
+              }
+            }
+          });
+
+          // 3) If any direct child element renders only the artifact text, clear it
+          Array.from(p.children).forEach(function (c) {
+            var ct = (c.textContent || '').trim();
+            if (ct === '[object Object]' || ct === 'object Object') {
+              c.textContent = '';
+            }
+          });
+        }
+      });
+    } catch (e) {
+      // no-op: sanitation must never break runtime
+    }
+  }
+
+  // Run after runtime render + also on load (covers async iframe insert)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(fsSanitizeMapEmbeds, 0); });
+  } else {
+    setTimeout(fsSanitizeMapEmbeds, 0);
+  }
+  window.addEventListener('load', function () { setTimeout(fsSanitizeMapEmbeds, 0); });
+})();
+/* FS_P1_6_MAP_SANITIZE_END */
+
