@@ -430,6 +430,112 @@ function fsApplyFooterContract(root, data){
   }
 }
 /* FS_P2_5_FOOTER_END */
+/* FS_P3_0_SEO_A11Y_START
+  SEO/A11y Baseline (Lead-Safety):
+  - Ensure accessible names for key links (logo, phone links)
+  - Ensure reasonable alt text for case photos (class-based, deterministic)
+  - Optional: set document.title/meta description from data.seo (only if provided)
+*/
+function fsP30Get(obj, path){
+  try{
+    if (typeof getByPath === 'function') return getByPath(obj, path);
+  } catch(e){}
+  const parts = String(path||'').split('.').filter(Boolean);
+  let cur = obj;
+  for (const k of parts){ if (cur == null) return undefined; cur = cur[k]; }
+  return cur;
+}
+
+function fsP30EnsureMeta(data){
+  try{
+    const t = fsP30Get(data, 'seo.title');
+    if (t && typeof t === 'string' && t.trim()){
+      document.title = t.trim();
+    }
+    const d = fsP30Get(data, 'seo.description');
+    if (d && typeof d === 'string' && d.trim()){
+      let m = document.querySelector('meta[name="description"]');
+      if (!m){
+        m = document.createElement('meta');
+        m.setAttribute('name','description');
+        document.head.appendChild(m);
+      }
+      m.setAttribute('content', d.trim());
+    }
+  } catch(_){}
+}
+
+function fsP30EnsureAria(data){
+  try{
+    const bname = (fsP30Get(data,'business.name') || '').toString().trim();
+
+    // A) Header logo link (image-only <a>)
+    const logo = document.querySelector('a.header_logo, a.w-nav-brand');
+    if (logo){
+      const hasText = (logo.textContent || '').trim().length > 0;
+      const hasAria = !!logo.getAttribute('aria-label');
+      if (!hasText && !hasAria){
+        logo.setAttribute('aria-label', bname ? ('Start – ' + bname) : 'Start');
+      }
+    }
+
+    // B) Contact phone links (ensure aria-label even before hydration)
+    document.querySelectorAll('a.contact__phone').forEach(a => {
+      if (a.getAttribute('aria-label')) return;
+      const txt = (a.textContent || '').trim();
+      if (txt){
+        a.setAttribute('aria-label', txt);
+        return;
+      }
+      const slot = (a.getAttribute('data-slot') || '').trim();
+      if (slot.indexOf('emergency') >= 0) a.setAttribute('aria-label','Notfallnummer');
+      else a.setAttribute('aria-label','Telefon');
+    });
+
+    // C) Last resort: empty anchors with no aria-label
+    document.querySelectorAll('a[href]').forEach(a => {
+      const hasText = (a.textContent || '').trim().length > 0;
+      if (hasText) return;
+      if (a.getAttribute('aria-label')) return;
+      const img = a.querySelector('img[alt]');
+      const alt = img ? (img.getAttribute('alt') || '').trim() : '';
+      a.setAttribute('aria-label', alt || 'Link');
+    });
+  } catch(e){
+    if (window && window.FLOWSIGHT_DEBUG) console.warn('[FS_P3_0] aria pass failed', e);
+  }
+}
+
+function fsP30EnsureAlt(data){
+  try{
+    const bname = (fsP30Get(data,'business.name') || '').toString().trim();
+
+    document.querySelectorAll('img.cases__photo').forEach(img => {
+      const alt = (img.getAttribute('alt') || '');
+      if (alt.trim()) return;
+
+      let t = '';
+      const card = img.closest('.cases__item') || img.closest('.cases__card') || img.closest('[data-repeat]') || null;
+      if (card){
+        const h = card.querySelector('.cases__title');
+        if (h) t = (h.textContent || '').trim();
+      }
+
+      if (t) img.setAttribute('alt', 'Referenz: ' + t);
+      else if (bname) img.setAttribute('alt', 'Referenzfoto – ' + bname);
+      else img.setAttribute('alt', 'Referenzfoto');
+    });
+  } catch(e){
+    if (window && window.FLOWSIGHT_DEBUG) console.warn('[FS_P3_0] alt pass failed', e);
+  }
+}
+
+function fsP30Apply(data){
+  fsP30EnsureMeta(data);
+  fsP30EnsureAria(data);
+  fsP30EnsureAlt(data);
+}
+/* FS_P3_0_SEO_A11Y_END */
 
 async function boot(){
     try{
@@ -453,6 +559,8 @@ async function boot(){
       bindSlots(document, data);
       /* FS_P2_5_FOOTER_APPLIED */
       fsApplyFooterContract(document, data);
+      /* FS_P3_0_APPLIED */
+      fsP30Apply(data);
       routeCTAs(document, data);
       embedMap(document, data);
       initHooks(data);
@@ -1153,6 +1261,7 @@ function fsApplyDataIf(root, rootData) {
   window.addEventListener("load", schedule);
 })();
 /* FS_P2_3_AUTOHIDE_END */
+
 
 
 

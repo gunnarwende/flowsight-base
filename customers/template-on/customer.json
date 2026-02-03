@@ -224,5 +224,9 @@
               },
     "footer":  {
                    "legal_title":  "Rechtliches"
-               }
+               },
+    "seo":  {
+                "title":  "Sanitär, Heizung \u0026 Spenglerei | Muster Sanitär \u0026 Heizung AG",
+                "description":  "Sanitär, Heizung \u0026 Spenglerei im Raum Zürich. Service, Reparaturen, Wartung und Umbauten – sauber ausgeführt, klar kommuniziert."
+            }
 }
