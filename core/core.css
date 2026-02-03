@@ -1049,6 +1049,152 @@ footer{
 }
 
 /* FS_ACTIVE_THEME_START */
+
+/* =========================
+   FS_THEME_V3_START
+   Swiss High-End: calm canvas + consistent buttons + premium header
+   ========================= */
+
+:root{
+  --fs-canvas: #f6f7f8;
+  --fs-surface: #ffffff;
+  --fs-surface-2: rgba(255,255,255,0.86);
+  --fs-border: rgba(15, 23, 42, 0.10);
+
+  --fs-text: #0b1220;
+  --fs-muted: rgba(11,18,32,0.68);
+
+  --fs-accent: #163a5f;
+  --fs-accent-contrast: #ffffff;
+
+  --fs-emergency: #b42318;
+  --fs-emergency-contrast: #ffffff;
+
+  --fs-radius: 16px;
+  --fs-radius-sm: 12px;
+  --fs-shadow-1: 0 1px 2px rgba(11,18,32,0.06);
+  --fs-shadow-2: 0 10px 30px rgba(11,18,32,0.10);
+}
+
+html, body{
+  background: var(--fs-canvas) !important;
+  color: var(--fs-text);
+}
+
+section{ background: transparent !important; }
+
+.hero_section,
+.section,
+.footer{
+  background-image: none !important;
+  filter: none !important;
+}
+
+.hero_section::before,
+.hero_section::after,
+.section::before,
+.section::after,
+.footer::before,
+.footer::after{
+  background: none !important;
+  background-image: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+.w-nav{
+  background: var(--fs-surface-2) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--fs-border) !important;
+  box-shadow: var(--fs-shadow-1) !important;
+}
+
+.header_nav_link{
+  color: rgba(11,18,32,0.72) !important;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color .15s ease, opacity .15s ease;
+}
+
+.header_nav_link:hover{ color: var(--fs-text) !important; opacity: 1; }
+
+.header_nav_link.w--current{
+  color: var(--fs-text) !important;
+  font-weight: 600;
+}
+
+.header_nav_link:focus-visible{
+  outline: 2px solid rgba(22,58,95,0.35);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+.btn,
+.w-button{
+  border-radius: 999px !important;
+  padding: 10px 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: none;
+}
+
+.btn--primary,
+.contact__submit.btn--primary,
+.contact__submit.w-button{
+  background: var(--fs-accent) !important;
+  color: var(--fs-accent-contrast) !important;
+  border: 1px solid rgba(0,0,0,0) !important;
+}
+
+.btn--primary:hover,
+.contact__submit:hover{ filter: brightness(0.96); }
+
+.btn--ghost,
+.reviews__cta.btn--ghost{
+  background: rgba(22,58,95,0.08) !important;
+  color: var(--fs-accent) !important;
+  border: 1px solid rgba(22,58,95,0.18) !important;
+}
+
+.btn--ghost:hover{ background: rgba(22,58,95,0.12) !important; }
+
+.contact__phone{
+  border-radius: 999px !important;
+  font-weight: 700;
+}
+
+.contact__phone--emergency{
+  background: var(--fs-emergency) !important;
+  color: var(--fs-emergency-contrast) !important;
+  border: 1px solid rgba(0,0,0,0) !important;
+}
+
+.contact__phone--office{
+  background: var(--fs-surface) !important;
+  color: var(--fs-text) !important;
+  border: 1px solid var(--fs-border) !important;
+}
+
+.form__input,
+.form__textarea{
+  background: var(--fs-surface) !important;
+  border: 1px solid var(--fs-border) !important;
+  border-radius: var(--fs-radius-sm) !important;
+  box-shadow: none !important;
+  color: var(--fs-text) !important;
+}
+
+.form__input:focus,
+.form__textarea:focus{
+  border-color: rgba(22,58,95,0.45) !important;
+  box-shadow: 0 0 0 4px rgba(22,58,95,0.12) !important;
+  outline: none !important;
+}
+
+/* =========================
+   FS_THEME_V3_END
+   ========================= */
 /* FlowSight Swiss High-End Theme (Light, Premium, Low-Noise)
    - Canvas: subtle light gradients (no visible bands)
    - Surfaces: hairline + soft shadow
@@ -1269,6 +1415,7 @@ section#footer{
   top: 0 !important;
 }
 /* FS_HEADER_FORCE_END */
+
 
 
 
