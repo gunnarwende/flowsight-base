@@ -58,9 +58,9 @@ Deterministisch, ruhig, hochwertig, kein Leadverlust, vollständig JSON-getriebe
 
 <!-- SNAPSHOT_START -->
 ## SNAPSHOT (auto-updated)
-- UPDATED_AT: 2026-02-03 16:19:35
-- DEPLOY_SHA: 18d6901e3a095d3905c4fdce54f7d95f5f021aa0
-- REPO_HEAD_SHA: 533f87af338018f47822bb3f226dde0d382e7a5b
+- UPDATED_AT: 2026-02-03 16:24:34
+- DEPLOY_SHA: 105146cd600adc1d61404220cfb764b42317c051
+- REPO_HEAD_SHA: 105146cd600adc1d61404220cfb764b42317c051
 
 ### DONE
 - P0/P1 Stabilisierung: Seite rendert vollständig; Header fixed/stabil; Active Theme Block isoliert
