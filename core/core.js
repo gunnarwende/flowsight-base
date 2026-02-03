@@ -777,4 +777,141 @@ function routeCTAs(root, data){
 /* FS_REPEAT_FALLBACK_END */
 
 
+/* FS_P2_3_AUTOHIDE_START: auto-hide empty sections + sanitize slot artifacts (debug-safe) */
+(function () {
+  var DEBUG = !!window.FLOWSIGHT_DEBUG;
+
+  function warn() {
+    if (!DEBUG) return;
+    try { console.warn.apply(console, arguments); } catch (e) {}
+  }
+
+  function qsa(sel, root) {
+    try { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+    catch (e) { return []; }
+  }
+
+  function isRenderableTag(n) {
+    if (!n || n.nodeType !== 1) return false;
+    var t = n.tagName;
+    return t !== "SCRIPT" && t !== "STYLE" && t !== "TEMPLATE" && t !== "NOSCRIPT";
+  }
+
+  // --- A) sanitize stray "[object Object]" artifacts (always sanitize, log only in debug)
+  function fsSanitizeObjectArtifacts() {
+    try {
+      var hits = 0;
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      var n;
+      while (n = walker.nextNode()) {
+        var t = (n.textContent || "").trim();
+        if (t === "[object Object]" || t === "object Object") {
+          hits++;
+          var p = n.parentElement;
+          if (p) {
+            // safest: remove only the artifact text
+            n.textContent = "";
+            var info = p.tagName +
+              (p.id ? ("#" + p.id) : "") +
+              (p.className ? ("." + String(p.className).split(" ").join(".")) : "");
+            warn("[Flowsight][P2.3] sanitized object artifact in", info);
+          }
+        }
+      }
+      if (hits && DEBUG) warn("[Flowsight][P2.3] total sanitized object artifacts:", hits);
+    } catch (e) {}
+  }
+
+  // --- B) auto-hide empty sections (contract ids)
+  var AUTOHIDE_IDS = ["services","process","areas","trust-badges","reviews","cases","certs","faq"];
+
+  function countRenderableChildren(el) {
+    if (!el) return 0;
+    var kids = el.children ? Array.prototype.slice.call(el.children) : [];
+    var c = 0;
+    kids.forEach(function (k) {
+      if (!isRenderableTag(k)) return;
+      // ignore known templates if present
+      if (k.hasAttribute && (k.hasAttribute("data-repeat-template") || k.hasAttribute("data-template"))) return;
+      // ignore hidden nodes
+      try {
+        var cs = getComputedStyle(k);
+        if (cs.display === "none" || cs.visibility === "hidden") return;
+      } catch (e) {}
+      c++;
+    });
+    return c;
+  }
+
+  function sectionLooksEmpty(sec) {
+    if (!sec) return false;
+
+    // If section contains repeaters, use them as primary signal.
+    var repeaters = qsa("[data-repeat],[data-repeater],[data-repeat-list],[data-repeat-parent]", sec);
+    if (repeaters.length) {
+      var rendered = 0;
+      repeaters.forEach(function (r) { rendered += countRenderableChildren(r); });
+      return rendered === 0;
+    }
+
+    // Fallback heuristic: if there is no meaningful content besides headings/structure.
+    // (We still prefer keeping sections that have images/iframes/forms.)
+    var hasMedia = qsa("img,iframe,video,svg,canvas,form,input,textarea,button", sec).length > 0;
+    if (hasMedia) return false;
+
+    var text = (sec.innerText || "").trim();
+    // If only whitespace or extremely short -> treat as empty
+    if (!text || text.length < 8) return true;
+
+    return false;
+  }
+
+  function fsAutoHideEmptySections() {
+    try {
+      AUTOHIDE_IDS.forEach(function (id) {
+        var sec = document.getElementById(id);
+        if (!sec) return;
+
+        // Don’t fight explicit author intent
+        if (sec.hasAttribute("data-fs-keep")) return;
+
+        var empty = sectionLooksEmpty(sec);
+        if (empty) {
+          sec.setAttribute("hidden", "");
+          sec.setAttribute("data-fs-hidden-reason", "empty");
+          warn("[Flowsight][P2.3] auto-hide empty section:", "#" + id);
+        } else {
+          // if it was previously hidden by us and now has content, unhide
+          if (sec.getAttribute("data-fs-hidden-reason") === "empty") {
+            sec.removeAttribute("hidden");
+            sec.removeAttribute("data-fs-hidden-reason");
+            warn("[Flowsight][P2.3] unhide section (now has content):", "#" + id);
+          }
+        }
+      });
+    } catch (e) {}
+  }
+
+  function runPass() {
+    fsSanitizeObjectArtifacts();
+    fsAutoHideEmptySections();
+  }
+
+  // Run after boot/hydration (a few retries, deterministic)
+  function schedule() {
+    [50, 250, 800, 1500].forEach(function (ms) { setTimeout(runPass, ms); });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule);
+})();
+/* FS_P2_3_AUTOHIDE_END */
+
+
+
+
 
