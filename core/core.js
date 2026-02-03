@@ -471,55 +471,144 @@ async function boot(){
 })();
 
 /* FS_FAST_ANCHORS_START */
-/* Fast anchor navigation (prevents Webflow smooth-scroll lag)
-   - intercepts internal hash links early (capture)
-   - scrolls instantly with sticky-nav offset
-   Optional:
-   window.FLOWSIGHT_SCROLL_BEHAVIOR = "smooth" | "auto" (default auto)
+/* FS_P2_6_NAV_START
+   Deterministic anchor navigation:
+   - intercept internal hash links early (capture)
+   - scroll with header offset (robust selector)
+   - handles initial hash + hashchange
+   - optional behavior via window.FLOWSIGHT_SCROLL_BEHAVIOR = "smooth" | "auto" (default auto)
 */
-(function(){
+(function () {
   'use strict';
 
+  function getScrollBehavior(){
+    var b = String(window.FLOWSIGHT_SCROLL_BEHAVIOR || 'auto').toLowerCase();
+    return (b === 'smooth') ? 'smooth' : 'auto';
+  }
+
+  function firstEl(selectors){
+    for (var i=0;i<selectors.length;i++){
+      var el = document.querySelector(selectors[i]);
+      if (el) return el;
+    }
+    return null;
+  }
+
   function getNavOffset(){
-    var nav = document.querySelector('.w-nav');
+    // deterministic: prefer .w-nav (Webflow navbar); fallback to semantic header nodes
+    var nav = firstEl(['.w-nav', 'header', '.header']);
     var h = nav ? nav.offsetHeight : 0;
+    // keep existing +12 breathing space (not a design claim; only prevents overlap)
     return Math.max(0, h + 12);
   }
 
-  function onClick(e){
-    var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
-    if (!a) return;
+  function closeMobileNavIfOpen(){
+    try{
+      // Webflow toggles open state on button/menu; support both
+      var btn = document.querySelector('.w-nav-button');
+      var menu = document.querySelector('.w-nav-menu');
 
-    var href = a.getAttribute('href');
-    if (!href || href === '#') return;
+      var btnOpen = btn && btn.classList && btn.classList.contains('w--open');
+      var menuOpen = menu && menu.classList && menu.classList.contains('w--open');
 
-    var id = href.slice(1);
+      if (btn && (btnOpen || menuOpen)) {
+        try { btn.click(); } catch(_){}
+      }
+    } catch(_){}
+  }
+
+  function isSamePageUrl(u){
+    try{
+      if (!u) return false;
+      // accept "#id" or "/path#id" where path matches current
+      if (u.charAt(0) === '#') return true;
+      var a = document.createElement('a');
+      a.href = u;
+      var samePath = (a.pathname || '') === (window.location.pathname || '');
+      var sameHost = (a.host || '') === (window.location.host || '');
+      return sameHost && samePath && !!a.hash;
+    } catch(e){
+      return false;
+    }
+  }
+
+  function scrollToHash(hash, replaceState){
+    if (!hash || hash === '#') return false;
+
+    var id = hash.replace(/^#/, '');
+    if (!id) return false;
+
     var target = document.getElementById(id);
-    if (!target) return;
-
-    // override Webflow scroll handlers
-    e.preventDefault();
-    e.stopPropagation();
-
-    // close mobile nav if open
-    var openBtn = document.querySelector('.w-nav-button.w--open');
-    if (openBtn) { try { openBtn.click(); } catch(_){} }
+    if (!target) return false;
 
     var offset = getNavOffset();
     var top = target.getBoundingClientRect().top + (window.pageYOffset || 0) - offset;
     if (top < 0) top = 0;
 
-    var behavior = (window.FLOWSIGHT_SCROLL_BEHAVIOR || 'auto');
-    window.scrollTo({ top: top, behavior: behavior === 'smooth' ? 'smooth' : 'auto' });
+    var behavior = getScrollBehavior();
+    try{
+      window.scrollTo({ top: top, left: 0, behavior: behavior });
+    } catch(e){
+      window.scrollTo(0, top);
+    }
 
-    // keep URL hash (without triggering default jump)
-    try { history.pushState(null, '', href); } catch(_){}
+    // keep URL stable/deterministic
+    try{
+      if (replaceState) history.replaceState(null, '', '#' + id);
+      else history.pushState(null, '', '#' + id);
+    } catch(_){}
+
+    return true;
   }
 
-  // capture = true so we win against Webflow handlers
+  function onClick(e){
+    // capture: early intercept
+    if (!e || e.defaultPrevented) return;
+
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+
+    var href = a.getAttribute('href') || '';
+    if (!isSamePageUrl(href)) return;
+
+    var hash = href.charAt(0) === '#' ? href : (function(){
+      try{
+        var tmp = document.createElement('a'); tmp.href = href;
+        return tmp.hash || '';
+      } catch(_){ return ''; }
+    })();
+
+    if (!hash || hash === '#') return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    closeMobileNavIfOpen();
+    scrollToHash(hash, false);
+  }
+
+  function onHashChange(){
+    // when user navigates back/forward or edits hash manually
+    scrollToHash(window.location.hash, true);
+  }
+
   document.addEventListener('click', onClick, true);
+  window.addEventListener('hashchange', onHashChange);
+
+  // initial hash: run after DOMContentLoaded/layout
+  function initial(){
+    if (window.location.hash) {
+      // small delay to allow Webflow layout + any late fixed header sizing
+      setTimeout(function(){ scrollToHash(window.location.hash, true); }, 0);
+      setTimeout(function(){ scrollToHash(window.location.hash, true); }, 50);
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initial);
+  else initial();
+
 })();
-/* FS_FAST_ANCHORS_END */
+/* FS_P2_6_NAV_END */
+/* FS_FAST_ANCHORS_END *//* FS_FAST_ANCHORS_END */
 
 /* FS_TEMPLATE_ON_QA_START */
 /* Template-on QA Mode:
@@ -1064,6 +1153,7 @@ function fsApplyDataIf(root, rootData) {
   window.addEventListener("load", schedule);
 })();
 /* FS_P2_3_AUTOHIDE_END */
+
 
 
 
