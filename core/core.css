@@ -1068,7 +1068,7 @@ footer{
   /* Layout */
   --fs-container: 1120px;
   --fs-gutter: clamp(16px, 4vw, 28px);
-  --fs-section-py: clamp(56px, 6vw, 96px);
+  --fs-section-py: clamp(44px, 5vw, 80px);
   --fs-gap: 16px;
 
   /* Type */
@@ -1134,10 +1134,10 @@ section[id]::before{
   content:"";
   position:absolute;
   inset: -1px 0 auto 0;
-  height: 140px;
+  height: 110px;
   pointer-events:none;
   background: linear-gradient(180deg, rgba(15,23,42,.06), rgba(15,23,42,0));
-  opacity: .55;
+  opacity: .35;
 }
 section[id]:first-of-type::before{ display:none; }
 
@@ -1218,6 +1218,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: var(--fs-r1);
 }
 
+
+
+/* FS_THEME_V2_TUNING_START */
+/* Contact/Footer should be tighter than content sections (premium rhythm) */
+section#contact{
+  padding-block: clamp(36px, 4.5vw, 72px) !important;
+}
+section#footer{
+  padding-block: clamp(24px, 3.5vw, 56px) !important;
+}
+
+/* Reduce perceived emptiness around forms */
+#contact .w-container{
+  max-width: 980px !important;
+}
+
+/* Kill Webflow badge (non-premium) */
+.w-webflow-badge, .w-webflow-badge *{
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Slightly calmer primary button */
+.btn--primary{
+  box-shadow: 0 10px 26px rgba(11,95,255,.16) !important;
+}
+.btn--primary:hover{
+  box-shadow: 0 16px 40px rgba(11,95,255,.18) !important;
+}
+/* FS_THEME_V2_TUNING_END */
 /* FS_ACTIVE_THEME_END */
 
 /* FS_HEADER_FORCE_START */
@@ -1239,6 +1269,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   top: 0 !important;
 }
 /* FS_HEADER_FORCE_END */
+
 
 
 
