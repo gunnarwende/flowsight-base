@@ -1601,6 +1601,271 @@ h3, .service_card__title, .process__item-title, .trust__title, .cases__title, .f
 
 /* FS_THEME_V4_END */
 
+
+
+/* FS_THEME_V5_START: swiss high-end FINAL pass (CSS-only, no webflow edits)
+   Focus:
+   - systematize spacing + typography scale
+   - premium nav states
+   - hero composition (less empty, subtle neutral light wash)
+   - cards: calmer borders + micro hover
+   - reviews: remove table vibe
+   - contact: map + pills + form as one product UI
+   - footer: quieter finish
+*/
+
+/* ===== Foundations: rhythm ===== */
+:root{
+  --fs-canvas: #f6f7f8;
+  --fs-surface: #ffffff;
+  --fs-surface-2: rgba(255,255,255,0.88);
+  --fs-border: rgba(11,18,32,0.12);
+
+  --fs-text: #0b1220;
+  --fs-muted: rgba(11,18,32,0.62);
+
+  --fs-primary: #0b2a4a;
+  --fs-primary-2: #0e3b6a;
+
+  --fs-danger: #b21d1d;
+  --fs-danger-2: #8f1414;
+
+  --fs-radius: 16px;
+  --fs-radius-sm: 12px;
+
+  --fs-shadow-1: 0 10px 28px rgba(11,18,32,0.08);
+  --fs-shadow-2: 0 18px 60px rgba(11,18,32,0.10);
+
+  --fs-space-1: 8px;
+  --fs-space-2: 12px;
+  --fs-space-3: 16px;
+  --fs-space-4: 24px;
+  --fs-space-5: 36px;
+  --fs-space-6: 52px;
+}
+
+html, body{
+  background: var(--fs-canvas) !important;
+  color: var(--fs-text);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* hard-disable any banding artifacts */
+body:before, body:after,
+.section:before, .section:after,
+.hero_section:before, .hero_section:after{
+  content: none !important;
+}
+
+/* ===== Global container width ===== */
+.container{
+  max-width: 1120px !important;
+}
+
+/* ===== Header / Nav ===== */
+.w-nav{
+  background: rgba(246,247,248,0.86) !important;
+  border-bottom: 1px solid rgba(11,18,32,0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 28px rgba(11,18,32,0.06);
+}
+.w-nav-link{
+  color: rgba(11,18,32,0.76) !important;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  padding: 10px 12px !important;
+  border-radius: 999px;
+}
+.w-nav-link:hover{
+  background: rgba(255,255,255,0.72);
+  color: rgba(11,18,32,0.92) !important;
+}
+.w-nav-link.w--current{
+  background: rgba(11,42,74,0.10);
+  color: var(--fs-primary) !important;
+}
+
+/* ===== Hero (less empty, neutral light wash) ===== */
+.hero_section{
+  min-height: 58vh;
+  padding-top: 108px;
+  padding-bottom: 48px;
+  background: radial-gradient(900px 420px at 30% 15%, rgba(255,255,255,0.90), rgba(246,247,248,0.00)) !important;
+}
+.hero_title{
+  letter-spacing: -0.03em;
+  font-weight: 760;
+  color: var(--fs-text);
+  max-width: 18ch;
+}
+.hero_text{
+  color: var(--fs-muted);
+  line-height: 1.6;
+  max-width: 52ch;
+  margin-top: 10px;
+}
+
+/* ===== Section titles / hierarchy ===== */
+.section_title, .section__title{
+  letter-spacing: -0.025em;
+  font-weight: 740;
+  color: var(--fs-text);
+  margin-bottom: 10px;
+}
+.section_text, .section__subline{
+  color: var(--fs-muted);
+  line-height: 1.6;
+}
+
+/* ===== Cards: calm + hover lift ===== */
+.service_card, .process__item, .trust__item, .reviews__item, .cases__item, .certs__item, .faq__item,
+.footer__legal, .contact__form, .contact__card, .contact__box, .cases__photos{
+  background: var(--fs-surface);
+  border: 1px solid var(--fs-border);
+  border-radius: var(--fs-radius);
+  box-shadow: var(--fs-shadow-1);
+}
+.service_card:hover, .process__item:hover, .trust__item:hover, .reviews__item:hover, .cases__item:hover, .certs__item:hover, .faq__item:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--fs-shadow-2);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+/* tighten inner padding for consistency (safe selectors) */
+[class*="__item"], [class*="service_card"], [class*="faq__"]{
+  scroll-margin-top: 92px;
+}
+
+/* ===== Buttons: system ===== */
+.btn, .w-button, .contact__submit{
+  border-radius: 999px !important;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  padding: 10px 14px !important;
+  min-height: 42px;
+}
+
+/* Primary */
+.btn--primary, .contact__submit.btn--primary, input.btn--primary[type="submit"]{
+  background: var(--fs-primary) !important;
+  color: #fff !important;
+  border: 1px solid transparent !important;
+  box-shadow: 0 10px 24px rgba(11,42,74,0.18);
+}
+.btn--primary:hover, .contact__submit.btn--primary:hover, input.btn--primary[type="submit"]:hover{
+  background: var(--fs-primary-2) !important;
+}
+
+/* Ghost: ensure visibility */
+.btn--ghost{
+  background: rgba(255,255,255,0.86) !important;
+  color: var(--fs-text) !important;
+  border: 1px solid rgba(11,18,32,0.20) !important;
+}
+.btn--ghost:hover{
+  background: #fff !important;
+  border-color: rgba(11,18,32,0.28) !important;
+}
+
+/* Contact pills */
+.contact__phone--emergency{
+  background: var(--fs-danger) !important;
+  color: #fff !important;
+}
+.contact__phone--emergency:hover{ background: var(--fs-danger-2) !important; }
+
+.contact__phone--office{
+  background: var(--fs-primary) !important;
+  color: #fff !important;
+}
+.contact__phone--office:hover{ background: var(--fs-primary-2) !important; }
+
+/* ===== Reviews: kill "table row" feeling ===== */
+.reviews__item{
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.reviews__title{
+  font-weight: 760;
+  color: var(--fs-text);
+}
+.reviews__text{
+  color: var(--fs-muted);
+  line-height: 1.6;
+}
+
+/* If list container exists, add spacing */
+.reviews__list, .reviews__wrap, .reviews__items{
+  display: block;
+  gap: 10px;
+}
+
+/* ===== Lists (Einsatzgebiet) ===== */
+.areas__item-title, .areas__item, .section--areas p{
+  color: rgba(11,18,32,0.70);
+}
+.section--areas{
+  padding-top: 26px;
+}
+.section--areas .section__subline{
+  margin-bottom: 10px;
+}
+
+/* ===== Contact: unify map + form ===== */
+.contact__card, .contact__box{
+  padding: 18px 18px 16px;
+}
+.contact__form{
+  padding: 16px;
+}
+
+/* Inputs */
+.form__input, .form__textarea{
+  background: rgba(255,255,255,0.94) !important;
+  border: 1px solid rgba(11,18,32,0.16) !important;
+  border-radius: 12px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.70);
+}
+.form__input:focus, .form__textarea:focus{
+  outline: none !important;
+  border-color: rgba(11,42,74,0.42) !important;
+  box-shadow: 0 0 0 4px rgba(11,42,74,0.10);
+}
+
+/* Make submit look like real CTA */
+.contact__submit, input.contact__submit[type="submit"]{
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+/* ===== Footer: quiet premium finish ===== */
+.footer{
+  padding-top: 22px;
+  padding-bottom: 30px;
+}
+.footer__container{
+  border-top: 1px solid rgba(11,18,32,0.10);
+  padding-top: 18px;
+}
+.footer__legal{
+  background: rgba(255,255,255,0.70);
+  border: 1px solid rgba(11,18,32,0.10);
+  border-radius: var(--fs-radius);
+  box-shadow: var(--fs-shadow-1);
+}
+.footer__legal-link{
+  color: rgba(11,18,32,0.70) !important;
+}
+.footer__legal-link:hover{
+  color: rgba(11,18,32,0.92) !important;
+  text-decoration: underline;
+}
+
+/* FS_THEME_V5_END */
+
 /* FS_ACTIVE_THEME_END */
 
 /* FS_HEADER_FORCE_START */
