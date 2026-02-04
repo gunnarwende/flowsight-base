@@ -1,18 +1,16 @@
 {
     "business":  {
-                     "name":  "Muster SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r \u0026 Heizung AG",
-                     "region_label":  "Zimmerberg: Oberrieden Ã‚Â· Horgen Ã‚Â· Thalwil",
+                     "name":  "Muster Sanitär \u0026 Heizung AG",
+                     "region_label":  "Kanton Zürich",
                      "brand":  {
                                    "logo":  {
                                                 "src":  "https://cdn.jsdelivr.net/gh/gunnarwende/flowsight-base@main/assets/brand/logo.svg"
                                             }
-                               },
-                     "display_name":  "Golden Customer AG",
-                     "tier":  "golden"
+                               }
                  },
     "hero":  {
-                 "headline":  "SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r, Heizung \u0026 Spenglerei ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ zuverlÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤ssig im Raum ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich",
-                 "subline":  "24/7 Notfall. Reparaturen, Wartung und Umbauten ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ sauber ausgefÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼hrt, klar kommuniziert.",
+                 "headline":  "Sanitär, Heizung \u0026 Spenglerei – zuverlässig im Raum Zürich",
+                 "subline":  "24/7 Notfall. Reparaturen, Wartung und Umbauten – sauber ausgeführt, klar kommuniziert.",
                  "trust_badges":  [
                                       {
                                           "label":  "24/7 Notfall"
@@ -21,43 +19,43 @@
                                           "label":  "Transparente Offerten"
                                       },
                                       {
-                                          "label":  "Saubere AusfÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼hrung"
+                                          "label":  "Saubere Ausführung"
                                       }
                                   ]
              },
     "services":  {
                      "headline":  "Leistungen",
-                     "subline":  "Alles aus einer Hand ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ schnell vor Ort, prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤zise umgesetzt.",
+                     "subline":  "Alles aus einer Hand – schnell vor Ort, präzise umgesetzt.",
                      "items":  [
                                    {
-                                       "title":  "SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r",
-                                       "text":  "Reparaturen, Installationen, Badumbau und NeuanschlÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼sse."
+                                       "title":  "Sanitär",
+                                       "text":  "Reparaturen, Installationen, Badumbau und Neuanschlüsse."
                                    },
                                    {
                                        "title":  "Heizung",
-                                       "text":  "Wartung, Austausch, StÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¶rungen ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ inklusive WÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤rmepumpe."
+                                       "text":  "Wartung, Austausch, Störungen – inklusive Wärmepumpe."
                                    },
                                    {
                                        "title":  "Spenglerei",
-                                       "text":  "DachentwÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤sserung, Blecharbeiten, Abdichtungen."
+                                       "text":  "Dachentwässerung, Blecharbeiten, Abdichtungen."
                                    },
                                    {
                                        "title":  "Service \u0026 Unterhalt",
-                                       "text":  "RegelmÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤ssige Kontrollen, Entkalkung, Kleinreparaturen."
+                                       "text":  "Regelmässige Kontrollen, Entkalkung, Kleinreparaturen."
                                    }
                                ]
                  },
     "process":  {
                     "headline":  "Ablauf",
-                    "subline":  "Einfach. VerlÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤sslich. Dokumentiert.",
+                    "subline":  "Einfach. Verlässlich. Dokumentiert.",
                     "items":  [
                                   {
                                       "title":  "Kontakt",
-                                      "text":  "Kurz schildern ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ wir klÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤ren das Vorgehen."
+                                      "text":  "Kurz schildern – wir klären das Vorgehen."
                                   },
                                   {
                                       "title":  "Vor-Ort / Notfall",
-                                      "text":  "Termin oder 24/7 Einsatz ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ je nach Lage."
+                                      "text":  "Termin oder 24/7 Einsatz – je nach Lage."
                                   },
                                   {
                                       "title":  "Umsetzung",
@@ -65,16 +63,16 @@
                                   },
                                   {
                                       "title":  "Abschluss",
-                                      "text":  "ÃƒÆ’Ã†â€™Ãƒâ€¦Ã¢â‚¬Å“bergabe, Hinweise, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤chste Schritte."
+                                      "text":  "Übergabe, Hinweise, nächste Schritte."
                                   }
                               ]
                 },
     "areas":  {
                   "headline":  "Einsatzgebiet",
-                  "subline":  "ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich und Umgebung ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ schnell erreichbar.",
+                  "subline":  "Zürich und Umgebung – schnell erreichbar.",
                   "items":  [
                                 {
-                                    "title":  "ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich"
+                                    "title":  "Zürich"
                                 },
                                 {
                                     "title":  "Oberrieden"
@@ -91,11 +89,11 @@
                         "items":  [
                                       {
                                           "title":  "Erreichbarkeit",
-                                          "text":  "Notfall 24/7 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ im Ernstfall sofort reagieren."
+                                          "text":  "Notfall 24/7 – im Ernstfall sofort reagieren."
                                       },
                                       {
-                                          "title":  "QualitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤t",
-                                          "text":  "Saubere AusfÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼hrung nach Schweizer Standard."
+                                          "title":  "Qualität",
+                                          "text":  "Saubere Ausführung nach Schweizer Standard."
                                       },
                                       {
                                           "title":  "Transparenz",
@@ -106,7 +104,7 @@
     "trust":  {
                   "reviews":  {
                                   "headline":  "Kundenstimmen",
-                                  "subline":  "Echte RÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼ckmeldungen aus der Region.",
+                                  "subline":  "Echte Rückmeldungen aus der Region.",
                                   "items":  [
                                                 {
                                                     "author":  "A. Muster",
@@ -114,39 +112,125 @@
                                                 },
                                                 {
                                                     "author":  "B. Beispiel",
-                                                    "text":  "Top Kommunikation ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ klare Absprachen."
+                                                    "text":  "Top Kommunikation – klare Absprachen."
                                                 },
                                                 {
                                                     "author":  "C. Test",
-                                                    "text":  "Sehr professionell und zuverlÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤ssig."
+                                                    "text":  "Sehr professionell und zuverlässig."
                                                 }
                                             ]
                               }
               },
-    "cases":  {
-                  "headline":  "Referenzen",
-                  "subline":  "AusgewÃ¤hlte Arbeiten â€“ sauber dokumentiert.",
-                  "items":  [
-                                {
-                                    "title":  "Badumbau EFH",
-                                    "text":  "Komplettsanierung mit klarer Planung und sauberer AusfÃ¼hrung.",
-                                    "photos":  [
-                                                   {
-                                                       "src":  "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format\u0026fit=crop\u0026w=1200\u0026q=70",
-                                                       "alt":  "Badumbau â€“ Referenzbild"
-                                                   },
-                                                   {
-                                                       "src":  "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format\u0026fit=crop\u0026w=1200\u0026q=70",
-                                                       "alt":  "SanitÃ¤rinstallation â€“ Referenzbild"
-                                                   },
-                                                   {
-                                                       "src":  "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format\u0026fit=crop\u0026w=1200\u0026q=70",
-                                                       "alt":  "Detailansicht â€“ Referenzbild"
-                                                   }
+    "cases":  [
+                  {
+                      "case_id":  "gc-001-leak-detection-horgen",
+                      "title":  "Akute Leckortung in Mehrfamilienhaus – Schaden begrenzt, Ursache klar belegt",
+                      "service_category":  "Sanitär-Notfall \u0026 Leckortung (24/7)",
+                      "location":  "Horgen",
+                      "short_summary":  "",
+                      "problem":  "",
+                      "approach":  [
+
+                                   ],
+                      "result":  "",
+                      "photos":  {
+                                     "items":  [
+                                                   "__ASSET_TOKEN__/gc-001-leak-detection-horgen/01.jpg",
+                                                   "__ASSET_TOKEN__/gc-001-leak-detection-horgen/02.jpg"
                                                ]
-                                }
-                            ]
-              },
+                                 }
+                  },
+                  {
+                      "case_id":  "gc-002-heating-fault-oberrieden",
+                      "title":  "Heizungsausfall am Morgen – Betrieb stabilisiert und Störung sauber eingegrenzt",
+                      "service_category":  "Heizung-Störung \u0026 Reparatur (24/7 Bereitschaft)",
+                      "location":  "Oberrieden",
+                      "short_summary":  "",
+                      "problem":  "",
+                      "approach":  [
+
+                                   ],
+                      "result":  "",
+                      "photos":  {
+                                     "items":  [
+                                                   "__ASSET_TOKEN__/gc-002-heating-fault-oberrieden/01.jpg",
+                                                   "__ASSET_TOKEN__/gc-002-heating-fault-oberrieden/02.jpg"
+                                               ]
+                                 }
+                  },
+                  {
+                      "case_id":  "gc-003-gutter-leak-thalwil",
+                      "title":  "Undichte Dachrinne \u0026 Anschluss – Abdichtung erneuert, Ablauf wieder zuverlässig",
+                      "service_category":  "Spenglerei-Service (Dachrinne/Fassade/Abdichtung)",
+                      "location":  "Thalwil",
+                      "short_summary":  "",
+                      "problem":  "",
+                      "approach":  [
+
+                                   ],
+                      "result":  "",
+                      "photos":  {
+                                     "items":  [
+                                                   "__ASSET_TOKEN__/gc-003-gutter-leak-thalwil/01.jpg",
+                                                   "__ASSET_TOKEN__/gc-003-gutter-leak-thalwil/02.jpg"
+                                               ]
+                                 }
+                  },
+                  {
+                      "case_id":  "gc-004-heating-service-horgen",
+                      "title":  "Jahresservice Wärmeerzeuger – Einstellungen optimiert, Anlage dokumentiert übergeben",
+                      "service_category":  "Heizungs-Service \u0026 Wartung",
+                      "location":  "Horgen",
+                      "short_summary":  "",
+                      "problem":  "",
+                      "approach":  [
+
+                                   ],
+                      "result":  "",
+                      "photos":  {
+                                     "items":  [
+                                                   "__ASSET_TOKEN__/gc-004-heating-service-horgen/01.jpg",
+                                                   "__ASSET_TOKEN__/gc-004-heating-service-horgen/02.jpg"
+                                               ]
+                                 }
+                  },
+                  {
+                      "case_id":  "gc-005-sanitary-repair-oberrieden",
+                      "title":  "Tropfende Armatur \u0026 Spülkasten – Reparatur sauber erledigt, Funktion geprüft",
+                      "service_category":  "Sanitär-Service \u0026 Reparaturen",
+                      "location":  "Oberrieden",
+                      "short_summary":  "",
+                      "problem":  "",
+                      "approach":  [
+
+                                   ],
+                      "result":  "",
+                      "photos":  {
+                                     "items":  [
+                                                   "__ASSET_TOKEN__/gc-005-sanitary-repair-oberrieden/01.jpg",
+                                                   "__ASSET_TOKEN__/gc-005-sanitary-repair-oberrieden/02.jpg"
+                                               ]
+                                 }
+                  },
+                  {
+                      "case_id":  "gc-006-bath-partial-reno-thalwil",
+                      "title":  "Bad-Teilsanierung (klein–mittel) – Dusche erneuert, Anschlüsse angepasst, sauber abgeschlossen",
+                      "service_category":  "Bad-/Küchen-Teilsanierungen \u0026 Umbauten (klein–mittel)",
+                      "location":  "Thalwil",
+                      "short_summary":  "",
+                      "problem":  "",
+                      "approach":  [
+
+                                   ],
+                      "result":  "",
+                      "photos":  {
+                                     "items":  [
+                                                   "__ASSET_TOKEN__/gc-006-bath-partial-reno-thalwil/01.jpg",
+                                                   "__ASSET_TOKEN__/gc-006-bath-partial-reno-thalwil/02.jpg"
+                                               ]
+                                 }
+                  }
+              ],
     "certs":  {
                   "headline":  "Zertifikate \u0026 Partner",
                   "subline":  "Nachweise, die Vertrauen schaffen.",
@@ -158,40 +242,40 @@
                                     "title":  "Zertifizierte Partner"
                                 },
                                 {
-                                    "title":  "Schweizer QualitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤tsstandard"
+                                    "title":  "Schweizer Qualitätsstandard"
                                 }
                             ]
               },
     "faq":  {
                 "headline":  "FAQ",
-                "subline":  "Kurz erklÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤rt ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ schnell verstanden.",
+                "subline":  "Kurz erklärt – schnell verstanden.",
                 "items":  [
                               {
                                   "title":  "Wie schnell sind Sie vor Ort?",
-                                  "text":  "Je nach Situation sofort ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ wir melden uns mit ETA."
+                                  "text":  "Je nach Situation sofort – wir melden uns mit ETA."
                               },
                               {
                                   "title":  "Gibt es fixe Preise?",
-                                  "text":  "Nein ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ wir erstellen eine transparente Offerte nach KurzklÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤rung."
+                                  "text":  "Nein – wir erstellen eine transparente Offerte nach Kurzklärung."
                               }
                           ]
             },
     "contact":  {
                     "phones":  {
                                    "emergency":  {
-                                                     "display":  "+41 23 456 7890",
-                                                     "e164":  "+41234567890"
+                                                     "display":  "Notfall: 044 000 00 00",
+                                                     "e164":  "+41440000000"
                                                  },
                                    "normal":  {
-                                                  "display":  "+41 09 876 5432",
-                                                  "e164":  "+41098765432"
+                                                  "display":  "Büro: 044 111 11 11",
+                                                  "e164":  "+41441111111"
                                               }
                                },
                     "address":  {
-                                    "street":  "Musterstrasse 1, 8000 ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich"
+                                    "street":  "Musterstrasse 1, 8000 Zürich"
                                 },
                     "opening_hours":  {
-                                          "label":  "MoÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œFr 08:00ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ18:00, Notfall 24/7"
+                                          "label":  "Mo–Fr 08:00–18:00, Notfall 24/7"
                                       },
                     "map":  {
                                 "embed_url":  "https://www.google.com/maps?q=Musterstrasse%201%2C%208000%20Z%C3%BCrich\u0026output=embed"
@@ -202,8 +286,8 @@
                 },
     "cta":  {
                 "labels":  {
-                               "emergency":  "Notfall anrufen: +41 23 456 7890",
-                               "normal":  "Termin / Anfrage",
+                               "emergency":  "Jetzt Notfall anrufen",
+                               "normal":  "Jetzt anrufen",
                                "review":  "Bewertung schreiben"
                            }
             },
@@ -228,8 +312,8 @@
                    "legal_title":  "Rechtliches"
                },
     "seo":  {
-                "title":  "SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r, Heizung \u0026 Spenglerei | Muster SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r \u0026 Heizung AG",
-                "description":  "SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r, Heizung \u0026 Spenglerei im Raum ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich. Service, Reparaturen, Wartung und Umbauten ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ sauber ausgefÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼hrt, klar kommuniziert."
+                "title":  "Sanitär, Heizung \u0026 Spenglerei | Muster Sanitär \u0026 Heizung AG",
+                "description":  "Sanitär, Heizung \u0026 Spenglerei im Raum Zürich. Service, Reparaturen, Wartung und Umbauten – sauber ausgeführt, klar kommuniziert."
             },
     "reviews":  [
                     {
