@@ -1,0 +1,232 @@
+﻿{
+    "business":  {
+                     "name":  "Muster Sanitär \u0026 Heizung AG",
+                     "region_label":  "Kanton Zürich",
+                     "brand":  {
+                                   "logo":  {
+                                                "src":  "https://cdn.jsdelivr.net/gh/gunnarwende/flowsight-base@main/assets/brand/logo.svg"
+                                            }
+                               }
+                 },
+    "hero":  {
+                 "headline":  "Sanitär, Heizung \u0026 Spenglerei – zuverlässig im Raum Zürich",
+                 "subline":  "24/7 Notfall. Reparaturen, Wartung und Umbauten – sauber ausgeführt, klar kommuniziert.",
+                 "trust_badges":  [
+                                      {
+                                          "label":  "24/7 Notfall"
+                                      },
+                                      {
+                                          "label":  "Transparente Offerten"
+                                      },
+                                      {
+                                          "label":  "Saubere Ausführung"
+                                      }
+                                  ]
+             },
+    "services":  {
+                     "headline":  "Leistungen",
+                     "subline":  "Alles aus einer Hand – schnell vor Ort, präzise umgesetzt.",
+                     "items":  [
+                                   {
+                                       "title":  "Sanitär",
+                                       "text":  "Reparaturen, Installationen, Badumbau und Neuanschlüsse."
+                                   },
+                                   {
+                                       "title":  "Heizung",
+                                       "text":  "Wartung, Austausch, Störungen – inklusive Wärmepumpe."
+                                   },
+                                   {
+                                       "title":  "Spenglerei",
+                                       "text":  "Dachentwässerung, Blecharbeiten, Abdichtungen."
+                                   },
+                                   {
+                                       "title":  "Service \u0026 Unterhalt",
+                                       "text":  "Regelmässige Kontrollen, Entkalkung, Kleinreparaturen."
+                                   }
+                               ]
+                 },
+    "process":  {
+                    "headline":  "Ablauf",
+                    "subline":  "Einfach. Verlässlich. Dokumentiert.",
+                    "items":  [
+                                  {
+                                      "title":  "Kontakt",
+                                      "text":  "Kurz schildern – wir klären das Vorgehen."
+                                  },
+                                  {
+                                      "title":  "Vor-Ort / Notfall",
+                                      "text":  "Termin oder 24/7 Einsatz – je nach Lage."
+                                  },
+                                  {
+                                      "title":  "Umsetzung",
+                                      "text":  "Sauber, termintreu, mit klarer Kommunikation."
+                                  },
+                                  {
+                                      "title":  "Abschluss",
+                                      "text":  "Übergabe, Hinweise, nächste Schritte."
+                                  }
+                              ]
+                },
+    "areas":  {
+                  "headline":  "Einsatzgebiet",
+                  "subline":  "Zürich und Umgebung – schnell erreichbar.",
+                  "items":  [
+                                {
+                                    "title":  "Zürich"
+                                },
+                                {
+                                    "title":  "Oberrieden"
+                                },
+                                {
+                                    "title":  "Horgen"
+                                },
+                                {
+                                    "title":  "Thalwil"
+                                }
+                            ]
+              },
+    "trustBadges":  {
+                        "items":  [
+                                      {
+                                          "title":  "Erreichbarkeit",
+                                          "text":  "Notfall 24/7 – im Ernstfall sofort reagieren."
+                                      },
+                                      {
+                                          "title":  "Qualität",
+                                          "text":  "Saubere Ausführung nach Schweizer Standard."
+                                      },
+                                      {
+                                          "title":  "Transparenz",
+                                          "text":  "Klare Absprachen und nachvollziehbare Offerten."
+                                      }
+                                  ]
+                    },
+    "trust":  {
+                  "reviews":  {
+                                  "headline":  "Kundenstimmen",
+                                  "subline":  "Echte Rückmeldungen aus der Region.",
+                                  "items":  [
+                                                {
+                                                    "author":  "A. Muster",
+                                                    "text":  "Schnell vor Ort, sauber gearbeitet."
+                                                },
+                                                {
+                                                    "author":  "B. Beispiel",
+                                                    "text":  "Top Kommunikation – klare Absprachen."
+                                                },
+                                                {
+                                                    "author":  "C. Test",
+                                                    "text":  "Sehr professionell und zuverlässig."
+                                                }
+                                            ]
+                              }
+              },
+    "cases":  {
+                  "headline":  "Referenzen",
+                  "subline":  "Ausgewählte Arbeiten – sauber dokumentiert.",
+                  "items":  [
+                                {
+                                    "title":  "Badumbau EFH",
+                                    "text":  "Komplettsanierung mit klarer Planung und sauberer Ausführung.",
+                                    "photos":  [
+                                                   {
+                                                       "src":  "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format\u0026fit=crop\u0026w=1200\u0026q=70",
+                                                       "alt":  "Badumbau – Referenzbild"
+                                                   },
+                                                   {
+                                                       "src":  "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format\u0026fit=crop\u0026w=1200\u0026q=70",
+                                                       "alt":  "Sanitärinstallation – Referenzbild"
+                                                   },
+                                                   {
+                                                       "src":  "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format\u0026fit=crop\u0026w=1200\u0026q=70",
+                                                       "alt":  "Detailansicht – Referenzbild"
+                                                   }
+                                               ]
+                                }
+                            ]
+              },
+    "certs":  {
+                  "headline":  "Zertifikate \u0026 Partner",
+                  "subline":  "Nachweise, die Vertrauen schaffen.",
+                  "items":  [
+                                {
+                                    "title":  "Meisterbetrieb"
+                                },
+                                {
+                                    "title":  "Zertifizierte Partner"
+                                },
+                                {
+                                    "title":  "Schweizer Qualitätsstandard"
+                                }
+                            ]
+              },
+    "faq":  {
+                "headline":  "FAQ",
+                "subline":  "Kurz erklärt – schnell verstanden.",
+                "items":  [
+                              {
+                                  "title":  "Wie schnell sind Sie vor Ort?",
+                                  "text":  "Je nach Situation sofort – wir melden uns mit ETA."
+                              },
+                              {
+                                  "title":  "Gibt es fixe Preise?",
+                                  "text":  "Nein – wir erstellen eine transparente Offerte nach Kurzklärung."
+                              }
+                          ]
+            },
+    "contact":  {
+                    "phones":  {
+                                   "emergency":  {
+                                                     "display":  "Notfall: 044 000 00 00",
+                                                     "e164":  "+41440000000"
+                                                 },
+                                   "normal":  {
+                                                  "display":  "Büro: 044 111 11 11",
+                                                  "e164":  "+41441111111"
+                                              }
+                               },
+                    "address":  {
+                                    "street":  "Musterstrasse 1, 8000 Zürich"
+                                },
+                    "opening_hours":  {
+                                          "label":  "Mo–Fr 08:00–18:00, Notfall 24/7"
+                                      },
+                    "map":  {
+                                "embed_url":  "https://www.google.com/maps?q=Musterstrasse%201%2C%208000%20Z%C3%BCrich\u0026output=embed"
+                            },
+                    "form":  {
+                                 "headline":  "Kontakt aufnehmen"
+                             }
+                },
+    "cta":  {
+                "labels":  {
+                               "emergency":  "Jetzt Notfall anrufen",
+                               "normal":  "Jetzt anrufen",
+                               "review":  "Bewertung schreiben"
+                           }
+            },
+    "links":  {
+                  "google_review":  "https://g.page/r/....",
+                  "legal":  {
+                                "impressum_url":  "/impressum",
+                                "privacy_url":  "/datenschutz"
+                            }
+              },
+    "flags":  {
+                  "services":  true,
+                  "process":  true,
+                  "areas":  true,
+                  "trustBadges":  true,
+                  "reviews":  true,
+                  "cases":  true,
+                  "certs":  true,
+                  "faq":  true
+              },
+    "footer":  {
+                   "legal_title":  "Rechtliches"
+               },
+    "seo":  {
+                "title":  "Sanitär, Heizung \u0026 Spenglerei | Muster Sanitär \u0026 Heizung AG",
+                "description":  "Sanitär, Heizung \u0026 Spenglerei im Raum Zürich. Service, Reparaturen, Wartung und Umbauten – sauber ausgeführt, klar kommuniziert."
+            }
+}
