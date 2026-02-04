@@ -22,3 +22,7 @@ intern/
 handoff_bindings_audit_full.txt
 docs/master/Archiv/
 core/*.bak*
+# Local artifacts (non-SSOT)
+_backup/
+*.webflow.zip
+sanitar-template.webflow.zip
