@@ -1,12 +1,14 @@
-﻿{
+{
     "business":  {
                      "name":  "Muster Sanitär \u0026 Heizung AG",
-                     "region_label":  "Kanton Zürich",
+                     "region_label":  "Zimmerberg: Oberrieden · Horgen · Thalwil",
                      "brand":  {
                                    "logo":  {
                                                 "src":  "https://cdn.jsdelivr.net/gh/gunnarwende/flowsight-base@main/assets/brand/logo.svg"
                                             }
-                               }
+                               },
+                     "display_name":  "Golden Customer AG",
+                     "tier":  "golden"
                  },
     "hero":  {
                  "headline":  "Sanitär, Heizung \u0026 Spenglerei – zuverlässig im Raum Zürich",
@@ -177,12 +179,12 @@
     "contact":  {
                     "phones":  {
                                    "emergency":  {
-                                                     "display":  "Notfall: 044 000 00 00",
-                                                     "e164":  "+41440000000"
+                                                     "display":  "+41 23 456 7890",
+                                                     "e164":  "+41234567890"
                                                  },
                                    "normal":  {
-                                                  "display":  "Büro: 044 111 11 11",
-                                                  "e164":  "+41441111111"
+                                                  "display":  "+41 09 876 5432",
+                                                  "e164":  "+41098765432"
                                               }
                                },
                     "address":  {
@@ -200,8 +202,8 @@
                 },
     "cta":  {
                 "labels":  {
-                               "emergency":  "Jetzt Notfall anrufen",
-                               "normal":  "Jetzt anrufen",
+                               "emergency":  "Notfall anrufen: +41 23 456 7890",
+                               "normal":  "Termin / Anfrage",
                                "review":  "Bewertung schreiben"
                            }
             },
