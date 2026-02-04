@@ -1,7 +1,7 @@
 {
     "business":  {
-                     "name":  "Muster SanitÃƒÆ’Ã‚Â¤r \u0026 Heizung AG",
-                     "region_label":  "Zimmerberg: Oberrieden Â· Horgen Â· Thalwil",
+                     "name":  "Muster SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r \u0026 Heizung AG",
+                     "region_label":  "Zimmerberg: Oberrieden Ã‚Â· Horgen Ã‚Â· Thalwil",
                      "brand":  {
                                    "logo":  {
                                                 "src":  "https://cdn.jsdelivr.net/gh/gunnarwende/flowsight-base@main/assets/brand/logo.svg"
@@ -11,8 +11,8 @@
                      "tier":  "golden"
                  },
     "hero":  {
-                 "headline":  "SanitÃƒÆ’Ã‚Â¤r, Heizung \u0026 Spenglerei ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ zuverlÃƒÆ’Ã‚Â¤ssig im Raum ZÃƒÆ’Ã‚Â¼rich",
-                 "subline":  "24/7 Notfall. Reparaturen, Wartung und Umbauten ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ sauber ausgefÃƒÆ’Ã‚Â¼hrt, klar kommuniziert.",
+                 "headline":  "SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r, Heizung \u0026 Spenglerei ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ zuverlÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤ssig im Raum ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich",
+                 "subline":  "24/7 Notfall. Reparaturen, Wartung und Umbauten ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ sauber ausgefÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼hrt, klar kommuniziert.",
                  "trust_badges":  [
                                       {
                                           "label":  "24/7 Notfall"
@@ -21,43 +21,43 @@
                                           "label":  "Transparente Offerten"
                                       },
                                       {
-                                          "label":  "Saubere AusfÃƒÆ’Ã‚Â¼hrung"
+                                          "label":  "Saubere AusfÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼hrung"
                                       }
                                   ]
              },
     "services":  {
                      "headline":  "Leistungen",
-                     "subline":  "Alles aus einer Hand ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ schnell vor Ort, prÃƒÆ’Ã‚Â¤zise umgesetzt.",
+                     "subline":  "Alles aus einer Hand ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ schnell vor Ort, prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤zise umgesetzt.",
                      "items":  [
                                    {
-                                       "title":  "SanitÃƒÆ’Ã‚Â¤r",
-                                       "text":  "Reparaturen, Installationen, Badumbau und NeuanschlÃƒÆ’Ã‚Â¼sse."
+                                       "title":  "SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r",
+                                       "text":  "Reparaturen, Installationen, Badumbau und NeuanschlÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼sse."
                                    },
                                    {
                                        "title":  "Heizung",
-                                       "text":  "Wartung, Austausch, StÃƒÆ’Ã‚Â¶rungen ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ inklusive WÃƒÆ’Ã‚Â¤rmepumpe."
+                                       "text":  "Wartung, Austausch, StÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¶rungen ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ inklusive WÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤rmepumpe."
                                    },
                                    {
                                        "title":  "Spenglerei",
-                                       "text":  "DachentwÃƒÆ’Ã‚Â¤sserung, Blecharbeiten, Abdichtungen."
+                                       "text":  "DachentwÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤sserung, Blecharbeiten, Abdichtungen."
                                    },
                                    {
                                        "title":  "Service \u0026 Unterhalt",
-                                       "text":  "RegelmÃƒÆ’Ã‚Â¤ssige Kontrollen, Entkalkung, Kleinreparaturen."
+                                       "text":  "RegelmÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤ssige Kontrollen, Entkalkung, Kleinreparaturen."
                                    }
                                ]
                  },
     "process":  {
                     "headline":  "Ablauf",
-                    "subline":  "Einfach. VerlÃƒÆ’Ã‚Â¤sslich. Dokumentiert.",
+                    "subline":  "Einfach. VerlÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤sslich. Dokumentiert.",
                     "items":  [
                                   {
                                       "title":  "Kontakt",
-                                      "text":  "Kurz schildern ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ wir klÃƒÆ’Ã‚Â¤ren das Vorgehen."
+                                      "text":  "Kurz schildern ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ wir klÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤ren das Vorgehen."
                                   },
                                   {
                                       "title":  "Vor-Ort / Notfall",
-                                      "text":  "Termin oder 24/7 Einsatz ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ je nach Lage."
+                                      "text":  "Termin oder 24/7 Einsatz ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ je nach Lage."
                                   },
                                   {
                                       "title":  "Umsetzung",
@@ -65,16 +65,16 @@
                                   },
                                   {
                                       "title":  "Abschluss",
-                                      "text":  "ÃƒÆ’Ã…â€œbergabe, Hinweise, nÃƒÆ’Ã‚Â¤chste Schritte."
+                                      "text":  "ÃƒÆ’Ã†â€™Ãƒâ€¦Ã¢â‚¬Å“bergabe, Hinweise, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤chste Schritte."
                                   }
                               ]
                 },
     "areas":  {
                   "headline":  "Einsatzgebiet",
-                  "subline":  "ZÃƒÆ’Ã‚Â¼rich und Umgebung ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ schnell erreichbar.",
+                  "subline":  "ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich und Umgebung ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ schnell erreichbar.",
                   "items":  [
                                 {
-                                    "title":  "ZÃƒÆ’Ã‚Â¼rich"
+                                    "title":  "ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich"
                                 },
                                 {
                                     "title":  "Oberrieden"
@@ -91,11 +91,11 @@
                         "items":  [
                                       {
                                           "title":  "Erreichbarkeit",
-                                          "text":  "Notfall 24/7 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ im Ernstfall sofort reagieren."
+                                          "text":  "Notfall 24/7 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ im Ernstfall sofort reagieren."
                                       },
                                       {
-                                          "title":  "QualitÃƒÆ’Ã‚Â¤t",
-                                          "text":  "Saubere AusfÃƒÆ’Ã‚Â¼hrung nach Schweizer Standard."
+                                          "title":  "QualitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤t",
+                                          "text":  "Saubere AusfÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼hrung nach Schweizer Standard."
                                       },
                                       {
                                           "title":  "Transparenz",
@@ -106,7 +106,7 @@
     "trust":  {
                   "reviews":  {
                                   "headline":  "Kundenstimmen",
-                                  "subline":  "Echte RÃƒÆ’Ã‚Â¼ckmeldungen aus der Region.",
+                                  "subline":  "Echte RÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼ckmeldungen aus der Region.",
                                   "items":  [
                                                 {
                                                     "author":  "A. Muster",
@@ -114,34 +114,34 @@
                                                 },
                                                 {
                                                     "author":  "B. Beispiel",
-                                                    "text":  "Top Kommunikation ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ klare Absprachen."
+                                                    "text":  "Top Kommunikation ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ klare Absprachen."
                                                 },
                                                 {
                                                     "author":  "C. Test",
-                                                    "text":  "Sehr professionell und zuverlÃƒÆ’Ã‚Â¤ssig."
+                                                    "text":  "Sehr professionell und zuverlÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤ssig."
                                                 }
                                             ]
                               }
               },
     "cases":  {
                   "headline":  "Referenzen",
-                  "subline":  "Ausgewählte Arbeiten – sauber dokumentiert.",
+                  "subline":  "AusgewÃ¤hlte Arbeiten â€“ sauber dokumentiert.",
                   "items":  [
                                 {
                                     "title":  "Badumbau EFH",
-                                    "text":  "Komplettsanierung mit klarer Planung und sauberer Ausführung.",
+                                    "text":  "Komplettsanierung mit klarer Planung und sauberer AusfÃ¼hrung.",
                                     "photos":  [
                                                    {
                                                        "src":  "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format\u0026fit=crop\u0026w=1200\u0026q=70",
-                                                       "alt":  "Badumbau – Referenzbild"
+                                                       "alt":  "Badumbau â€“ Referenzbild"
                                                    },
                                                    {
                                                        "src":  "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format\u0026fit=crop\u0026w=1200\u0026q=70",
-                                                       "alt":  "Sanitärinstallation – Referenzbild"
+                                                       "alt":  "SanitÃ¤rinstallation â€“ Referenzbild"
                                                    },
                                                    {
                                                        "src":  "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format\u0026fit=crop\u0026w=1200\u0026q=70",
-                                                       "alt":  "Detailansicht – Referenzbild"
+                                                       "alt":  "Detailansicht â€“ Referenzbild"
                                                    }
                                                ]
                                 }
@@ -158,21 +158,21 @@
                                     "title":  "Zertifizierte Partner"
                                 },
                                 {
-                                    "title":  "Schweizer QualitÃƒÆ’Ã‚Â¤tsstandard"
+                                    "title":  "Schweizer QualitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤tsstandard"
                                 }
                             ]
               },
     "faq":  {
                 "headline":  "FAQ",
-                "subline":  "Kurz erklÃƒÆ’Ã‚Â¤rt ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ schnell verstanden.",
+                "subline":  "Kurz erklÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤rt ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ schnell verstanden.",
                 "items":  [
                               {
                                   "title":  "Wie schnell sind Sie vor Ort?",
-                                  "text":  "Je nach Situation sofort ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ wir melden uns mit ETA."
+                                  "text":  "Je nach Situation sofort ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ wir melden uns mit ETA."
                               },
                               {
                                   "title":  "Gibt es fixe Preise?",
-                                  "text":  "Nein ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ wir erstellen eine transparente Offerte nach KurzklÃƒÆ’Ã‚Â¤rung."
+                                  "text":  "Nein ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ wir erstellen eine transparente Offerte nach KurzklÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤rung."
                               }
                           ]
             },
@@ -188,10 +188,10 @@
                                               }
                                },
                     "address":  {
-                                    "street":  "Musterstrasse 1, 8000 ZÃƒÆ’Ã‚Â¼rich"
+                                    "street":  "Musterstrasse 1, 8000 ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich"
                                 },
                     "opening_hours":  {
-                                          "label":  "MoÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“Fr 08:00ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“18:00, Notfall 24/7"
+                                          "label":  "MoÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œFr 08:00ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ18:00, Notfall 24/7"
                                       },
                     "map":  {
                                 "embed_url":  "https://www.google.com/maps?q=Musterstrasse%201%2C%208000%20Z%C3%BCrich\u0026output=embed"
@@ -228,7 +228,65 @@
                    "legal_title":  "Rechtliches"
                },
     "seo":  {
-                "title":  "SanitÃƒÆ’Ã‚Â¤r, Heizung \u0026 Spenglerei | Muster SanitÃƒÆ’Ã‚Â¤r \u0026 Heizung AG",
-                "description":  "SanitÃƒÆ’Ã‚Â¤r, Heizung \u0026 Spenglerei im Raum ZÃƒÆ’Ã‚Â¼rich. Service, Reparaturen, Wartung und Umbauten ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ sauber ausgefÃƒÆ’Ã‚Â¼hrt, klar kommuniziert."
-            }
+                "title":  "SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r, Heizung \u0026 Spenglerei | Muster SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r \u0026 Heizung AG",
+                "description":  "SanitÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤r, Heizung \u0026 Spenglerei im Raum ZÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼rich. Service, Reparaturen, Wartung und Umbauten ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ sauber ausgefÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼hrt, klar kommuniziert."
+            },
+    "reviews":  [
+                    {
+                        "review_id":  "rev-001",
+                        "display_name":  "M. S.",
+                        "location":  "Horgen",
+                        "rating":  5,
+                        "text":  "Schnell reagiert, Situation sauber eingeschätzt und die nächsten Schritte verständlich erklärt. Der kurze Rapport war für uns als Eigentümer sehr hilfreich."
+                    },
+                    {
+                        "review_id":  "rev-002",
+                        "display_name":  "S. K.",
+                        "location":  "Oberrieden",
+                        "rating":  5,
+                        "text":  "Sehr saubere Arbeit und transparentes Vorgehen. Vor Zusatzarbeiten kam immer eine klare Rückfrage – keine Überraschungen."
+                    },
+                    {
+                        "review_id":  "rev-003",
+                        "display_name":  "T. W.",
+                        "location":  "Thalwil",
+                        "rating":  5,
+                        "text":  "Freundlich, professionell und gut organisiert. Die Dokumentation mit Fotos hat die Abstimmung enorm erleichtert."
+                    },
+                    {
+                        "review_id":  "rev-004",
+                        "display_name":  "Verwaltung H.",
+                        "location":  "Zimmerberg",
+                        "rating":  5,
+                        "text":  "Zuverlässig in der Kommunikation und pünktlich vor Ort. Rapport und Nachweise sind klar strukturiert – ideal für die Verwaltung."
+                    },
+                    {
+                        "review_id":  "rev-005",
+                        "display_name":  "L. R.",
+                        "location":  "Horgen",
+                        "rating":  5,
+                        "text":  "Störung systematisch eingegrenzt und den Betrieb schnell wieder stabilisiert. Sehr kompetent und ruhig im Vorgehen."
+                    },
+                    {
+                        "review_id":  "rev-006",
+                        "display_name":  "A. M.",
+                        "location":  "Oberrieden",
+                        "rating":  5,
+                        "text":  "Reparatur sauber umgesetzt und alles ordentlich hinterlassen. Besonders gut: klare Erklärung der Optionen vor der Ausführung."
+                    },
+                    {
+                        "review_id":  "rev-007",
+                        "display_name":  "P. B.",
+                        "location":  "Thalwil",
+                        "rating":  5,
+                        "text":  "Terminsicher, sauber gearbeitet und gut dokumentiert. Man merkt, dass hier strukturiert und mit Qualität gearbeitet wird."
+                    },
+                    {
+                        "review_id":  "rev-008",
+                        "display_name":  "E. G.",
+                        "location":  "Zimmerberg",
+                        "rating":  5,
+                        "text":  "Sehr angenehm im Ablauf: zuerst abgesichert, dann transparent die Lösung besprochen. Am Ende kurze, verständliche Zusammenfassung mit Fotos."
+                    }
+                ]
 }
