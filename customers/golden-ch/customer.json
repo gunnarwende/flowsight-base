@@ -1,7 +1,7 @@
 {
     "seo":  {
-                "description":  "Gebäudetechnik im Raum Zürich: Sanitär, Heizung \u0026 Spenglerei. 24/7 Notfall, Wartung, Reparaturen und Umbauten – sauber dokumentiert, klar kommuniziert.",
-                "title":  "Sanitär, Heizung \u0026 Spenglerei | Goldstein Sanitär • Heizung • Spenglerei AG"
+                "description":  "GebÃ¤udetechnik im Raum ZÃ¼rich: SanitÃ¤r, Heizung \u0026 Spenglerei. 24/7 Notfall, Wartung, Reparaturen und Umbauten â€“ sauber dokumentiert, klar kommuniziert.",
+                "title":  "SanitÃ¤r, Heizung \u0026 Spenglerei | Goldstein SanitÃ¤r â€¢ Heizung â€¢ Spenglerei AG"
             },
     "links":  {
                   "google_review":  "https://g.page/r/....",
@@ -15,107 +15,95 @@
                                   "headline":  "Kundenstimmen",
                                   "items":  [
                                                 {
-                                                    "author":  "M. H., Zürich",
-                                                    "text":  "Rohrleck im Bad am Sonntag – schnelle ETA, sauber repariert und alles dokumentiert. Sehr professionell."
+                                                    "author":  "M. H., ZÃ¼rich",
+                                                    "text":  "Rohrleck im Bad am Sonntag â€“ schnelle ETA, sauber repariert und alles dokumentiert. Sehr professionell."
                                                 },
                                                 {
                                                     "author":  "S. K., Thalwil",
-                                                    "text":  "Heizung gewartet und entlüftet, Protokoll erhalten. Kommunikation klar, Wohnung sauber hinterlassen."
+                                                    "text":  "Heizung gewartet und entlÃ¼ftet, Protokoll erhalten. Kommunikation klar, Wohnung sauber hinterlassen."
                                                 },
                                                 {
                                                     "author":  "R. B., Adliswil",
-                                                    "text":  "Spülkasten lief permanent – Ersatzteil direkt dabei, in 30 Minuten gelöst. Transparent abgerechnet."
+                                                    "text":  "SpÃ¼lkasten lief permanent â€“ Ersatzteil direkt dabei, in 30 Minuten gelÃ¶st. Transparent abgerechnet."
                                                 },
                                                 {
-                                                    "author":  "P. L., Küsnacht",
+                                                    "author":  "P. L., KÃ¼snacht",
                                                     "text":  "Dachrinne neu gemacht inkl. Anschlussdetails. Saubere Blechkanten, sieht hochwertig aus."
                                                 },
                                                 {
-                                                    "author":  "A. N., Zürich",
+                                                    "author":  "A. N., ZÃ¼rich",
                                                     "text":  "Badteilsanierung: Termine eingehalten, Abstimmung mit Plattenleger top. Ergebnis wie besprochen."
                                                 },
                                                 {
                                                     "author":  "D. S., Horgen",
-                                                    "text":  "Boiler entkalkt, Sicherheitsventil ersetzt. Messwerte erklärt, keine Hektik – empfehlenswert."
+                                                    "text":  "Boiler entkalkt, Sicherheitsventil ersetzt. Messwerte erklÃ¤rt, keine Hektik â€“ empfehlenswert."
                                                 },
                                                 {
                                                     "author":  "E. F., Zollikon",
-                                                    "text":  "Störung an Wärmepumpe: Fehler sauber eingegrenzt, Lösung erklärt, danach stabiler Lauf."
+                                                    "text":  "StÃ¶rung an WÃ¤rmepumpe: Fehler sauber eingegrenzt, LÃ¶sung erklÃ¤rt, danach stabiler Lauf."
                                                 },
                                                 {
-                                                    "author":  "T. W., Zürich",
+                                                    "author":  "T. W., ZÃ¼rich",
                                                     "text":  "Unterhalt-Abo: schnelle Slots, kleine Reparaturen laufen unkompliziert. Fixer Ansprechpartner ist Gold wert."
                                                 },
                                                 {
-                                                    "author":  "J. G., Rüschlikon",
-                                                    "text":  "Offerte war klar strukturiert, Umsetzung termintreu. Sehr saubere Baustellenführung."
+                                                    "author":  "J. G., RÃ¼schlikon",
+                                                    "text":  "Offerte war klar strukturiert, Umsetzung termintreu. Sehr saubere BaustellenfÃ¼hrung."
                                                 }
                                             ],
-                                  "subline":  "Aus der Region – konkret, nicht generisch."
+                                  "subline":  "Aus der Region â€“ konkret, nicht generisch."
                               }
               },
     "services":  {
                      "headline":  "Leistungen",
                      "items":  [
                                    {
-                                       "text":  "Leckagen, Armaturen, WC/Spülkasten, Rohrbrüche – schnelle Diagnose und saubere Instandsetzung.",
-                                       "title":  "Sanitär-Reparaturen"
+                                       "title":  "Sanitär-Reparaturen",
+                                       "text":  "Leckagen, Armaturen, WC/Spülkasten – schnelle Diagnose \u0026 saubere Instandsetzung."
                                    },
                                    {
-                                       "text":  "Planung, Demontage, Neuinstallation, Abdichtung – koordiniert und dokumentiert.",
-                                       "title":  "Badumbau \u0026 Teilsanierung"
+                                       "title":  "Heizungsservice \u0026 Wartung",
+                                       "text":  "Wartung, Entlüftung, Störung – inkl. Rapport \u0026 Empfehlungen."
                                    },
                                    {
-                                       "text":  "Wartung, Entlüften, Fehlerdiagnose, Ersatzteile – inkl. Protokoll.",
-                                       "title":  "Heizungsservice \u0026 Wartung"
+                                       "title":  "Heizung ersetzen",
+                                       "text":  "Austausch Altanlage inkl. Inbetriebnahme – transparent \u0026 termintreu."
                                    },
                                    {
-                                       "text":  "Austausch Gas/Öl → effizienter, inkl. Hydraulikabgleich und Inbetriebnahme.",
-                                       "title":  "Heizung ersetzen"
+                                       "title":  "Wärmepumpe (Bestand)",
+                                       "text":  "Fehlersuche, Optimierung, Anpassungen – sauber integriert ins System."
                                    },
                                    {
-                                       "text":  "Machbarkeit, Anpassungen, Einbindung – sauber abgestimmt mit Bestandssystemen.",
-                                       "title":  "Wärmepumpe (Bestand)"
+                                       "title":  "Spenglerei \u0026 Dachentwässerung",
+                                       "text":  "Rinnen, Fallrohre, Anschlüsse – langlebige Details, saubere Kanten."
                                    },
                                    {
-                                       "text":  "Rinnen, Fallrohre, Anschlüsse, Blechdetails – langlebige Ausführung.",
-                                       "title":  "Spenglerei \u0026 Dachentwässerung"
-                                   },
-                                   {
-                                       "text":  "Boiler-Service, Entkalkung, Sicherheitsventile – mit Messwerten.",
-                                       "title":  "Boiler / Entkalkung"
-                                   },
-                                   {
-                                       "text":  "Regelmässige Kontrollen, Kleinreparaturen, Prioritäts-Slots.",
-                                       "title":  "Service \u0026 Unterhalt (Abo)"
-                                   },
-                                   {
-                                       "text":  "Schnittstellen koordinieren, Termine halten, saubere Übergabe.",
-                                       "title":  "Bauleitung/Koordination"
+                                       "title":  "Bad-/Küchen-Teilsanierungen \u0026 Umbauten (klein–mittel)",
+                                       "text":  "Koordiniert umgesetzt – klare Freigabe, saubere Übergabe."
                                    }
                                ],
-                     "subline":  "Gebäudetechnik aus einer Hand – für Private, Verwaltungen und KMU."
+                     "subline":  "Gebäudetechnik aus einer Hand – präzise, sauber, dokumentiert."
                  },
     "trustBadges":  {
                         "items":  [
                                       {
-                                          "text":  "Notfall 24/7 – klare ETA-Kommunikation.",
+                                          "text":  "Notfall 24/7 â€“ klare ETA-Kommunikation.",
                                           "title":  "Erreichbarkeit"
                                       },
                                       {
-                                          "text":  "Saubere Ausführung nach Schweizer Standard – dokumentiert.",
-                                          "title":  "Qualität"
+                                          "text":  "Saubere AusfÃ¼hrung nach Schweizer Standard â€“ dokumentiert.",
+                                          "title":  "QualitÃ¤t"
                                       },
                                       {
-                                          "text":  "Offerten und Absprachen nachvollziehbar, keine Überraschungen.",
+                                          "text":  "Offerten und Absprachen nachvollziehbar, keine Ãœberraschungen.",
                                           "title":  "Transparenz"
                                       },
                                       {
-                                          "text":  "Sichtprüfung, Materialqualität, protokollierte Übergabe.",
+                                          "text":  "SichtprÃ¼fung, MaterialqualitÃ¤t, protokollierte Ãœbergabe.",
                                           "title":  "Sicherheit"
                                       },
                                       {
-                                          "text":  "Schnittstellen im Umbau sauber geführt, Termine gehalten.",
+                                          "text":  "Schnittstellen im Umbau sauber gefÃ¼hrt, Termine gehalten.",
                                           "title":  "Koordination"
                                       }
                                   ]
@@ -124,82 +112,72 @@
                     "headline":  "Ablauf",
                     "items":  [
                                   {
-                                      "text":  "Symptom/Projektziel klären, Priorität festlegen, nächste Schritte definieren.",
-                                      "title":  "Kontakt \u0026 Kurzklärung"
+                                      "title":  "Sichern",
+                                      "text":  "Im Notfall zuerst Bereich sichern – dann Optionen klären."
                                   },
                                   {
-                                      "text":  "Diagnose, Sofortmassnahmen, klare Kommunikation von Optionen.",
-                                      "title":  "Vor-Ort Termin / Notfall"
+                                      "title":  "Freigabe",
+                                      "text":  "Freigabe vor Kosten – transparent, nachvollziehbar."
                                   },
                                   {
-                                      "text":  "Transparente Offerte, saubere Ausführung, Fotos \u0026 Protokolle.",
-                                      "title":  "Offerte \u0026 Umsetzung"
-                                  },
-                                  {
-                                      "text":  "Abnahme, Hinweise, Wartungsempfehlung, nächste Termine optional.",
-                                      "title":  "Übergabe \u0026 Nachbetreuung"
+                                      "title":  "Dokumentation",
+                                      "text":  "Rapport \u0026 Fotodoku – saubere Übergabe und Nachvollziehbarkeit."
                                   }
                               ],
-                    "subline":  "Einfach. Verlässlich. Dokumentiert."
+                    "subline":  "Einfach. Klar. Dokumentiert."
                 },
     "faq":  {
                 "headline":  "FAQ",
                 "items":  [
                               {
-                                  "text":  "Wir geben nach Kurzklärung eine ETA. In Zürich i.d.R. kurzfristig – je nach Einsatzlage.",
+                                  "text":  "Im Notfall zuerst Bereich sichern – dann melden wir uns mit ETA.",
                                   "title":  "Wie schnell sind Sie im Notfall vor Ort?"
                               },
                               {
-                                  "text":  "Ja. Transparent und nachvollziehbar nach Kurzklärung bzw. Vor-Ort Termin.",
+                                  "text":  "Ja. Transparent und nachvollziehbar nach KurzklÃ¤rung bzw. Vor-Ort Termin.",
                                   "title":  "Erstellen Sie Offerten?"
                               },
                               {
-                                  "text":  "Ja – von Armatur bis Spülkasten. Kleinreparaturen sind Teil unseres Service.",
+                                  "text":  "Ja â€“ von Armatur bis SpÃ¼lkasten. Kleinreparaturen sind Teil unseres Service.",
                                   "title":  "Machen Sie auch kleine Reparaturen?"
                               },
                               {
-                                  "text":  "Ja. Klare Kommunikation, Dokumentation und wiederkehrende Unterhaltspläne.",
+                                  "text":  "Ja. Klare Kommunikation, Dokumentation und wiederkehrende UnterhaltsplÃ¤ne.",
                                   "title":  "Arbeiten Sie mit Verwaltungen zusammen?"
                               },
                               {
-                                  "text":  "Marken gemäss Projekt/Bestand; wir empfehlen auf Basis von Ersatzteilverfügbarkeit und Lebensdauer.",
+                                  "text":  "Marken gemÃ¤ss Projekt/Bestand; wir empfehlen auf Basis von ErsatzteilverfÃ¼gbarkeit und Lebensdauer.",
                                   "title":  "Welche Marken verbauen Sie?"
                               },
                               {
-                                  "text":  "Ja. Regelmässige Checks, Prioritäts-Slots und Protokolle.",
+                                  "text":  "Ja. RegelmÃ¤ssige Checks, PrioritÃ¤ts-Slots und Protokolle.",
                                   "title":  "Gibt es Wartungsabos?"
                               },
                               {
-                                  "text":  "Ja. Schnittstellen, Termine, Abnahmen – sauber geführt.",
-                                  "title":  "Übernehmen Sie Koordination im Umbau?"
+                                  "text":  "Ja. Schnittstellen, Termine, Abnahmen â€“ sauber gefÃ¼hrt.",
+                                  "title":  "Ãœbernehmen Sie Koordination im Umbau?"
                               },
                               {
-                                  "text":  "Transparent nach Offerte oder Aufwand. Absprachen vorab, keine Überraschungen.",
-                                  "title":  "Wie läuft die Abrechnung?"
+                                  "text":  "Transparent nach Offerte oder Aufwand. Absprachen vorab, keine Ãœberraschungen.",
+                                  "title":  "Wie lÃ¤uft die Abrechnung?"
                               }
                           ],
-                "subline":  "Kurz erklärt – schnell verstanden."
+                "subline":  "Kurz erklÃ¤rt â€“ schnell verstanden."
             },
     "hero":  {
                  "headline":  "Sanitär, Heizung \u0026 Spenglerei – Premium-Service im Raum Zürich",
                  "trust_badges":  [
                                       {
-                                          "label":  "24/7 Notfall"
+                                          "label":  "Freigabe vor Kosten"
                                       },
                                       {
-                                          "label":  "Fixe Ansprechpartner"
+                                          "label":  "Rapport \u0026 Dokumentation"
                                       },
                                       {
-                                          "label":  "Transparente Offerten"
-                                      },
-                                      {
-                                          "label":  "Saubere Ausführung"
-                                      },
-                                      {
-                                          "label":  "Dokumentierte Übergabe"
+                                          "label":  "Notfall: Bereich sichern → Optionen"
                                       }
                                   ],
-                 "subline":  "24/7 Notfall. Umbauten, Wartung und Störungsbehebung – sauber dokumentiert, klar kommuniziert, termintreu umgesetzt."
+                 "subline":  "24/7 erreichbar – im Notfall sofort anrufen. Zimmerberg: Oberrieden · Horgen · Thalwil."
              },
     "certs":  {
                   "headline":  "Zertifikate \u0026 Partner",
@@ -208,19 +186,19 @@
                                     "title":  "Meisterbetrieb"
                                 },
                                 {
-                                    "title":  "Schweizer Qualitätsstandard"
+                                    "title":  "Schweizer QualitÃ¤tsstandard"
                                 },
                                 {
-                                    "title":  "Sicherheits- \u0026 Dichtheitsprüfung"
+                                    "title":  "Sicherheits- \u0026 DichtheitsprÃ¼fung"
                                 },
                                 {
                                     "title":  "Hersteller-Partner (Heizung)"
                                 },
                                 {
-                                    "title":  "Hersteller-Partner (Sanitär)"
+                                    "title":  "Hersteller-Partner (SanitÃ¤r)"
                                 },
                                 {
-                                    "title":  "Weiterbildung Gebäudetechnik"
+                                    "title":  "Weiterbildung GebÃ¤udetechnik"
                                 },
                                 {
                                     "title":  "Service-Partner Verwaltungen"
@@ -236,22 +214,22 @@
                                 "embed_url":  "https://www.google.com/maps?q=Musterstrasse%201%2C%208000%20Z%C3%BCrich\u0026output=embed"
                             },
                     "opening_hours":  {
-                                          "label":  "Mo–Fr 08:00–18:00, Notfall 24/7"
+                                          "label":  "Mo–Fr 08:00–18:00. Antwort i. d. R. innerhalb 1 Werktags. Notfall 24/7."
                                       },
                     "form":  {
                                  "headline":  "Kontakt aufnehmen"
                              },
                     "address":  {
-                                    "street":  "Musterstrasse 1, 8000 Zürich"
+                                    "street":  "Musterstrasse 1, 8000 ZÃ¼rich"
                                 },
                     "phones":  {
                                    "emergency":  {
-                                                     "e164":  "+41440000000",
-                                                     "display":  "Notfall: 044 000 00 00"
+                                                     "e164":  "+41234567890",
+                                                     "display":  "Notfall: +41 23 456 78 90"
                                                  },
                                    "normal":  {
                                                   "e164":  "+41441111111",
-                                                  "display":  "Büro: 044 111 11 11"
+                                                  "display":  "BÃ¼ro: 044 111 11 11"
                                               }
                                }
                 },
@@ -266,91 +244,91 @@
                                     "photos":  [
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/8/85/Installing_water_pipes.jpg",
-                                                       "alt":  "Sanitärinstallation – Leitungen montieren"
+                                                       "alt":  "SanitÃ¤rinstallation â€“ Leitungen montieren"
                                                    },
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/9/95/Plumbing_Installation_%288909644%29.jpg",
-                                                       "alt":  "Sanitärinstallation – Montage im Ausbau"
+                                                       "alt":  "SanitÃ¤rinstallation â€“ Montage im Ausbau"
                                                    }
                                                ],
-                                    "text":  "Teilsanierung Bad inkl. Neuinstallation, Abdichtung und Armaturen – koordiniert und dokumentiert."
+                                    "text":  "Teilsanierung Bad inkl. Neuinstallation, Abdichtung und Armaturen â€“ koordiniert und dokumentiert."
                                 },
                                 {
                                     "title":  "Heizungswartung MFH (Thalwil)",
                                     "photos":  [
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/5/55/Heat_radiator.jpg",
-                                                       "alt":  "Heizkörper – Betrieb und Wärmeabgabe"
+                                                       "alt":  "HeizkÃ¶rper â€“ Betrieb und WÃ¤rmeabgabe"
                                                    },
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/8/86/ModCon_boiler_system.jpg",
-                                                       "alt":  "Kesselanlage – Systemübersicht"
+                                                       "alt":  "Kesselanlage â€“ SystemÃ¼bersicht"
                                                    }
                                                ],
-                                    "text":  "Wartung, Entlüftung, Störungsdiagnose und Protokoll – Betrieb stabilisiert, Hinweise zur Optimierung."
+                                    "text":  "Wartung, EntlÃ¼ftung, StÃ¶rungsdiagnose und Protokoll â€“ Betrieb stabilisiert, Hinweise zur Optimierung."
                                 },
                                 {
-                                    "title":  "Dachentwässerung erneuert (Zollikon)",
+                                    "title":  "DachentwÃ¤sserung erneuert (Zollikon)",
                                     "photos":  [
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/d/db/Copper-Gutter-System.png",
-                                                       "alt":  "Dachentwässerung – Kupferrinnen System"
+                                                       "alt":  "DachentwÃ¤sserung â€“ Kupferrinnen System"
                                                    },
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/d/dc/Copper-dome.jpg",
-                                                       "alt":  "Spenglerarbeit – Kupferdetails"
+                                                       "alt":  "Spenglerarbeit â€“ Kupferdetails"
                                                    }
                                                ],
-                                    "text":  "Rinnen/Fallrohre inkl. Anschlussdetails und Dichtkonzept – langlebige Ausführung."
+                                    "text":  "Rinnen/Fallrohre inkl. Anschlussdetails und Dichtkonzept â€“ langlebige AusfÃ¼hrung."
                                 },
                                 {
                                     "title":  "Boiler-Service \u0026 Entkalkung (Adliswil)",
                                     "photos":  [
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/5/54/Boiler_Room_%2817067928752%29.jpg",
-                                                       "alt":  "Technikraum – Boiler/Anlage"
+                                                       "alt":  "Technikraum â€“ Boiler/Anlage"
                                                    },
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/6/61/Heat_exchanger_installation.jpg",
-                                                       "alt":  "Wärmetauscher – Installation/Service"
+                                                       "alt":  "WÃ¤rmetauscher â€“ Installation/Service"
                                                    }
                                                ],
-                                    "text":  "Entkalkung, Ventile geprüft, Messwerte dokumentiert – Warmwasser wieder effizient."
+                                    "text":  "Entkalkung, Ventile geprÃ¼ft, Messwerte dokumentiert â€“ Warmwasser wieder effizient."
                                 },
                                 {
-                                    "title":  "Notfall: Rohrbruch Küche (Kreis 3)",
+                                    "title":  "Notfall: Rohrbruch KÃ¼che (Kreis 3)",
                                     "photos":  [
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/e/ee/Pipe_installation_2.jpg",
-                                                       "alt":  "Rohrinstallation – Leitungsführung"
+                                                       "alt":  "Rohrinstallation â€“ LeitungsfÃ¼hrung"
                                                    },
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/5/53/Hdpe_pipe_installation.jpg",
-                                                       "alt":  "Rohrleitung – Montagearbeiten"
+                                                       "alt":  "Rohrleitung â€“ Montagearbeiten"
                                                    }
                                                ],
-                                    "text":  "Sofortmassnahmen, Leck lokalisiert, Abschnitt ersetzt – saubere Wiederherstellung und klare Abrechnung."
+                                    "text":  "Sofortmassnahmen, Leck lokalisiert, Abschnitt ersetzt â€“ saubere Wiederherstellung und klare Abrechnung."
                                 },
                                 {
                                     "title":  "Heizung ersetzen (Horgen)",
                                     "photos":  [
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/9/9b/Construction_of_Boiler_Room_at_the_Royal_Adelaide_Hospital%28GN05054%29.jpg",
-                                                       "alt":  "Heizraum – Montagearbeiten"
+                                                       "alt":  "Heizraum â€“ Montagearbeiten"
                                                    },
                                                    {
                                                        "src":  "https://upload.wikimedia.org/wikipedia/commons/8/83/Team_Inspections_part3.pdf",
-                                                       "alt":  "(Dokument) Technik-Inspektion – Referenz"
+                                                       "alt":  "(Dokument) Technik-Inspektion â€“ Referenz"
                                                    }
                                                ],
-                                    "text":  "Austausch Altanlage, Hydraulik abgestimmt, Inbetriebnahme dokumentiert – effizienter Betrieb."
+                                    "text":  "Austausch Altanlage, Hydraulik abgestimmt, Inbetriebnahme dokumentiert â€“ effizienter Betrieb."
                                 }
                             ],
-                  "subline":  "Ausgewählte Arbeiten – sauber dokumentiert."
+                  "subline":  "AusgewÃ¤hlte Arbeiten â€“ sauber dokumentiert."
               },
     "business":  {
-                     "region_label":  "Kanton Zürich",
-                     "name":  "Goldstein Sanitär • Heizung • Spenglerei AG",
+                     "region_label":  "Zimmerberg · Zürich",
+                     "name":  "Goldstein SanitÃ¤r â€¢ Heizung â€¢ Spenglerei AG",
                      "brand":  {
                                    "logo":  {
                                                 "src":  "https://upload.wikimedia.org/wikipedia/commons/3/3a/Toolbox_font_awesome.svg"
@@ -359,9 +337,9 @@
                  },
     "cta":  {
                 "labels":  {
-                               "normal":  "Jetzt anrufen",
+                               "normal":  "Anfrage / Termin",
                                "review":  "Bewertung schreiben",
-                               "emergency":  "Jetzt Notfall anrufen"
+                               "emergency":  "Notfall anrufen"
                            }
             },
     "flags":  {
@@ -378,7 +356,7 @@
                   "headline":  "Einsatzgebiet",
                   "items":  [
                                 {
-                                    "title":  "Zürich"
+                                    "title":  "ZÃ¼rich"
                                 },
                                 {
                                     "title":  "Kreis 2"
@@ -420,7 +398,7 @@
                                     "title":  "Kilchberg ZH"
                                 },
                                 {
-                                    "title":  "Rüschlikon"
+                                    "title":  "RÃ¼schlikon"
                                 },
                                 {
                                     "title":  "Adliswil"
@@ -432,10 +410,10 @@
                                     "title":  "Oberrieden"
                                 },
                                 {
-                                    "title":  "Wädenswil"
+                                    "title":  "WÃ¤denswil"
                                 },
                                 {
-                                    "title":  "Küsnacht ZH"
+                                    "title":  "KÃ¼snacht ZH"
                                 },
                                 {
                                     "title":  "Zollikon"
@@ -444,6 +422,6 @@
                                     "title":  "Meilen"
                                 }
                             ],
-                  "subline":  "Zürich und Umgebung – schnell erreichbar."
+                  "subline":  "ZÃ¼rich und Umgebung â€“ schnell erreichbar."
               }
 }
