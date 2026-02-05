@@ -1,10 +1,10 @@
-﻿# ONBOARDING_RECORD â€” <customer_display_name>
+﻿# ONBOARDING_RECORD �?" <customer_display_name>
 Status: DRAFT
 Owner: <name>
 Created: <yyyy-mm-dd>
 Mode: <golden|scaffold|production>
 
-## Stage 0 â€” Intake & Identity
+## Stage 0 �?" Intake & Identity
 customer_display_name=
 customer_slug=
 legal_entity_type=
@@ -18,7 +18,7 @@ Notes:
 
 ---
 
-## Stage 1 â€” Scope Matrix
+## Stage 1 �?" Scope Matrix
 Ref Inventory: docs/master/MASTER_TEMPLATE_EXPORT_INVENTORY.md
 
 GOLDEN_ALL_ON=(yes|no)
@@ -31,7 +31,7 @@ Notes:
 
 ---
 
-## Stage 2 â€” Proof Pack (Golden 6/12/8)
+## Stage 2 �?" Proof Pack (Golden 6/12/8)
 IMAGE_MODE=(duplicate-seed|distinct)
 
 CASES_6:
@@ -60,7 +60,7 @@ Notes:
 
 ---
 
-## Stage 3 â€” Data Contract Plan
+## Stage 3 �?" Data Contract Plan
 CONTRACT_READY=(yes|no)
 STABLE_IDS:
 - cases.case_id format=
@@ -73,7 +73,7 @@ Notes:
 
 ---
 
-## Stage 4 â€” Assets Policy (Inbox outside repo)
+## Stage 4 �?" Assets Policy (Inbox outside repo)
 INBOX_PATH=C:\flowsight-staging\<customer_slug>\inbox\
 SEED_OK=(yes|no)
 DISTINCT_INPUT=(ready_12|not_ready)
@@ -83,7 +83,7 @@ Notes:
 
 ---
 
-## Stage 5 â€” Webflow Binding Plan
+## Stage 5 �?" Webflow Binding Plan
 WEBFLOW_IDS_LOCKED=(yes|no)
 SECTION_TOGGLES_CONFIRMED=(yes|no)
 ATTR_BINDINGS_PLAN=(ready|tbd)
@@ -93,7 +93,7 @@ Notes:
 
 ---
 
-## Stage 6 â€” Execution Preconditions
+## Stage 6 �?" Execution Preconditions
 GIT_PORCELAIN=<paste output>   # must be empty
 ZIP_IN_ROOT=(yes|no)
 INBOX_OK=(yes|no)
@@ -104,7 +104,7 @@ Notes:
 
 ---
 
-## Stage 7 â€” Change Control (only if process changes)
+## Stage 7 �?" Change Control (only if process changes)
 Decision=
 Why=
 Impact=
